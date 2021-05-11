@@ -6,6 +6,7 @@ public final class User {
 	private String lastName;
 	private String phone;
 	private String email;
+	private String salt;
 	private String passwordHash;
 	
 	public int getId() {
@@ -46,6 +47,14 @@ public final class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 	public String getPasswordHash() {
