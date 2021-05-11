@@ -1,7 +1,6 @@
 package holik.hotel.servlet.controllers;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ import holik.hotel.servlet.services.impl.UserServiceImpl;
 
 @WebServlet("/signup")
 public final class RegistrationController extends HttpServlet {
-
+	private static final long serialVersionUID = 1L;
 	private UserService userService;
 	
 	@Override

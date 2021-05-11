@@ -10,5 +10,9 @@
 	<h1>This is main page for hotel</h1>
 	<a href="signin.jsp">Sign in</a>
 	<a href="signup.jsp">Sign up</a>
+
+	<form action="logout" method="post">
+		<input type="submit" value="Logout">
+	</form>
 </body>
 </html>

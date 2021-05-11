@@ -17,7 +17,7 @@ import holik.hotel.servlet.services.impl.UserServiceImpl;
 
 @WebServlet("/signin")
 public class LoginController extends HttpServlet {
-
+	private static final long serialVersionUID = 1L;
 	private UserService userService;
 	
 	@Override
