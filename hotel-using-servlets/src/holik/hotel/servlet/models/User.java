@@ -8,6 +8,7 @@ public final class User {
 	private String email;
 	private String salt;
 	private String passwordHash;
+	private Role role;
 	
 	public int getId() {
 		return id;
@@ -65,6 +66,14 @@ public final class User {
 		this.passwordHash = passwordHash;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+	
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone

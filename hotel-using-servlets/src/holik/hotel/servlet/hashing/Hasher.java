@@ -1,13 +1,17 @@
 package holik.hotel.servlet.hashing;
 
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Base64;
 import java.util.logging.Logger;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+
+import org.apache.catalina.tribes.util.Arrays;
 
 public final class Hasher {
 	private static final Logger LOG = Logger.getLogger(Hasher.class.getName());
@@ -33,4 +37,13 @@ public final class Hasher {
 		}
 		return hash;
 	}
+	
+	public static boolean areHashesEqual(String salt, String hash, String password ){
+		byte[] saltMassive = Base64.getDecoder().decode(salt);
+		byte[] hashMassive = Base64.getDecoder().decode(hash);
+		
+		byte[] hashOfCurrentPassword = generateHash(saltMassive, password);
+		return Arrays.equals(hashMassive, hashOfCurrentPassword);
+	}
+	
 }

@@ -2,6 +2,7 @@ package holik.hotel.servlet.controllers;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import holik.hotel.servlet.dto.UserDto;
 import holik.hotel.servlet.hashing.Hasher;
+import holik.hotel.servlet.models.Role;
 import holik.hotel.servlet.models.User;
 import holik.hotel.servlet.services.UserService;
 import holik.hotel.servlet.services.impl.UserServiceImpl;
@@ -40,9 +42,9 @@ public final class RegistrationController extends HttpServlet {
 	
 	private User getUserFromDto(UserDto userDto) {
 		byte[] salt = Hasher.generateRandomSalt();
-		byte[] hash = Hasher.generateHash(salt, userDto.getPassword());
-		String saltString = new String(salt, StandardCharsets.UTF_8);
-		String hashString = new String(hash, StandardCharsets.UTF_8);
+		byte[] hash = Hasher.generateHash(salt, userDto.getPassword().trim());
+		String saltString = Base64.getEncoder().encodeToString(salt);;
+		String hashString = Base64.getEncoder().encodeToString(hash);;
 		
 		User user = new User();
 		user.setFirstName(userDto.getFirstName());
@@ -51,6 +53,7 @@ public final class RegistrationController extends HttpServlet {
 		user.setEmail(userDto.getEmail());
 		user.setSalt(saltString);
 		user.setPasswordHash(hashString);
+		user.setRole(Role.USER);
 		
 		return user;
 	}
