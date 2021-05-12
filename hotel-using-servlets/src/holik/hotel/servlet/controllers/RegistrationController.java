@@ -36,7 +36,7 @@ public final class RegistrationController extends HttpServlet {
 		UserDto userDto = new UserDto(firstName, lastName, phone, email, password);
 		
 		userService.createUser(getUserFromDto(userDto));
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("signin.jsp");
 	}
 	
 	private User getUserFromDto(UserDto userDto) {

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 public final class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.removeAttribute("user_id");
 		session.removeAttribute("user_role_id");

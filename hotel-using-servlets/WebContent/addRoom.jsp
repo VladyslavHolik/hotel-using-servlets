@@ -13,23 +13,35 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
 	crossorigin="anonymous"></script>
-<title>Sign in</title>
+<title>Hotel room</title>
 </head>
 <body class="h-100">
 	<div class="container h-100">
 		<div class="row h-100 justify-content-center align-items-center">
 			<div class="col-10 col-md-8 col-lg-6">
 
-				<form action="signin" method="post">
+				<form action="addRoom" method="post">
 					<div class="mb-3">
-						<label class="form-label">Email address</label> <input
-							type="email" class="form-control" name="email">
+						<label class="form-label">Number</label> <input type="text"
+							class="form-control" name="number">
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Password</label> <input type="password"
-							class="form-control" name="password">
+						<label class="form-label">Price</label> <input type="number"
+							class="form-control" name="price">
 					</div>
-					<button type="submit" class="btn btn-primary">Sign in</button>
+					<div class="mb-3">
+						<label class="form-label">Space for quantity of people</label> <input
+							type="number" class="form-control" name="space">
+					</div>
+					<div class="mb-3">
+						<label class="form-label">Class of room</label> <input type="text"
+							class="form-control" name="class">
+					</div>
+					<div class="mb-3">
+						<label class="form-label">Room photos</label> <input type="file"
+							class="form-control-file" name="file" >
+					</div>
+					<button type="submit" class="btn btn-primary">Upload room data</button>
 				</form>
 			</div>
 		</div>

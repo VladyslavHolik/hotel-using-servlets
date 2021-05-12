@@ -21,25 +21,22 @@ public class UserRepositoryImpl implements UserRepository {
 		Connection connection = DBManager.getConnection();
 		if (connection != null) {
 			try {
-				String sql = "INSERT INTO Users (first_name, last_name, email, role_id, salt, password_hash) VALUES(?, ?, ?, ?, ?, ?)";
+				String sql = "INSERT INTO Users (first_name, last_name, phone, email, role_id, salt, password_hash) VALUES(?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, user.getFirstName());
 				statement.setString(2, user.getLastName());
-				statement.setString(3, user.getEmail());
-				statement.setInt(4, user.getRole().getId());
-				statement.setString(5, user.getSalt());
-				statement.setString(6, user.getPasswordHash());
+				statement.setString(3, user.getPhone());
+				statement.setString(4, user.getEmail());
+				statement.setInt(5, user.getRole().getId());
+				statement.setString(6, user.getSalt());
+				statement.setString(7, user.getPasswordHash());
 
 				result = statement.execute();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 				if (connection != null) {
-					try {
-						connection.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+					DBManager.commitAndClose(connection);
 				}
 			}
 		}
@@ -69,6 +66,7 @@ public class UserRepositoryImpl implements UserRepository {
 					user.setId(resultSet.getInt("id"));
 					user.setFirstName(resultSet.getString("first_name"));
 					user.setLastName(resultSet.getString("last_name"));
+					user.setPhone(resultSet.getString("phone"));
 					user.setEmail(email);
 					user.setRole(Role.getRole(resultSet.getInt("role_id")));
 					user.setSalt(resultSet.getString("salt"));
@@ -78,11 +76,7 @@ public class UserRepositoryImpl implements UserRepository {
 				e.printStackTrace();
 			} finally {
 				if (connection != null) {
-					try {
-						connection.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+					DBManager.commitAndClose(connection);
 				}
 			}
 		}
