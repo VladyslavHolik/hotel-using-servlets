@@ -19,9 +19,9 @@ public class FilterForManagerAccess implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		HttpSession session = httpRequest.getSession();
-		Object role_id = session.getAttribute("user_role_id");
-		if (role_id != null && 1 == (int) role_id) {
+		HttpSession session = httpRequest.getSession(false);
+		Object roleId = session.getAttribute("user_role_id");
+		if (roleId != null && 1 == (int) roleId) {
 			chain.doFilter(request, response);
 		} else {
 			HttpServletResponse httpResponse = (HttpServletResponse) response;

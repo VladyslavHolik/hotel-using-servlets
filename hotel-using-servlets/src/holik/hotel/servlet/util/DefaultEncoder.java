@@ -1,4 +1,4 @@
-package holik.hotel.servlet.hashing;
+package holik.hotel.servlet.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -12,18 +12,18 @@ import javax.crypto.spec.PBEKeySpec;
 
 import org.apache.catalina.tribes.util.Arrays;
 
-public final class Hasher {
-	private static final Logger LOG = Logger.getLogger(Hasher.class.getName());
+public final class DefaultEncoder implements Encoder {
+	private static final Logger LOG = Logger.getLogger(DefaultEncoder.class.getName());
 	private static final String ALGORITHM = "PBKDF2WithHmacSHA1";
-	
-	public static byte[] generateRandomSalt() {
+
+	public byte[] generateRandomSalt() {
 		SecureRandom random = new SecureRandom();
 		byte[] salt = new byte[16];
 		random.nextBytes(salt);
 		return salt;
 	}
-	
-	public static byte[] generateHash(byte[] salt, String password) {
+
+	public byte[] generateHash(byte[] salt, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
 		byte[] hash = null;
 		try {
@@ -31,18 +31,19 @@ public final class Hasher {
 			hash = factory.generateSecret(spec).getEncoded();
 		} catch (NoSuchAlgorithmException e) {
 			LOG.severe("Cannot find algorithm for hashing");
+			throw e;
 		} catch (InvalidKeySpecException e) {
-			LOG.severe("Invalid keyspec while hashing");
+			LOG.severe("Invalid keySpec");
+			throw e;
 		}
 		return hash;
 	}
-	
-	public static boolean areHashesEqual(String salt, String hash, String password ){
+
+	public boolean areHashesEqual(String salt, String hash, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		byte[] saltMassive = Base64.getDecoder().decode(salt);
 		byte[] hashMassive = Base64.getDecoder().decode(hash);
-		
+
 		byte[] hashOfCurrentPassword = generateHash(saltMassive, password);
 		return Arrays.equals(hashMassive, hashOfCurrentPassword);
 	}
-	
 }

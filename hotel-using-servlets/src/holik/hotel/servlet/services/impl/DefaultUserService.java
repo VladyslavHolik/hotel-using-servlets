@@ -4,15 +4,15 @@ import java.util.Optional;
 
 import holik.hotel.servlet.models.User;
 import holik.hotel.servlet.persistence.UserRepository;
-import holik.hotel.servlet.persistence.impl.UserRepositoryImpl;
+import holik.hotel.servlet.persistence.impl.DefaultUserRepository;
 import holik.hotel.servlet.services.UserService;
 
-public class UserServiceImpl implements UserService {
+public class DefaultUserService implements UserService {
 
 	private final UserRepository userRepository;
 	
-	public UserServiceImpl() {
-		userRepository = new UserRepositoryImpl();
+	public DefaultUserService() {
+		userRepository = new DefaultUserRepository();
 	}
 	
 	@Override

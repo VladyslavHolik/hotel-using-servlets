@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div class="container">
-		<core:forEach items="${list}" var="room">
+		<c:forEach items="${rooms}" var="room">
 			<div class="row" style="padding: 10px;">
 				<div class="col-3">
 					<img class="w-100" src="${room.getPreview()}" />
@@ -28,8 +28,7 @@
 						${room.getRoomClass()} Room space: ${room.getSpace()}</h1>
 				</div>
 			</div>
-		</core:forEach>
-
+		</c:forEach>
 	</div>
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">

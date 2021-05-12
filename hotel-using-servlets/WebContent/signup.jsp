@@ -20,18 +20,20 @@
 		<div class="row h-100 justify-content-center align-items-center">
 			<div class="col-10 col-md-8 col-lg-6">
 
-				<form action="signup" method="post">
+				<form action="controller" method="post">
+					<input type="hidden" name="command" value="signup" />
 					<div class="mb-3">
-						<label class="form-label">First name</label> <input
-							type="text" class="form-control" name="first_name" required>
+						<label class="form-label">First name</label> <input type="text"
+							class="form-control" name="first_name" required>
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Last name</label> <input
-							type="text" class="form-control" name="last_name" required>
+						<label class="form-label">Last name</label> <input type="text"
+							class="form-control" name="last_name" required>
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Phone number</label> <input
-							type="tel" class="form-control" name="phone" pattern="[0-9]{1,3} [0-9]{2} [0-9]{3} [0-9]{4}"
+						<label class="form-label">Phone number</label> <input type="tel"
+							class="form-control" name="phone"
+							pattern="[0-9]{1,3} [0-9]{2} [0-9]{3} [0-9]{4}"
 							placeholder="380 99 123 4567" required>
 					</div>
 					<div class="mb-3">

@@ -11,27 +11,27 @@ import javax.sql.DataSource;
 import org.postgresql.jdbc3.Jdbc3PoolingDataSource;
 
 public final class DBManager {
-	
+
 	public static Connection getConnection() {
 		Connection connection = null;
 		try {
 			Context initContext = new InitialContext();
-			Context envContext  = (Context)initContext.lookup("java:/comp/env");
-			
-			DataSource ds = (DataSource)envContext.lookup("jdbc/ST4DB");
+			Context envContext = (Context) initContext.lookup("java:/comp/env");
+
+			DataSource ds = (DataSource) envContext.lookup("jdbc/ST4DB");
 			connection = ds.getConnection();
 		} catch (NamingException | SQLException ex) {
-			ex.printStackTrace();
+			// TODO add logger
 		}
 		return connection;
 	}
-	
+
 	public static void commitAndClose(Connection connection) {
 		try {
 			connection.commit();
 			connection.close();
 		} catch (SQLException ex) {
-			ex.printStackTrace();
+			// TODO throw exception ex.printStackTrace();
 		}
 	}
 
@@ -40,7 +40,7 @@ public final class DBManager {
 			connection.rollback();
 			connection.close();
 		} catch (SQLException ex) {
-			ex.printStackTrace();
+			// TODO throw exception ex.printStackTrace();
 		}
 	}
 }

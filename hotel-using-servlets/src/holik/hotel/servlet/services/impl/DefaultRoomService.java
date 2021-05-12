@@ -4,15 +4,15 @@ import java.util.List;
 
 import holik.hotel.servlet.models.Room;
 import holik.hotel.servlet.persistence.RoomRepository;
-import holik.hotel.servlet.persistence.impl.RoomRepositoryImpl;
+import holik.hotel.servlet.persistence.impl.DefaultRoomRepository;
 import holik.hotel.servlet.services.RoomService;
 
-public class RoomServiceImpl implements RoomService {
+public class DefaultRoomService implements RoomService {
 
 	private RoomRepository roomRepository;
 	
-	public RoomServiceImpl() {
-		roomRepository = new RoomRepositoryImpl();
+	public DefaultRoomService() {
+		roomRepository = new DefaultRoomRepository();
 	}
 	
 	@Override

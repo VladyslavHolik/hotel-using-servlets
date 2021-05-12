@@ -12,7 +12,7 @@ import holik.hotel.servlet.models.User;
 import holik.hotel.servlet.persistence.UserRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 
-public class UserRepositoryImpl implements UserRepository {
+public class DefaultUserRepository implements UserRepository {
 
 	@Override
 	public boolean createUser(User user) {

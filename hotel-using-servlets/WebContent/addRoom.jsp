@@ -19,7 +19,6 @@
 	<div class="container h-100">
 		<div class="row h-100 justify-content-center align-items-center">
 			<div class="col-10 col-md-8 col-lg-6">
-
 				<form action="addRoom" method="post">
 					<div class="mb-3">
 						<label class="form-label">Number</label> <input type="text"
@@ -39,9 +38,10 @@
 					</div>
 					<div class="mb-3">
 						<label class="form-label">Room photos</label> <input type="file"
-							class="form-control-file" name="file" >
+							class="form-control-file" name="file">
 					</div>
-					<button type="submit" class="btn btn-primary">Upload room data</button>
+					<button type="submit" class="btn btn-primary">Upload room
+						data</button>
 				</form>
 			</div>
 		</div>

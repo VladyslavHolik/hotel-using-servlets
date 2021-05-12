@@ -41,10 +41,10 @@
 							if ((int) session.getAttribute("user_role_id") == 1) {
 								out.print("<li class='nav-item'><a class='nav-link' href='addRoom.jsp'>Add room</a></li>");
 							}
-							out.print("<li class='nav-item'><a class='nav-link' href='logout'>Log 	out</a></li>");
+							out.print("<li class='nav-item'><a class='nav-link' href='controller?command=logout'>Log 	out</a></li>");
 						} else {
 							out.print(
-									"<li class='nav-item'><a class='nav-link' href='signin.jsp'>Sign in</a></li> <li class='nav-item'><a class='nav-link' href='signup.jsp'>Sign up</a></li>");
+									"<li class='nav-item'><a class='nav-link' href='controller?command=getlogin'>Sign in</a></li> <li class='nav-item'><a class='nav-link' href='controller?command=getsignup'>Sign up</a></li>");
 						}
 					%>
 				</ul>

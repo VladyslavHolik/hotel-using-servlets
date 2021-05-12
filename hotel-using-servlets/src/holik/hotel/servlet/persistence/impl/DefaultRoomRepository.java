@@ -12,7 +12,7 @@ import holik.hotel.servlet.models.RoomClass;
 import holik.hotel.servlet.persistence.RoomRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 
-public class RoomRepositoryImpl implements RoomRepository {
+public class DefaultRoomRepository implements RoomRepository {
 
 	@Override
 	public List<Room> getAllRooms() {
