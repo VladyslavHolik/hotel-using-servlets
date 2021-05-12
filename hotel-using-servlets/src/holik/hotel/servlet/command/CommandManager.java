@@ -13,6 +13,7 @@ public final class CommandManager {
 		commands.put("signup", new RegisterCommand());
 		commands.put("logout", new LogoutCommand());
 		commands.put("getsignup", new GetSignUpCommand());
+		commands.put("rooms", new RoomsCommand());
 	}
 	
 	public static Command get(String commandName) {

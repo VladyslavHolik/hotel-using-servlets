@@ -35,11 +35,11 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link"
-						aria-current="page" href="rooms">Rooms</a></li>
+						aria-current="page" href="controller?command=rooms">Rooms</a></li>
 					<%
 						if (userIsLogged) {
 							if ((int) session.getAttribute("user_role_id") == 1) {
-								out.print("<li class='nav-item'><a class='nav-link' href='addRoom.jsp'>Add room</a></li>");
+								out.print("<li class='nav-item'><a class='nav-link' href='controller?command=addroom'>Add room</a></li>");
 							}
 							out.print("<li class='nav-item'><a class='nav-link' href='controller?command=logout'>Log 	out</a></li>");
 						} else {
