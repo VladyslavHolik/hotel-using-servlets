@@ -16,6 +16,7 @@ public final class CommandManager {
 		commands.put("rooms", new RoomsCommand());
 		commands.put("room", new RoomCommand());
 		commands.put("language", new LanguageCommand());
+		commands.put("sorting", new SortingCommand());
 	}
 	
 	public static Command get(String commandName) {
