@@ -18,12 +18,13 @@
 </head>
 <body>
 	<div class="container">
-		<c:forEach items="${rooms}" var="room">
+		<c:forEach items="${roomsContent.getRooms()}" var="room">
 			<div class="row" style="padding: 10px;">
 				<div class="col-3">
 					<img class="w-100" src="${room.getPreview()}" />
 				</div>
 				<div class="col-9">
+					<a href="controller?command=room&id=${room.getId()}">Room</a>
 					<h1>Number: ${room.getNumber()} Room Class:
 						${room.getRoomClass()} Room space: ${room.getSpace()}</h1>
 				</div>
@@ -32,11 +33,15 @@
 	</div>
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			<c:forEach items="${roomsContent.getPages()}" var="page">
+				<li class="${page.getPageClass()}">
+					<form method="get" action="controller">
+						<input type="hidden" name="command" value="rooms">
+						<input type="hidden" name="page" value="${page.getName()}">
+						<button type="submit" class="page-link">${page.getName()}</button>
+					</form>
+				</li>
+			</c:forEach>
 		</ul>
 	</nav>
 </body>

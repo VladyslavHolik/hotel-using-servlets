@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html class="h-100">
 <head>
@@ -23,14 +24,17 @@
 				<form action="controller" method="post">
 					<input type="hidden" name="command" value="login" />
 					<div class="mb-3">
-						<label class="form-label">Email address</label> <input
-							type="email" class="form-control" name="email">
+						<label class="form-label"><fmt:message key='signin.email' /></label>
+						<input type="email" class="form-control" name="email">
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Password</label> <input type="password"
+						<label class="form-label"><fmt:message
+								key='signin.password' /></label> <input type="password"
 							class="form-control" name="password">
 					</div>
-					<button type="submit" class="btn btn-primary">Sign in</button>
+					<button type="submit" class="btn btn-primary">
+						<fmt:message key='signin.signin' />
+					</button>
 				</form>
 			</div>
 		</div>

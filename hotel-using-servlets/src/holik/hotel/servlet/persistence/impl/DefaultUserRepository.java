@@ -15,7 +15,7 @@ import holik.hotel.servlet.persistence.db.DBManager;
 public class DefaultUserRepository implements UserRepository {
 
 	@Override
-	public boolean createUser(User user) {
+	public boolean createUser(User user) throws SQLException {
 		boolean result = false;
 
 		Connection connection = DBManager.getConnection();
@@ -34,6 +34,7 @@ public class DefaultUserRepository implements UserRepository {
 				result = statement.execute();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			} finally {
 				if (connection != null) {
 					DBManager.commitAndClose(connection);
@@ -50,7 +51,7 @@ public class DefaultUserRepository implements UserRepository {
 	}
 
 	@Override
-	public Optional<User> getUserByEmail(String email) {
+	public Optional<User> getUserByEmail(String email) throws SQLException {
 		User user = null;
 
 		Connection connection = DBManager.getConnection();
@@ -74,6 +75,7 @@ public class DefaultUserRepository implements UserRepository {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			} finally {
 				if (connection != null) {
 					DBManager.commitAndClose(connection);

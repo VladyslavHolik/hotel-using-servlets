@@ -16,4 +16,8 @@ public class LogoutCommand implements Command {
 		return "redirect:controller?command=home";
 	}
 
+	@Override
+	public String toString() {
+		return "LogoutCommand";
+	}
 }

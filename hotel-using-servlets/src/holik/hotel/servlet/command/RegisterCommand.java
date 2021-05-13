@@ -2,11 +2,14 @@ package holik.hotel.servlet.command;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.dto.UserDto;
 import holik.hotel.servlet.mapper.UserMapper;
@@ -15,6 +18,7 @@ import holik.hotel.servlet.services.UserService;
 import holik.hotel.servlet.services.impl.DefaultUserService;
 
 public class RegisterCommand implements Command {
+	private static final Logger LOG = Logger.getLogger(RegisterCommand.class);
 	private UserService userService;
 	
 	public RegisterCommand() {
@@ -37,11 +41,19 @@ public class RegisterCommand implements Command {
 			errorMessage = "All fields should be filled";
 			request.setAttribute("errorMessage", errorMessage);
 			return forward;
-		} else if (userService.getUserByEmail(email).isPresent()) {
-			errorMessage = "User with this email already exists";
-			request.setAttribute("errorMessage", errorMessage);
-			return forward;
-		}
+		} else
+			try {
+				if (userService.getUserByEmail(email).isPresent()) {
+					errorMessage = "User with this email already exists";
+					request.setAttribute("errorMessage", errorMessage);
+					return forward;
+				}
+			} catch (SQLException exception) {
+				LOG.error("SQL Exception occurred while getting User by email: " + exception);
+				errorMessage = "Something went wrong";
+				request.setAttribute("errorMessage", errorMessage);
+				return forward;
+			}
 		
 		Pattern pattern = Pattern.compile("[0-9]{1,3} [0-9]{2} [0-9]{3} [0-9]{4}");
 		Matcher matcher = pattern.matcher(phone);
@@ -54,8 +66,16 @@ public class RegisterCommand implements Command {
 		UserDto userDto = new UserDto(firstName, lastName, phone, email, password);
 		
 		try {
-			userService.createUser(UserMapper.getUserFromDto(userDto));
+			try {
+				userService.createUser(UserMapper.getUserFromDto(userDto));
+			} catch (SQLException exception) {
+				LOG.error("SQL Exception occurred while creating User: " + exception);
+				errorMessage = "Something went wrong";
+				request.setAttribute("errorMessage", errorMessage);
+				return forward;
+			}
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			LOG.error("Exception with hashing algorithm occurred: " + e.getLocalizedMessage());
 			errorMessage = "Something went wrong";
 			request.setAttribute("errorMessage", errorMessage);
 			return forward;
@@ -63,4 +83,8 @@ public class RegisterCommand implements Command {
 		return "redirect:controller?command=home";
 	}
 
+	@Override
+	public String toString() {
+		return "RegisterCommand";
+	}
 }

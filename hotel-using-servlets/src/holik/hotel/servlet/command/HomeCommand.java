@@ -14,4 +14,8 @@ public final class HomeCommand implements Command {
 		return "index.jsp";
 	}
 
+	@Override
+	public String toString() {
+		return "HomeCommand";
+	}
 }

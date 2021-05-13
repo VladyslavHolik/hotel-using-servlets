@@ -14,4 +14,9 @@ public class GetSignUpCommand implements Command {
 		return "signup.jsp";
 	}
 
+	@Override
+	public String toString() {
+		return "GetSignUpCommand";
+	}
+
 }

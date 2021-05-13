@@ -14,6 +14,8 @@ public final class CommandManager {
 		commands.put("logout", new LogoutCommand());
 		commands.put("getsignup", new GetSignUpCommand());
 		commands.put("rooms", new RoomsCommand());
+		commands.put("room", new RoomCommand());
+		commands.put("language", new LanguageCommand());
 	}
 	
 	public static Command get(String commandName) {

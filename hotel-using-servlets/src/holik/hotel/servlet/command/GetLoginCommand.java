@@ -14,4 +14,8 @@ public class GetLoginCommand implements Command {
 		return "signin.jsp";
 	}
 
+	@Override
+	public String toString() {
+		return "GetLoginCommand";
+	}
 }

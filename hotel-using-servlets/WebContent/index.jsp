@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Hotel</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500&display=swap"
+	rel="stylesheet">
 <link rel="stylesheet" href="./css/index.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
@@ -23,9 +26,13 @@
 	<%
 		boolean userIsLogged = !(session.getAttribute("user_id") == null);
 	%>
-	<nav style="width: 96%; margin: auto;" class="navbar navbar-expand-sm navbar-light bg-light">
+	<nav style="width: 100%; margin: auto;"
+		class="navbar navbar-expand-sm navbar-light bg-light">
 		<div class="container-fluid">
-			<span class="navbar-brand">Hotel</span>
+			<span class="navbar-brand">Hotel</span> <span><a
+				class="nav-link" href="controller?command=language&lang=ru">🇷🇺</a>
+			</span> <span><a class="nav-link"
+				href="controller?command=language&lang=en">🇬🇧</a> </span>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -34,19 +41,26 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link"
-						aria-current="page" href="controller?command=rooms">Rooms</a></li>
-					<%
-						if (userIsLogged) {
-							if ((int) session.getAttribute("user_role_id") == 1) {
-								out.print("<li class='nav-item'><a class='nav-link' href='controller?command=addroom'>Add room</a></li>");
-							}
-							out.print("<li class='nav-item'><a class='nav-link' href='controller?command=logout'>Log 	out</a></li>");
-						} else {
-							out.print(
-									"<li class='nav-item'><a class='nav-link' href='controller?command=getlogin'>Sign in</a></li> <li class='nav-item'><a class='nav-link' href='controller?command=getsignup'>Sign up</a></li>");
-						}
-					%>
+					<li class="nav-item"><a class="nav-link" aria-current="page"
+						href="controller?command=rooms&page=1"> <fmt:message
+								key="index.rooms" /></a></li>
+					<c:choose>
+						<c:when test="<%=userIsLogged%>">
+							<li class='nav-item'><a class='nav-link'
+								href='controller?command=logout'> <fmt:message
+										key='index.logout' /></a></li>
+						</c:when>
+
+						<c:otherwise>
+							<li class='nav-item'><a class='nav-link'
+								href='controller?command=getlogin'><fmt:message
+										key='index.signin' /></a></li>
+							<li class='nav-item'><a class='nav-link'
+								href='controller?command=getsignup'><fmt:message
+										key='index.signup' /></a></li>
+						</c:otherwise>
+					</c:choose>
+
 				</ul>
 			</div>
 		</div>
@@ -71,7 +85,12 @@
 			</div>
 		</div>
 	</div>
-		<p class="text-center">Our hotel is an example of beauty and comfort. </p>
-		<p class="text-center">We will do our best to make your stay enjoyable. </p>
+	<p class="text-center">
+		<fmt:message key='index.slogo.first' />
+	</p>
+	<p class="text-center">
+		<fmt:message key='index.slogo.second' />
+	</p>
+
 </body>
 </html>

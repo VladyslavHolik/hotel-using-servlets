@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html class="h-100">
 <head>
@@ -23,28 +24,33 @@
 				<form action="controller" method="post">
 					<input type="hidden" name="command" value="signup" />
 					<div class="mb-3">
-						<label class="form-label">First name</label> <input type="text"
+						<label class="form-label"><fmt:message
+								key='signup.firstname' /></label> <input type="text"
 							class="form-control" name="first_name" required>
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Last name</label> <input type="text"
+						<label class="form-label"><fmt:message
+								key='signup.lastname' /></label> <input type="text"
 							class="form-control" name="last_name" required>
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Phone number</label> <input type="tel"
-							class="form-control" name="phone"
+						<label class="form-label"><fmt:message key='signup.phone' /></label>
+						<input type="tel" class="form-control" name="phone"
 							pattern="[0-9]{1,3} [0-9]{2} [0-9]{3} [0-9]{4}"
 							placeholder="380 99 123 4567" required>
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Email address</label> <input
-							type="email" class="form-control" name="email" required>
+						<label class="form-label"><fmt:message key='signup.email' /></label>
+						<input type="email" class="form-control" name="email" required>
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Password</label> <input type="password"
+						<label class="form-label"><fmt:message
+								key='signup.password' /></label> <input type="password"
 							class="form-control" name="password" required>
 					</div>
-					<button type="submit" class="btn btn-primary">Sign up</button>
+					<button type="submit" class="btn btn-primary">
+						<fmt:message key='signup.signup' />
+					</button>
 				</form>
 			</div>
 		</div>

@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import holik.hotel.servlet.command.Command;
 import holik.hotel.servlet.command.CommandManager;
 
 public class MainController extends HttpServlet {
-       
+    private static final Logger LOG = Logger.getLogger(MainController.class);  
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		manage(request, response);
@@ -26,6 +29,7 @@ public class MainController extends HttpServlet {
 	private void manage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String commandName = request.getParameter("command");
 		Command command = CommandManager.get(commandName);
+		LOG.info("Request with command " + command);
 		String forward = command.execute(request, response);
 		if (forward != null && !forward.startsWith("redirect:")) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forward);

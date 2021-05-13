@@ -3,12 +3,15 @@ package holik.hotel.servlet.command;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.models.User;
 import holik.hotel.servlet.path.Path;
@@ -18,6 +21,7 @@ import holik.hotel.servlet.util.DefaultEncoder;
 import holik.hotel.servlet.util.Encoder;
 
 public class LoginCommand implements Command {
+	private static final Logger LOG = Logger.getLogger(LoginCommand.class);
 	private UserService userService;
 	
 	public LoginCommand() {
@@ -35,11 +39,17 @@ public class LoginCommand implements Command {
 		
 		if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
 			errorMessage = "Email or password cannot be empty";
+			LOG.info("Invalid credentials: " + errorMessage);
 			request.setAttribute("errorMessage", errorMessage);
 			return forward;
 		}
-		Optional<User> userOptional = userService.getUserByEmail(email);
-		if (userOptional.isPresent()) {
+		Optional<User> userOptional = null;
+		try {
+			userOptional = userService.getUserByEmail(email);
+		} catch (SQLException exception) {
+			LOG.error("SQL exception:" + exception.getLocalizedMessage());
+		}
+		if (userOptional != null && userOptional.isPresent()) {
 			User user = userOptional.get();
 			String salt = user.getSalt();
 			String hash = user.getPasswordHash();
@@ -56,6 +66,7 @@ public class LoginCommand implements Command {
 				}
 			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 				errorMessage = "Something went wrong";
+				LOG.error("Exception with hashing algorithm occurred: " + e.getLocalizedMessage());
 				request.setAttribute("errorMessage", errorMessage);
 				return forward;
 			}
@@ -63,4 +74,8 @@ public class LoginCommand implements Command {
 		return "redirect:controller?command=home";
 	}
 
+	@Override
+	public String toString() {
+		return "LoginCommand";
+	}
 }
