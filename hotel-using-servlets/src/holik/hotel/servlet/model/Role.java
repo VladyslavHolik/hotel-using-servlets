@@ -1,4 +1,4 @@
-package holik.hotel.servlet.models;
+package holik.hotel.servlet.model;
 
 public enum Role {
 	MANAGER(1), USER(2);

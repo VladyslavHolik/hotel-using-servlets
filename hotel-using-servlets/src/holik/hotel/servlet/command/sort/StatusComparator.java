@@ -4,17 +4,16 @@ import java.util.Comparator;
 
 import holik.hotel.servlet.model.Room;
 
-public class SpaceComparator implements Comparator<Room> {
+public class StatusComparator implements Comparator<Room> {
 
 	@Override
 	public int compare(Room firstRoom, Room secondRoom) {
 		int result = 1;
-		int spaceOfFirst = firstRoom.getSpace();
-		int spaceOfSecond = secondRoom.getSpace();
-		
-		if (spaceOfFirst < spaceOfSecond) {
+		int statusOfFirst = firstRoom.getStatus().getId();
+		int statusOfSecond = secondRoom.getStatus().getId();
+		if (statusOfFirst < statusOfSecond) {
 			result = -1;
-		} else if (spaceOfFirst == spaceOfSecond) {
+		} else if (statusOfFirst == statusOfSecond) {
 			result = 0;
 		}
 		return result;

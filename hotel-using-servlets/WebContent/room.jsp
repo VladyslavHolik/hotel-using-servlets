@@ -16,6 +16,7 @@
 <title>Room ${room.getNumber()}</title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/header/header.jsp"%>
 	<div class="container">
 		<div class="row">
 			<div class="col-1"></div>

@@ -4,11 +4,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import holik.hotel.servlet.models.Room;
+import holik.hotel.servlet.model.Room;
 
 public enum SortMethod {
 	PRICE(new PriceComparator()), SPACE(new SpaceComparator()),
-	CLASS(new ClassComparator()), STATUS(new PriceComparator());
+	CLASS(new ClassComparator()), STATUS(new StatusComparator());
 	
 	private Comparator<Room> comparator;
 	

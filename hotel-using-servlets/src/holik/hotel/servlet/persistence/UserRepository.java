@@ -3,7 +3,7 @@ package holik.hotel.servlet.persistence;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import holik.hotel.servlet.models.User;
+import holik.hotel.servlet.model.User;
 
 public interface UserRepository {
 	boolean createUser(User user) throws SQLException;

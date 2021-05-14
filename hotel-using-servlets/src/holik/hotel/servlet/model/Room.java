@@ -1,4 +1,4 @@
-package holik.hotel.servlet.models;
+package holik.hotel.servlet.model;
 
 public final class Room {
 	private int id;
@@ -6,6 +6,7 @@ public final class Room {
 	private int price;
 	private int space;
 	private RoomClass roomClass;
+	private RoomStatus status;
 	
 	public int getId() {
 		return id;
@@ -45,6 +46,14 @@ public final class Room {
 	
 	public void setRoomClass(RoomClass roomClass) {
 		this.roomClass = roomClass;
+	}
+	
+	public RoomStatus getStatus() {
+		return status;
+	}
+	
+	public void setStatus(RoomStatus status) {
+		this.status = status;
 	}
 	
 	public String getPreview() {

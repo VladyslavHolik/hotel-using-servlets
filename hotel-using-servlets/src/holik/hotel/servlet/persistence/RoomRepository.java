@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import holik.hotel.servlet.models.Room;
+import holik.hotel.servlet.model.Room;
 
 public interface RoomRepository {
 	List<Room> getAllRooms() throws SQLException;

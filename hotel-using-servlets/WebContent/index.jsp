@@ -24,9 +24,9 @@
 </head>
 <body>
 	<%
-		boolean userIsLogged = !(session.getAttribute("user_id") == null);
+		boolean userIsLogged = !(session.getAttribute("user_role") == null);
 	%>
-	<nav style="width: 100%; margin: auto;"
+	<nav style="width: 96%; margin: auto;"
 		class="navbar navbar-expand-sm navbar-light bg-light">
 		<div class="container-fluid">
 			<span class="navbar-brand">Hotel</span> <span><a

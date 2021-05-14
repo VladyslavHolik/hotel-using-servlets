@@ -9,13 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import holik.hotel.servlet.models.Room;
-import holik.hotel.servlet.models.RoomClass;
+import org.apache.log4j.Logger;
+
+import holik.hotel.servlet.model.Room;
+import holik.hotel.servlet.model.RoomClass;
+import holik.hotel.servlet.model.RoomStatus;
 import holik.hotel.servlet.persistence.RoomRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 
 public class DefaultRoomRepository implements RoomRepository {
-
+	private static final Logger LOG = Logger.getLogger(DefaultRoomRepository.class);
+	
 	@Override
 	public List<Room> getAllRooms() throws SQLException {
 		List<Room> result = new ArrayList<>();
@@ -33,11 +37,13 @@ public class DefaultRoomRepository implements RoomRepository {
 					room.setPrice(resultSet.getInt("price"));
 					room.setSpace(resultSet.getInt("space"));
 					room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
+					room.setStatus(RoomStatus.getStatusById(resultSet.getInt("status")));
 					result.add(room);
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw e;
+			} catch (SQLException exception) {
+				LOG.error("SQL exception occurred: " + exception.getLocalizedMessage());
+				DBManager.rollbackAndClose(connection);
+				throw exception;
 			} finally {
 				if (connection != null) {
 					DBManager.commitAndClose(connection);
@@ -66,9 +72,10 @@ public class DefaultRoomRepository implements RoomRepository {
 					room.setSpace(resultSet.getInt("space"));
 					room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw e;
+			} catch (SQLException exception) {
+				LOG.error("SQL exception occurred: " + exception.getLocalizedMessage());
+				DBManager.rollbackAndClose(connection);
+				throw exception;
 			} finally {
 				if (connection != null) {
 					DBManager.commitAndClose(connection);

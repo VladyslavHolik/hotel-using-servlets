@@ -50,4 +50,40 @@
 		<param-name>log4j-config-location</param-name>
 		<param-value>WEB-INF/log4j.properties</param-value>
 	</context-param>
+
+	<filter>
+		<filter-name>CommandAccessFilter</filter-name>
+		<filter-class>holik.hotel.servlet.filters.CommandAccessFilter</filter-class>
+		<init-param>
+			<param-name>manager</param-name>
+			<param-value>applications</param-value>
+		</init-param>
+		<init-param>
+			<param-name>user</param-name>
+			<param-value>application application</param-value>
+		</init-param>
+		<init-param>
+			<param-name>common</param-name>
+			<param-value>logout unknownCommand </param-value>
+		</init-param>
+		<init-param>
+			<param-name>out-of-control</param-name>
+			<param-value>login home getlogin signup getsignup rooms room language sorting</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CommandAccessFilter</filter-name>
+		<servlet-name>main</servlet-name>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>JspFilter</filter-name>
+		<filter-class>holik.hotel.servlet.filters.JspFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>JspFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>/WEB-INF/jsp/*</url-pattern>
+	</filter-mapping>
 </web-app>

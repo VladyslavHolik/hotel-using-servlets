@@ -2,7 +2,7 @@ package holik.hotel.servlet.dto;
 
 import java.util.List;
 
-import holik.hotel.servlet.models.Room;
+import holik.hotel.servlet.model.Room;
 
 public final class RoomsContent {
 	private List<Room> roomsOnPage;

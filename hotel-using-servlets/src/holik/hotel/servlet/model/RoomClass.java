@@ -1,4 +1,4 @@
-package holik.hotel.servlet.models;
+package holik.hotel.servlet.model;
 
 public enum RoomClass {
 	Apartment(1), Balcony(2), ConnectedRooms(3), Business(4), Bedroom(5), DeLuxe(6),

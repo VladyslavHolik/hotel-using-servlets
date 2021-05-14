@@ -1,14 +1,13 @@
 package holik.hotel.servlet.persistence.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import holik.hotel.servlet.models.Role;
-import holik.hotel.servlet.models.User;
+import holik.hotel.servlet.model.Role;
+import holik.hotel.servlet.model.User;
 import holik.hotel.servlet.persistence.UserRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 

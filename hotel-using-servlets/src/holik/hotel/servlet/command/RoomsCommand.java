@@ -14,10 +14,10 @@ import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.command.sort.SortMethod;
 import holik.hotel.servlet.dto.RoomsContent;
-import holik.hotel.servlet.models.Room;
+import holik.hotel.servlet.model.Room;
 import holik.hotel.servlet.path.Path;
-import holik.hotel.servlet.services.RoomService;
-import holik.hotel.servlet.services.impl.DefaultRoomService;
+import holik.hotel.servlet.service.RoomService;
+import holik.hotel.servlet.service.impl.DefaultRoomService;
 
 public class RoomsCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(RoomsCommand.class);

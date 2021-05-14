@@ -1,4 +1,4 @@
-package holik.hotel.servlet.models;
+package holik.hotel.servlet.model;
 
 public final class User {
 	private int id;

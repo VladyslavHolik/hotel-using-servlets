@@ -1,12 +1,12 @@
-package holik.hotel.servlet.services.impl;
+package holik.hotel.servlet.service.impl;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
-import holik.hotel.servlet.models.User;
+import holik.hotel.servlet.model.User;
 import holik.hotel.servlet.persistence.UserRepository;
 import holik.hotel.servlet.persistence.impl.DefaultUserRepository;
-import holik.hotel.servlet.services.UserService;
+import holik.hotel.servlet.service.UserService;
 
 public class DefaultUserService implements UserService {
 

@@ -1,13 +1,13 @@
-package holik.hotel.servlet.services.impl;
+package holik.hotel.servlet.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import holik.hotel.servlet.models.Room;
+import holik.hotel.servlet.model.Room;
 import holik.hotel.servlet.persistence.RoomRepository;
 import holik.hotel.servlet.persistence.impl.DefaultRoomRepository;
-import holik.hotel.servlet.services.RoomService;
+import holik.hotel.servlet.service.RoomService;
 
 public class DefaultRoomService implements RoomService {
 

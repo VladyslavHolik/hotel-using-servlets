@@ -13,10 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import holik.hotel.servlet.models.User;
+import holik.hotel.servlet.model.User;
 import holik.hotel.servlet.path.Path;
-import holik.hotel.servlet.services.UserService;
-import holik.hotel.servlet.services.impl.DefaultUserService;
+import holik.hotel.servlet.service.UserService;
+import holik.hotel.servlet.service.impl.DefaultUserService;
 import holik.hotel.servlet.util.DefaultEncoder;
 import holik.hotel.servlet.util.Encoder;
 
@@ -58,7 +58,7 @@ public class LoginCommand implements Command {
 				if (encoder.areHashesEqual(salt, hash, password)) {
 					HttpSession session = request.getSession();
 					session.setAttribute("user_id", user.getId());
-					session.setAttribute("user_role_id", user.getRole().getId());
+					session.setAttribute("user_role", user.getRole());
 				} else {
 					errorMessage = "Email or password is incorrect";
 					request.setAttribute("errorMessage", errorMessage);

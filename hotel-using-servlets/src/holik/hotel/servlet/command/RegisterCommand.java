@@ -14,8 +14,8 @@ import org.apache.log4j.Logger;
 import holik.hotel.servlet.dto.UserDto;
 import holik.hotel.servlet.mapper.UserMapper;
 import holik.hotel.servlet.path.Path;
-import holik.hotel.servlet.services.UserService;
-import holik.hotel.servlet.services.impl.DefaultUserService;
+import holik.hotel.servlet.service.UserService;
+import holik.hotel.servlet.service.impl.DefaultUserService;
 
 public class RegisterCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(RegisterCommand.class);

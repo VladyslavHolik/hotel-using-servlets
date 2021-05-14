@@ -5,8 +5,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
 import holik.hotel.servlet.dto.UserDto;
-import holik.hotel.servlet.models.Role;
-import holik.hotel.servlet.models.User;
+import holik.hotel.servlet.model.Role;
+import holik.hotel.servlet.model.User;
 import holik.hotel.servlet.util.DefaultEncoder;
 import holik.hotel.servlet.util.Encoder;
 

@@ -2,7 +2,7 @@ package holik.hotel.servlet.command.sort;
 
 import java.util.Comparator;
 
-import holik.hotel.servlet.models.Room;
+import holik.hotel.servlet.model.Room;
 
 public class PriceComparator implements Comparator<Room> {
 
