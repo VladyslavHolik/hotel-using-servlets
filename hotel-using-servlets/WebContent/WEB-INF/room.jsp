@@ -20,7 +20,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-1"></div>
-			<div class="col-10">
+			<div class="col-10 p-5">
 				<img
 					src="${room.preview}"  class="img-fluid"/>
 			</div>

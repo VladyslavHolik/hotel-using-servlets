@@ -50,7 +50,7 @@
 						<c:forEach items="${roomsContent.rooms}" var="room">
 							<a href="room?id=${room.id}" class="list-group-item list-group-item-action">
 								<div class="d-flex w-100 justify-content-between">
-									<h5 class="mb-1">Room №${room.number}</h5>
+									<h5 class="mb-1"><fmt:message key="rooms.room" /> №${room.number}</h5>
 								</div>
 								<div class="row" style="padding: 10px;">
 									<div class="col-5">

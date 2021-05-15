@@ -65,6 +65,9 @@
 						</div>
 					</c:forEach>
 				</div>
+				<c:if test="${bills.size() == 0}">
+					<h2 class="text-center p-5" ><fmt:message key='bills.nobills' /></h2>	
+				</c:if>
 			</div>
 			<div class="col-1"></div>
 		</div>

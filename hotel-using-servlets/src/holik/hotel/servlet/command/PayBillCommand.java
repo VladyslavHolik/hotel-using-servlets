@@ -21,7 +21,7 @@ import holik.hotel.servlet.service.impl.DefaultRoomService;
 public class PayBillCommand implements Command {
 	private ApplicationService applicationService;
 	private RoomService roomService;
-	
+
 	public PayBillCommand() {
 		applicationService = new DefaultApplicationService();
 		roomService = new DefaultRoomService();
@@ -36,7 +36,7 @@ public class PayBillCommand implements Command {
 
 		String errorMessage = null;
 		String forward = Path.PAGE__ERROR_PAGE;
-		
+
 		Optional<Application> optionalApplication = applicationService.getApplicationById(applicationId);
 		if (optionalApplication.isPresent()) {
 			Application application = optionalApplication.get();

@@ -84,4 +84,14 @@ public final class Application {
 	public void setDatetimeOfBooking(LocalDateTime datetimeOfBooking) {
 		this.datetimeOfBooking = datetimeOfBooking;
 	}
+	
+	@Override
+	public boolean equals(Object secondApplication) {
+		boolean result = false;
+		if (secondApplication instanceof Application) {
+			Application second = (Application) secondApplication;
+			result = id == second.getId();
+		}
+		return result;
+	}
 }
