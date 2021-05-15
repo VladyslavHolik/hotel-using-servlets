@@ -27,12 +27,13 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 		Connection connection = DBManager.getConnection();
 		if (connection != null) {
 			try {
-				String sql = "INSERT INTO Applications (space, class_id, arrival, leaving) VALUES(?, ?, ?, ?)";
+				String sql = "INSERT INTO Applications (user_id, space, class, arrival, leaving) VALUES(?, ?, ?, ?, ?)";
 				PreparedStatement statement = connection.prepareStatement(sql);
-				statement.setInt(1, application.getSpace());
-				statement.setInt(2, application.getRoomClass().getId());
-				statement.setObject(3, application.getDatetimeOfArrival());
-				statement.setObject(4, application.getDatetimeOfLeaving());
+				statement.setInt(1, application.getUserId());
+				statement.setInt(2, application.getSpace());
+				statement.setInt(3, application.getRoomClass().getId());
+				statement.setObject(4, application.getDatetimeOfArrival());
+				statement.setObject(5, application.getDatetimeOfLeaving());
 
 				result = statement.execute();
 			} catch (SQLException e) {
@@ -61,6 +62,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 				if (resultSet.next()) {
 					application = new Application();
 					application.setId(id);
+					application.setUserId(resultSet.getInt("user_id"));
 					application.setSpace(resultSet.getInt("space"));
 					application.setDatetimeOfArrival(resultSet.getObject("arrival", LocalDateTime.class));
 					application.setDatetimeOfLeaving(resultSet.getObject("leaving", LocalDateTime.class));
@@ -92,6 +94,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 				while (resultSet.next()) {
 					Application application = new Application();
 					application.setId(resultSet.getInt("id"));
+					application.setUserId(resultSet.getInt("user_id"));
 					application.setSpace(resultSet.getInt("space"));
 					application.setDatetimeOfArrival(resultSet.getObject("arrival", LocalDateTime.class));
 					application.setDatetimeOfLeaving(resultSet.getObject("leaving", LocalDateTime.class));

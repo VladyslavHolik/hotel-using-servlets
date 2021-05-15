@@ -11,7 +11,7 @@ public final class HomeCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		return "index.jsp";
+		return "WEB-INF/index.jsp";
 	}
 
 	@Override

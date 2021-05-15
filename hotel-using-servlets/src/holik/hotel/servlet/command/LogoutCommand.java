@@ -13,7 +13,7 @@ public class LogoutCommand implements Command {
 			session.invalidate();
 		}
 		
-		return "redirect:controller?command=home";
+		return "redirect:home";
 	}
 
 	@Override

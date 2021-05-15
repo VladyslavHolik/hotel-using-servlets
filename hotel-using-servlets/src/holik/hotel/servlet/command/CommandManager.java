@@ -1,10 +1,10 @@
 package holik.hotel.servlet.command;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public final class CommandManager {
-	private static Map<String, Command> commands = new TreeMap<String, Command>();
+	private static Map<String, Command> commands = new HashMap<String, Command>();
 	
 	static {
 		commands.put("home", new HomeCommand());
@@ -17,6 +17,7 @@ public final class CommandManager {
 		commands.put("room", new RoomCommand());
 		commands.put("language", new LanguageCommand());
 		commands.put("sorting", new SortingCommand());
+		commands.put("getapplication", new GetApplicationCommand());
 		commands.put("application", new ApplicationCommand());
 	}
 	

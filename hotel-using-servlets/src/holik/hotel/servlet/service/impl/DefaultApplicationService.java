@@ -13,7 +13,7 @@ public class DefaultApplicationService implements ApplicationService {
 	private ApplicationRepository applicationRepository;
 	
 	public DefaultApplicationService() {
-		applicationRepository = new DefaultApplicationRepository()
+		applicationRepository = new DefaultApplicationRepository();
 	}
 	
 	@Override
@@ -30,5 +30,4 @@ public class DefaultApplicationService implements ApplicationService {
 	public List<Application> getAllApplications() throws SQLException {
 		return applicationRepository.getAllApplications();
 	}
-
 }

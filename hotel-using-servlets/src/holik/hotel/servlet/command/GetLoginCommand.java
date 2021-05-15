@@ -11,7 +11,7 @@ public class GetLoginCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		return "signin.jsp";
+		return "WEB-INF/signin.jsp";
 	}
 
 	@Override

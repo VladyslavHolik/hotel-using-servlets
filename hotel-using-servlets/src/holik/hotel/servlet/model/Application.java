@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public final class Application {
 	private int id;
+	private int userId;
 	private int space;
 	private RoomClass roomClass;
 	private LocalDateTime datetimeOfArrival;
@@ -15,6 +16,14 @@ public final class Application {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getSpace() {

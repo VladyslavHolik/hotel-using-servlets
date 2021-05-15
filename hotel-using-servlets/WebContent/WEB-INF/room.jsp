@@ -13,7 +13,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
 	crossorigin="anonymous"></script>
-<title>Room ${room.getNumber()}</title>
+<title>Room ${room.number}</title>
 </head>
 <body>
 	<%@ include file="/WEB-INF/header/header.jsp"%>
@@ -22,7 +22,7 @@
 			<div class="col-1"></div>
 			<div class="col-10">
 				<img
-					src="./images/rooms/${room.getId()}/1.jpg"  class="img-fluid"/>
+					src="${room.preview}"  class="img-fluid"/>
 			</div>
 			<div class="col-1"></div>
 		</div>

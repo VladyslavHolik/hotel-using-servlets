@@ -47,7 +47,7 @@ public class RoomCommand implements Command {
 		}
 		
 		request.setAttribute("room", optionalRoom.get());
-		return "room.jsp";
+		return "WEB-INF/room.jsp";
 	}
 	
 	@Override

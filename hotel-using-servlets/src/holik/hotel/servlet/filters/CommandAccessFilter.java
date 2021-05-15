@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.model.Role;
 import holik.hotel.servlet.path.Path;
+import holik.hotel.servlet.path.PathParser;
 
 public class CommandAccessFilter implements Filter {
 	private static final Logger LOG = Logger.getLogger(CommandAccessFilter.class);
@@ -49,13 +50,18 @@ public class CommandAccessFilter implements Filter {
 
 			request.getRequestDispatcher(Path.PAGE__ERROR_PAGE).forward(request, response);
 		}
-
 	}
 
 	private boolean accessAllowed(ServletRequest request) {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		String commandName = request.getParameter("command");
+		String commandName = null;
+		if ("POST".equals(httpRequest.getMethod())) {
+			commandName = httpRequest.getParameter("command");
+		} else if ("GET".equals(httpRequest.getMethod())) {
+			commandName = PathParser.getCommand(httpRequest.getRequestURI());
+		}
+		
 		if (commandName == null || commandName.isEmpty())
 			return false;
 
@@ -66,13 +72,13 @@ public class CommandAccessFilter implements Filter {
 		if (session == null)
 			return false;
 
-		Role userRole = (Role) session.getAttribute("user_role");
+		Role userRole = (Role) session.getAttribute("userRole");
 		if (userRole == null)
 			return false;
 
 		return accessMap.get(userRole).contains(commandName) || commons.contains(commandName);
 	}
-
+	
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		LOG.info("Initialisation of CommandAccessFilter");

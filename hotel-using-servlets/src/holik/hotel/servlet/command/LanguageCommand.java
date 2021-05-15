@@ -33,7 +33,7 @@ public class LanguageCommand implements Command {
 		HttpSession session = request.getSession();
 		Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", languageToSet);		
 		LOG.info("User changes locale to " + languageToSet);
-		return "redirect:controller?command=home";
+		return "redirect:home";
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.util.List;
 import holik.hotel.servlet.model.Room;
 
 public final class RoomsContent {
-	private List<Room> roomsOnPage;
+	private List<Room> rooms;
 	private List<Page> pages;
 	
 	public static class Page {
@@ -30,11 +30,11 @@ public final class RoomsContent {
 	}
 
 	public List<Room> getRooms() {
-		return roomsOnPage;
+		return rooms;
 	}
 
 	public void setRooms(List<Room> roomsOnPage) {
-		this.roomsOnPage = roomsOnPage;
+		this.rooms = roomsOnPage;
 	}
 
 	public List<Page> getPages() {

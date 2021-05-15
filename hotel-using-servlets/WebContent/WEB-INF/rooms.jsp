@@ -20,7 +20,7 @@
 <body>
 	<%@ include file="/WEB-INF/header/header.jsp"%>
 	<div class="container">
-		<form action="controller" method="post">
+		<form action="" method="post">
 			<div class="row justify-content-center p-2">
 				<div class="col-auto">
 					<input type="hidden" name="command" value="sorting"> <select
@@ -41,23 +41,23 @@
 				</div>
 			</div>
 		</form>
-		<c:forEach items="${roomsContent.getRooms()}" var="room">
+		<c:forEach items="${roomsContent.rooms}" var="room">
 			<div class="row" style="padding: 10px;">
 				<div class="col-1"></div>
 				<div class="col-4">
-					<img class="w-100" src="${room.getPreview()}" />
+					<img class="w-100" src="${room.preview}" />
 				</div>
 				<div class="col-7">
-					<a href="controller?command=room&id=${room.getId()}">Room</a>
+					<a href="room?id=${room.id}">Room</a>
 					<h2>
 						<fmt:message key="rooms.class" />
-						: ${room.getRoomClass()}
+						: ${room.roomClass}
 						<fmt:message key="rooms.space" />
-						: ${room.getSpace()}
+						: ${room.space}
 						<fmt:message key="rooms.price" />
-						${room.getPrice()}$ p/h <br />
+						${room.price}$ p/h <br />
 						<fmt:message key="rooms.status" />
-						: ${room.getStatus().toString().toLowerCase()}
+						: ${room.status.toString().toLowerCase()}
 					</h2>
 				</div>
 			</div>
@@ -65,12 +65,12 @@
 	</div>
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
-			<c:forEach items="${roomsContent.getPages()}" var="page">
-				<li class="${page.getPageClass()}">
-					<form method="get" action="controller">
+			<c:forEach items="${roomsContent.pages}" var="page">
+				<li class="${page.pageClass}">
+					<form method="post" action="">
 						<input type="hidden" name="command" value="rooms"> <input
-							type="hidden" name="page" value="${page.getName()}">
-						<button type="submit" class="page-link">${page.getName()}</button>
+							type="hidden" name="page" value="${page.name}">
+						<button type="submit" class="page-link">${page.name}</button>
 					</form>
 				</li>
 			</c:forEach>

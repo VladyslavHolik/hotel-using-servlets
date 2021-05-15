@@ -80,7 +80,7 @@ public class RegisterCommand implements Command {
 			request.setAttribute("errorMessage", errorMessage);
 			return forward;
 		}
-		return "redirect:controller?command=home";
+		return "redirect:home";
 	}
 
 	@Override

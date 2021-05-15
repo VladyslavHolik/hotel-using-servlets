@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.command.Command;
 import holik.hotel.servlet.command.CommandManager;
+import holik.hotel.servlet.path.PathParser;
 
 public class MainController extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(MainController.class);  
@@ -27,15 +28,19 @@ public class MainController extends HttpServlet {
 	}
 	
 	private void manage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String commandName = request.getParameter("command");
-		Command command = CommandManager.get(commandName);
-		LOG.info("Request with command " + command);
-		String forward = command.execute(request, response);
-		if (forward != null && !forward.startsWith("redirect:")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
-			dispatcher.forward(request, response);
+		String commandName;
+		if ("POST".equals(request.getMethod())) {
+			commandName = request.getParameter("command");
 		} else {
-			response.sendRedirect(forward.substring(9));
+			commandName = PathParser.getCommand(request.getRequestURI());
+		}
+		Command command = CommandManager.get(commandName);
+		LOG.debug("Request with command " + command);
+		String page = command.execute(request, response);
+		if (page != null && !page.startsWith("redirect:")) {
+			request.getRequestDispatcher(page).forward(request, response);
+		} else {
+			response.sendRedirect(page.substring(9));
 		}
 	}
 }

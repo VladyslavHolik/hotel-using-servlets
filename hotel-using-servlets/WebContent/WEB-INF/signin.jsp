@@ -21,7 +21,7 @@
 		<div class="row h-100 justify-content-center align-items-center">
 			<div class="col-10 col-md-8 col-lg-6">
 
-				<form action="controller" method="post">
+				<form action="" method="post">
 					<input type="hidden" name="command" value="login" />
 					<div class="mb-3">
 						<label class="form-label"><fmt:message key='signin.email' /></label>

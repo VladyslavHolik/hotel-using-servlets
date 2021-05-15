@@ -31,6 +31,9 @@ public class RoomsCommand implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String pageNumberString = request.getParameter("page");
+		if (pageNumberString == null) {
+			pageNumberString = "1";
+		}
 		int pageNumber = Integer.parseInt(pageNumberString);
 
 		String errorMessage = null;
@@ -92,7 +95,7 @@ public class RoomsCommand implements Command {
 
 		roomsContent.setRooms(roomsOnPage);
 		request.setAttribute("roomsContent", roomsContent);
-		return "rooms.jsp";
+		return "WEB-INF/rooms.jsp";
 	}
 
 	private void sort(List<Room> rooms, SortMethod method) {

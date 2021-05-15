@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="holik.hotel.servlet.model.Role"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="./css/index.css">
+<link rel="stylesheet" href="/portal_content/css/index.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -23,16 +24,12 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<%
-		boolean userIsLogged = !(session.getAttribute("user_role") == null);
-	%>
 	<nav style="width: 96%; margin: auto;"
 		class="navbar navbar-expand-sm navbar-light bg-light">
 		<div class="container-fluid">
 			<span class="navbar-brand">Hotel</span> <span><a
-				class="nav-link" href="controller?command=language&lang=ru">🇷🇺</a>
-			</span> <span><a class="nav-link"
-				href="controller?command=language&lang=en">🇬🇧</a> </span>
+				class="nav-link" href="language?lang=ru">🇷🇺</a> </span> <span><a
+				class="nav-link" href="language?lang=en">🇬🇧</a> </span>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -42,21 +39,25 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" aria-current="page"
-						href="controller?command=rooms&page=1"> <fmt:message
-								key="index.rooms" /></a></li>
+						href="rooms"> <fmt:message key="index.rooms" /></a></li>
 					<c:choose>
-						<c:when test="<%=userIsLogged%>">
-							<li class='nav-item'><a class='nav-link'
-								href='controller?command=logout'> <fmt:message
-										key='index.logout' /></a></li>
+						<c:when test="${userRole != null}">
+							<li class='nav-item'><a class='nav-link' href='logout'>
+									<fmt:message key='index.logout' />
+							</a></li>
+							<c:choose>
+								<c:when test="${!Role.MANAGER.equals(userRole)}">
+									<li class='nav-item'><a class='nav-link'
+										href='getapplication'> <fmt:message
+												key='index.getapplication' /></a></li>
+								</c:when>
+							</c:choose>
 						</c:when>
 
 						<c:otherwise>
-							<li class='nav-item'><a class='nav-link'
-								href='controller?command=getlogin'><fmt:message
+							<li class='nav-item'><a class='nav-link' href='getlogin'><fmt:message
 										key='index.signin' /></a></li>
-							<li class='nav-item'><a class='nav-link'
-								href='controller?command=getsignup'><fmt:message
+							<li class='nav-item'><a class='nav-link' href='getsignup'><fmt:message
 										key='index.signup' /></a></li>
 						</c:otherwise>
 					</c:choose>
@@ -65,26 +66,7 @@
 			</div>
 		</div>
 	</nav>
-	<div id="carouselExampleSlidesOnly" class="carousel slide"
-		data-bs-ride="carousel">
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="./images/main/1.jpg" class="d-block w-100">
-			</div>
-			<div class="carousel-item">
-				<img src="./images/main/2.jpg" class="d-block w-100">
-			</div>
-			<div class="carousel-item">
-				<img src="./images/main/3.jpg" class="d-block w-100">
-			</div>
-			<div class="carousel-item">
-				<img src="./images/main/4.jpg" class="d-block w-100">
-			</div>
-			<div class="carousel-item">
-				<img src="./images/main/5.jpg" class="d-block w-100">
-			</div>
-		</div>
-	</div>
+	<img src="/portal_content/images/main/5.jpg" class="d-block w-100">
 	<p class="text-center">
 		<fmt:message key='index.slogo.first' />
 	</p>

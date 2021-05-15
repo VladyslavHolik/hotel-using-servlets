@@ -32,7 +32,7 @@ public class SortingCommand implements Command {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("sort", SortMethod.getMethod(sortBy));
-		return "redirect:controller?command=rooms&page=1";
+		return "redirect:rooms";
 
 	}
 

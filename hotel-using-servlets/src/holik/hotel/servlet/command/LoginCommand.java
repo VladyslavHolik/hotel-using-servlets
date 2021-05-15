@@ -57,8 +57,8 @@ public class LoginCommand implements Command {
 				Encoder encoder = new DefaultEncoder();
 				if (encoder.areHashesEqual(salt, hash, password)) {
 					HttpSession session = request.getSession();
-					session.setAttribute("user_id", user.getId());
-					session.setAttribute("user_role", user.getRole());
+					session.setAttribute("userId", user.getId());
+					session.setAttribute("userRole", user.getRole());
 				} else {
 					errorMessage = "Email or password is incorrect";
 					request.setAttribute("errorMessage", errorMessage);
@@ -71,7 +71,7 @@ public class LoginCommand implements Command {
 				return forward;
 			}
 		}
-		return "redirect:controller?command=home";
+		return "redirect:home";
 	}
 
 	@Override
