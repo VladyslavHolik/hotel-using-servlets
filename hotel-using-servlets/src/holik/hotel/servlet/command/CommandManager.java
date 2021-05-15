@@ -19,6 +19,7 @@ public final class CommandManager {
 		commands.put("sorting", new SortingCommand());
 		commands.put("getapplication", new GetApplicationCommand());
 		commands.put("application", new ApplicationCommand());
+		commands.put("applications", new ApplicationsCommand());
 	}
 	
 	public static Command get(String commandName) {

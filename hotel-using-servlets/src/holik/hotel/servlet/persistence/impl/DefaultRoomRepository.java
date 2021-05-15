@@ -19,14 +19,14 @@ import holik.hotel.servlet.persistence.db.DBManager;
 
 public class DefaultRoomRepository implements RoomRepository {
 	private static final Logger LOG = Logger.getLogger(DefaultRoomRepository.class);
-	
+
 	@Override
-	public List<Room> getAllRooms() throws SQLException {
+	public List<Room> getAllRooms() {
 		List<Room> result = new ArrayList<>();
-		
-		Connection connection = DBManager.getConnection();
-		if (connection != null) {
-			try {
+		Connection connection = null;
+		try {
+			connection = DBManager.getConnection();
+			if (connection != null) {
 				String sql = "select * from rooms;";
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(sql);
@@ -40,23 +40,23 @@ public class DefaultRoomRepository implements RoomRepository {
 					room.setStatus(RoomStatus.getStatusById(resultSet.getInt("status")));
 					result.add(room);
 				}
-			} catch (SQLException exception) {
-				LOG.error("SQL exception occurred: " + exception.getLocalizedMessage());
-				DBManager.rollbackAndClose(connection);
-				throw exception;
-			} finally {
-				if (connection != null) {
-					DBManager.commitAndClose(connection);
-				}
+			}
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+			DBManager.rollbackAndClose(connection);
+		} finally {
+			if (connection != null) {
+				DBManager.commitAndClose(connection);
 			}
 		}
 		return result;
 	}
 
 	@Override
-	public Optional<Room> getRoomById(int id) throws SQLException {
+	public Optional<Room> getRoomById(int id) {
 		Room room = null;
-		
+
 		Connection connection = DBManager.getConnection();
 		if (connection != null) {
 			try {
@@ -73,9 +73,9 @@ public class DefaultRoomRepository implements RoomRepository {
 					room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
 				}
 			} catch (SQLException exception) {
-				LOG.error("SQL exception occurred: " + exception.getLocalizedMessage());
+				String message = exception.getLocalizedMessage();
+				LOG.error("SQL exception occurred: " + message);
 				DBManager.rollbackAndClose(connection);
-				throw exception;
 			} finally {
 				if (connection != null) {
 					DBManager.commitAndClose(connection);

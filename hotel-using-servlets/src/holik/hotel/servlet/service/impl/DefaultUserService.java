@@ -1,6 +1,5 @@
 package holik.hotel.servlet.service.impl;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 import holik.hotel.servlet.model.User;
@@ -17,17 +16,17 @@ public class DefaultUserService implements UserService {
 	}
 	
 	@Override
-	public boolean createUser(User user) throws SQLException {
+	public boolean createUser(User user) {
 		return userRepository.createUser(user);
 	}
 
 	@Override
-	public Optional<User> getUserById(int id) throws SQLException {
+	public Optional<User> getUserById(int id) {
 		return userRepository.getUserById(id);
 	}
 
 	@Override
-	public Optional<User> getUserByEmail(String email) throws SQLException {
+	public Optional<User> getUserByEmail(String email) {
 		return userRepository.getUserByEmail(email);
 	}
 

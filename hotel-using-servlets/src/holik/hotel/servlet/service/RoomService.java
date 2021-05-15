@@ -7,6 +7,6 @@ import java.util.Optional;
 import holik.hotel.servlet.model.Room;
 
 public interface RoomService {
-	List<Room> getAllRooms() throws SQLException;
-	Optional<Room> getRoomById(int id) throws SQLException;
+	List<Room> getAllRooms();
+	Optional<Room> getRoomById(int id);
 }

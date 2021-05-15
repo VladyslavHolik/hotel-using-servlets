@@ -2,7 +2,6 @@ package holik.hotel.servlet.command;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,41 +19,36 @@ import holik.hotel.servlet.service.impl.DefaultUserService;
 public class RegisterCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(RegisterCommand.class);
 	private UserService userService;
-	
+
 	public RegisterCommand() {
 		userService = new DefaultUserService();
 	}
-	
+
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response){
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String firstName = request.getParameter("first_name");
 		String lastName = request.getParameter("last_name");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
-		String errorMessage = null;		
+
+		String errorMessage = null;
 		String forward = Path.PAGE__ERROR_PAGE;
-		
-		if (firstName == null || lastName == null || phone == null || email == null || password == null ||
-				firstName.isEmpty() || lastName.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty()) {
+
+		if (firstName == null || lastName == null || phone == null || email == null || password == null
+				|| firstName.isEmpty() || lastName.isEmpty() || phone.isEmpty() || email.isEmpty()
+				|| password.isEmpty()) {
 			errorMessage = "All fields should be filled";
 			request.setAttribute("errorMessage", errorMessage);
 			return forward;
-		} else
-			try {
-				if (userService.getUserByEmail(email).isPresent()) {
-					errorMessage = "User with this email already exists";
-					request.setAttribute("errorMessage", errorMessage);
-					return forward;
-				}
-			} catch (SQLException exception) {
-				LOG.error("SQL Exception occurred while getting User by email: " + exception);
-				errorMessage = "Something went wrong";
-				request.setAttribute("errorMessage", errorMessage);
-				return forward;
-			}
-		
+		}
+
+		if (userService.getUserByEmail(email).isPresent()) {
+			errorMessage = "User with this email already exists";
+			request.setAttribute("errorMessage", errorMessage);
+			return forward;
+		}
+
 		Pattern pattern = Pattern.compile("[0-9]{1,3} [0-9]{2} [0-9]{3} [0-9]{4}");
 		Matcher matcher = pattern.matcher(phone);
 		if (!matcher.matches()) {
@@ -62,18 +56,11 @@ public class RegisterCommand implements Command {
 			request.setAttribute("errorMessage", errorMessage);
 			return forward;
 		}
-		
+
 		UserDto userDto = new UserDto(firstName, lastName, phone, email, password);
-		
+
 		try {
-			try {
-				userService.createUser(UserMapper.getUserFromDto(userDto));
-			} catch (SQLException exception) {
-				LOG.error("SQL Exception occurred while creating User: " + exception);
-				errorMessage = "Something went wrong";
-				request.setAttribute("errorMessage", errorMessage);
-				return forward;
-			}
+			userService.createUser(UserMapper.getUserFromDto(userDto));
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			LOG.error("Exception with hashing algorithm occurred: " + e.getLocalizedMessage());
 			errorMessage = "Something went wrong";

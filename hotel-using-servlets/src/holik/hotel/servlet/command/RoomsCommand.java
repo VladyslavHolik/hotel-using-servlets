@@ -1,7 +1,6 @@
 package holik.hotel.servlet.command;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,29 +39,22 @@ public class RoomsCommand implements Command {
 		String forward = Path.PAGE__ERROR_PAGE;
 
 		List<Room> rooms = null;
-		try {
-			rooms = roomService.getAllRooms();
-			if (rooms == null) {
-				errorMessage = "Something went wrong";
-				request.setAttribute("errorMessage", errorMessage);
-				LOG.error("Nothing returned while getting all rooms");
-				return forward;
-			}
-			HttpSession session = request.getSession();
-			Object methodObject = session.getAttribute("sort");
-			SortMethod method = null;
-			if (methodObject == null) {
-				method = SortMethod.CLASS;
-			} else {
-				method = (SortMethod) methodObject;
-			}
-			sort(rooms, method);
-		} catch (SQLException e) {
+		rooms = roomService.getAllRooms();
+		if (rooms == null) {
 			errorMessage = "Something went wrong";
 			request.setAttribute("errorMessage", errorMessage);
-			LOG.error("SQL Exception occurred while getting all rooms " + e.getLocalizedMessage());
+			LOG.error("Nothing returned while getting all rooms");
 			return forward;
 		}
+		HttpSession session = request.getSession();
+		Object methodObject = session.getAttribute("sort");
+		SortMethod method = null;
+		if (methodObject == null) {
+			method = SortMethod.CLASS;
+		} else {
+			method = (SortMethod) methodObject;
+		}
+		sort(rooms, method);
 
 		int numberOfPages = (int) Math.ceil(rooms.size() / 4.0);
 

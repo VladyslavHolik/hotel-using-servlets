@@ -1,6 +1,5 @@
 package holik.hotel.servlet.service.impl;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +17,12 @@ public class DefaultRoomService implements RoomService {
 	}
 	
 	@Override
-	public List<Room> getAllRooms() throws SQLException {
+	public List<Room> getAllRooms() {
 		return roomRepository.getAllRooms();
 	}
 
 	@Override
-	public Optional<Room> getRoomById(int id) throws SQLException{
+	public Optional<Room> getRoomById(int id) {
 		return roomRepository.getRoomById(id);
 	}
 

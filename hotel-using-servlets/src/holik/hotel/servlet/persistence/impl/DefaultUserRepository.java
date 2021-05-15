@@ -6,20 +6,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
+
 import holik.hotel.servlet.model.Role;
 import holik.hotel.servlet.model.User;
 import holik.hotel.servlet.persistence.UserRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 
 public class DefaultUserRepository implements UserRepository {
+	private static final Logger LOG = Logger.getLogger(DefaultUserRepository.class);
 
 	@Override
-	public boolean createUser(User user) throws SQLException {
+	public boolean createUser(User user) {
 		boolean result = false;
-
-		Connection connection = DBManager.getConnection();
-		if (connection != null) {
-			try {
+		Connection connection = null;
+		try {
+			connection = DBManager.getConnection();
+			if (connection != null) {
 				String sql = "INSERT INTO Users (first_name, last_name, phone, email, role_id, salt, password_hash) VALUES(?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, user.getFirstName());
@@ -31,13 +34,14 @@ public class DefaultUserRepository implements UserRepository {
 				statement.setString(7, user.getPasswordHash());
 
 				result = statement.execute();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw e;
-			} finally {
-				if (connection != null) {
-					DBManager.commitAndClose(connection);
-				}
+			}
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+			DBManager.rollbackAndClose(connection);
+		} finally {
+			if (connection != null) {
+				DBManager.commitAndClose(connection);
 			}
 		}
 		return result;
@@ -50,12 +54,13 @@ public class DefaultUserRepository implements UserRepository {
 	}
 
 	@Override
-	public Optional<User> getUserByEmail(String email) throws SQLException {
+	public Optional<User> getUserByEmail(String email) {
 		User user = null;
+		Connection connection = null;
+		try {
+			connection = DBManager.getConnection();
+			if (connection != null) {
 
-		Connection connection = DBManager.getConnection();
-		if (connection != null) {
-			try {
 				String sql = "SELECT * FROM Users WHERE email=?";
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, email);
@@ -72,17 +77,16 @@ public class DefaultUserRepository implements UserRepository {
 					user.setSalt(resultSet.getString("salt"));
 					user.setPasswordHash(resultSet.getString("password_hash"));
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw e;
-			} finally {
-				if (connection != null) {
-					DBManager.commitAndClose(connection);
-				}
+			}
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+			DBManager.rollbackAndClose(connection);
+		} finally {
+			if (connection != null) {
+				DBManager.commitAndClose(connection);
 			}
 		}
-
 		return Optional.ofNullable(user);
 	}
-
 }

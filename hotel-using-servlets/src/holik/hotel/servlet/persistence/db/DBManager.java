@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 public final class DBManager {
 	private static final Logger LOG = Logger.getLogger(DBManager.class);
 	
-	public static Connection getConnection() throws SQLException {
+	public static Connection getConnection() {
 		Connection connection = null;
 		try {
 			Context initContext = new InitialContext();
@@ -23,28 +23,25 @@ public final class DBManager {
 			connection = ds.getConnection();
 		} catch (NamingException | SQLException exception) {
 			LOG.error("Exception occurred " + exception.getLocalizedMessage());
-			throw new SQLException(exception);
 		}
 		return connection;
 	}
 
-	public static void commitAndClose(Connection connection) throws SQLException {
+	public static void commitAndClose(Connection connection) {
 		try {
 			connection.commit();
 			connection.close();
 		} catch (SQLException exception) {
 			LOG.error("Exception occurred while commiting connection" + exception.getLocalizedMessage());
-			throw exception;
 		}
 	}
 
-	public static void rollbackAndClose(Connection connection) throws SQLException {
+	public static void rollbackAndClose(Connection connection){
 		try {
 			connection.rollback();
 			connection.close();
 		} catch (SQLException exception) {
 			LOG.error("Exception occurred while rollbacking connection" + exception.getLocalizedMessage());
-			throw exception;
 		}
 	}
 }

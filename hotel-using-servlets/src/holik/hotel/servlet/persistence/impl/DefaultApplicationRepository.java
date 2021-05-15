@@ -21,7 +21,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 	private static final Logger LOG = Logger.getLogger(DefaultApplicationRepository.class);
 
 	@Override
-	public boolean saveApplication(Application application) throws SQLException {
+	public boolean saveApplication(Application application){
 		boolean result = false;
 
 		Connection connection = DBManager.getConnection();
@@ -36,9 +36,10 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 				statement.setObject(5, application.getDatetimeOfLeaving());
 
 				result = statement.execute();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw e;
+			} catch (SQLException exception) {
+				String message = exception.getLocalizedMessage();
+				LOG.error("SQL exception occurred: " + message);
+				DBManager.rollbackAndClose(connection);
 			} finally {
 				if (connection != null) {
 					DBManager.commitAndClose(connection);
@@ -49,7 +50,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 	}
 
 	@Override
-	public Optional<Application> getApplicationById(int id) throws SQLException {
+	public Optional<Application> getApplicationById(int id) {
 		Application application = null;
 
 		Connection connection = DBManager.getConnection();
@@ -69,9 +70,9 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 					application.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class_id")));
 				}
 			} catch (SQLException exception) {
-				LOG.error("SQL exception occurred: " + exception.getLocalizedMessage());
+				String message = exception.getLocalizedMessage();
+				LOG.error("SQL exception occurred: " + message);
 				DBManager.rollbackAndClose(connection);
-				throw exception;
 			} finally {
 				if (connection != null) {
 					DBManager.commitAndClose(connection);
@@ -82,7 +83,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 	}
 
 	@Override
-	public List<Application> getAllApplications() throws SQLException {
+	public List<Application> getAllApplications() {
 		List<Application> list = new ArrayList<>();
 
 		Connection connection = DBManager.getConnection();
@@ -102,9 +103,9 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 					list.add(application);
 				}
 			} catch (SQLException exception) {
-				LOG.error("SQL exception occurred: " + exception.getLocalizedMessage());
+				String message = exception.getLocalizedMessage();
+				LOG.error("SQL exception occurred: " + message);
 				DBManager.rollbackAndClose(connection);
-				throw exception;
 			} finally {
 				if (connection != null) {
 					DBManager.commitAndClose(connection);

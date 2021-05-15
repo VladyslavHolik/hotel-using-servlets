@@ -3,7 +3,6 @@ package holik.hotel.servlet.command;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.sql.SQLException;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -23,20 +22,20 @@ import holik.hotel.servlet.util.Encoder;
 public class LoginCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(LoginCommand.class);
 	private UserService userService;
-	
+
 	public LoginCommand() {
 		userService = new DefaultUserService();
 	}
-	
+
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
-		String errorMessage = null;		
+
+		String errorMessage = null;
 		String forward = Path.PAGE__ERROR_PAGE;
-		
+
 		if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
 			errorMessage = "Email or password cannot be empty";
 			LOG.info("Invalid credentials: " + errorMessage);
@@ -44,11 +43,8 @@ public class LoginCommand implements Command {
 			return forward;
 		}
 		Optional<User> userOptional = null;
-		try {
-			userOptional = userService.getUserByEmail(email);
-		} catch (SQLException exception) {
-			LOG.error("SQL exception:" + exception.getLocalizedMessage());
-		}
+		userOptional = userService.getUserByEmail(email);
+
 		if (userOptional != null && userOptional.isPresent()) {
 			User user = userOptional.get();
 			String salt = user.getSalt();

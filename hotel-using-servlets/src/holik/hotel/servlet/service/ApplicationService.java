@@ -7,7 +7,7 @@ import java.util.Optional;
 import holik.hotel.servlet.model.Application;
 
 public interface ApplicationService {
-	boolean saveApplication(Application application) throws SQLException;
-	Optional<Application> getApplicationById(int id) throws SQLException;
-	List<Application> getAllApplications() throws SQLException;
+	boolean saveApplication(Application application);
+	Optional<Application> getApplicationById(int id);
+	List<Application> getAllApplications();
 }

@@ -1,6 +1,5 @@
 package holik.hotel.servlet.service.impl;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,17 +16,17 @@ public class DefaultApplicationService implements ApplicationService {
 	}
 	
 	@Override
-	public boolean saveApplication(Application application) throws SQLException {
+	public boolean saveApplication(Application application) {
 		return applicationRepository.saveApplication(application);
 	}
 
 	@Override
-	public Optional<Application> getApplicationById(int id) throws SQLException {
+	public Optional<Application> getApplicationById(int id) {
 		return applicationRepository.getApplicationById(id);
 	}
 
 	@Override
-	public List<Application> getAllApplications() throws SQLException {
+	public List<Application> getAllApplications() {
 		return applicationRepository.getAllApplications();
 	}
 }

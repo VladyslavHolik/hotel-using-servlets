@@ -51,6 +51,11 @@
 										href='getapplication'> <fmt:message
 												key='index.getapplication' /></a></li>
 								</c:when>
+								<c:otherwise>
+									<li class='nav-item'><a class='nav-link'
+										href='applications'> <fmt:message
+												key='index.applications' /></a></li>
+								</c:otherwise>
 							</c:choose>
 						</c:when>
 

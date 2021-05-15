@@ -16,6 +16,7 @@ import holik.hotel.servlet.path.PathParser;
 
 public class MainController extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(MainController.class);  
+    private static final int REDIRECT_OFFSET = 9;
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +41,7 @@ public class MainController extends HttpServlet {
 		if (page != null && !page.startsWith("redirect:")) {
 			request.getRequestDispatcher(page).forward(request, response);
 		} else {
-			response.sendRedirect(page.substring(9));
+			response.sendRedirect(page.substring(REDIRECT_OFFSET));
 		}
 	}
 }
