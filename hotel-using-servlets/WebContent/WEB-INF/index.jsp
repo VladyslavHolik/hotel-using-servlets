@@ -22,6 +22,13 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
 	crossorigin="anonymous"></script>
+<style>
+p {
+	font-size: 150%;
+	font-family: 'Crimson Pro', sans-serif;
+	padding: 10px
+}
+</style>
 </head>
 <body>
 	<nav style="width: 96%; margin: auto;"
@@ -48,13 +55,18 @@
 							<c:choose>
 								<c:when test="${!Role.MANAGER.equals(userRole)}">
 									<li class='nav-item'><a class='nav-link'
+										href='getmyapplications'> <fmt:message
+												key='index.getmyapplications' /></a></li>
+									<li class='nav-item'><a class='nav-link' href='bills'>
+											<fmt:message key='index.bills' />
+									</a></li>
+									<li class='nav-item'><a class='nav-link'
 										href='getapplication'> <fmt:message
 												key='index.getapplication' /></a></li>
 								</c:when>
 								<c:otherwise>
 									<li class='nav-item'><a class='nav-link'
-										href='applications'> <fmt:message
-												key='index.applications' /></a></li>
+										href='applications'> <fmt:message key='index.applications' /></a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
@@ -71,7 +83,26 @@
 			</div>
 		</div>
 	</nav>
-	<img src="/portal_content/images/main/5.jpg" class="d-block w-100">
+	<div id="carouselExampleSlidesOnly" class="carousel slide"
+		data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="getimage?type=main&id=1" class="d-block w-100">
+			</div>
+			<div class="carousel-item">
+				<img src="getimage?type=main&id=2" class="d-block w-100">
+			</div>
+			<div class="carousel-item">
+				<img src="getimage?type=main&id=3" class="d-block w-100">
+			</div>
+			<div class="carousel-item">
+				<img src="getimage?type=main&id=4" class="d-block w-100">
+			</div>
+			<div class="carousel-item">
+				<img src="getimage?type=main&id=5" class="d-block w-100">
+			</div>
+		</div>
+	</div>
 	<p class="text-center">
 		<fmt:message key='index.slogo.first' />
 	</p>

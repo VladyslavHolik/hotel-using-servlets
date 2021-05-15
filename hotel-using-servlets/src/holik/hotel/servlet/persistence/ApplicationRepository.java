@@ -9,4 +9,5 @@ public interface ApplicationRepository {
 	boolean saveApplication(Application application);
 	Optional<Application> getApplicationById(int id);
 	List<Application> getAllApplications();
+	boolean updateApplication(Application application);
 }

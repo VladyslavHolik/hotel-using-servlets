@@ -31,4 +31,8 @@ public class DefaultRoomService implements RoomService {
 		return roomRepository.getSpecificRooms(classId, space, status);
 	}
 
+	@Override
+	public boolean updateRoom(Room room) {
+		return roomRepository.updateRoom(room);
+	}
 }

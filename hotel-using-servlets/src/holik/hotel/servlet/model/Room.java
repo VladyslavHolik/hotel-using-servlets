@@ -57,6 +57,6 @@ public final class Room {
 	}
 	
 	public String getPreview() {
-		return "/portal_content/images/rooms/" + id  + "/1.jpg";
+		return "getimage?type=rooms&id=" + id;
 	}
 }

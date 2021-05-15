@@ -21,6 +21,12 @@ public final class CommandManager {
 		commands.put("application", new ApplicationCommand());
 		commands.put("applications", new ApplicationsCommand());
 		commands.put("getapplicationform", new GetApplicationFormCommand());
+		commands.put("processapplication", new ProcessApplicationCommand());
+		commands.put("getmyapplications", new GetMyApplications());
+		commands.put("getimage", new GetImage());
+		commands.put("book", new BookRoomCommand());
+		commands.put("bills", new GetBillsCommand());
+		commands.put("pay", new PayBillCommand());
 	}
 	
 	public static Command get(String commandName) {

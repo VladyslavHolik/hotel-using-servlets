@@ -24,6 +24,7 @@
 
 				<form action="" method="post">
 					<input type="hidden" name="command" value="processapplication" />
+					<input type="hidden" name="applicationid" value="${application.id}"/>
 					<div class="mb-3">
 						<label class="form-label"><fmt:message
 								key='applicationform.name' /> ${user.firstName}
@@ -40,7 +41,7 @@
 					<div class="mb-3">
 						<div class="mb-3">
 							<label class="form-label"><fmt:message key='applicationform.choice' /></label> 
-							<select class="form-select" name="choice">
+							<select class="form-select" name="choice" required>
 							<option selected value="decline"><fmt:message key='applicationform.decline' /></option>
 										
 							<c:forEach items="${rooms}" var="room">

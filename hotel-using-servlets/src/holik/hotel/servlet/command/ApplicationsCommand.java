@@ -1,6 +1,7 @@
 package holik.hotel.servlet.command;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import holik.hotel.servlet.model.Application;
+import holik.hotel.servlet.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 
@@ -21,8 +23,14 @@ public class ApplicationsCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		List<Application> applications = applicationService.getAllApplications();
-		request.setAttribute("applications", applications);
+		List<Application> allApplications = applicationService.getAllApplications();
+		List<Application> requestedApplications = new ArrayList<>();
+		for (Application application : allApplications) {
+			if (application.getStatus().equals(ApplicationStatus.REQUESTED)) {
+				requestedApplications.add(application);
+			}
+		}
+		request.setAttribute("applications", requestedApplications);
 		return "WEB-INF/applications.jsp";
 	}
 

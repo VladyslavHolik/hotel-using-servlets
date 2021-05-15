@@ -9,4 +9,5 @@ public interface RoomRepository {
 	List<Room> getAllRooms();
 	Optional<Room> getRoomById(int id);
 	List<Room> getSpecificRooms(int classId, int space, int status);
+	boolean updateRoom(Room room);
 }

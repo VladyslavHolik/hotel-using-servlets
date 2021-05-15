@@ -13,19 +13,21 @@ import holik.hotel.servlet.command.CommandManager;
 import holik.hotel.servlet.path.PathParser;
 
 public class MainController extends HttpServlet {
-    private static final Logger LOG = Logger.getLogger(MainController.class);  
-    private static final int REDIRECT_OFFSET = 9;
-	
+	private static final Logger LOG = Logger.getLogger(MainController.class);
+	private static final int REDIRECT_OFFSET = 9;
+
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		manage(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		manage(request, response);
 	}
-	
+
 	private void manage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String commandName;
 		if ("POST".equals(request.getMethod())) {
@@ -36,10 +38,12 @@ public class MainController extends HttpServlet {
 		Command command = CommandManager.get(commandName);
 		LOG.debug("Request with command " + command);
 		String page = command.execute(request, response);
-		if (page != null && !page.startsWith("redirect:")) {
-			request.getRequestDispatcher(page).forward(request, response);
-		} else {
-			response.sendRedirect(page.substring(REDIRECT_OFFSET));
+		if (page != null) {
+			if (!page.startsWith("redirect:")) {
+				request.getRequestDispatcher(page).forward(request, response);
+			} else {
+				response.sendRedirect(page.substring(REDIRECT_OFFSET));
+			}
 		}
 	}
 }

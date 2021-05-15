@@ -121,4 +121,35 @@ public class DefaultRoomRepository implements RoomRepository {
 		return result;
 	}
 
+	@Override
+	public boolean updateRoom(Room room) {
+		boolean result = false;
+		Optional<Room> storedRoom = getRoomById(room.getId());
+		if (storedRoom.isPresent()) {
+			Connection connection = DBManager.getConnection();
+			if (connection != null) {
+				try {
+					String sql = "UPDATE Rooms SET number=?, price=?, space=?, class=?, status=? WHERE id=?";
+					PreparedStatement statement = connection.prepareStatement(sql);
+					statement.setString(1, room.getNumber());
+					statement.setInt(2, room.getPrice());
+					statement.setInt(3, room.getSpace());
+					statement.setInt(4, room.getRoomClass().getId());
+					statement.setObject(5, room.getStatus().getId());
+					statement.setInt(6, room.getId());
+					result = statement.execute();
+				} catch (SQLException exception) {
+					String message = exception.getLocalizedMessage();
+					LOG.error("SQL exception occurred: " + message);
+					DBManager.rollbackAndClose(connection);
+				} finally {
+					if (connection != null) {
+						DBManager.commitAndClose(connection);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
 }

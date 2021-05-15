@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.model.Application;
+import holik.hotel.servlet.model.ApplicationStatus;
 import holik.hotel.servlet.model.RoomClass;
 import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
@@ -95,6 +96,7 @@ public class ApplicationCommand implements Command {
 		application.setRoomClass(RoomClass.getRoomClassFromId(roomClassId));
 		application.setDatetimeOfArrival(arrival);
 		application.setDatetimeOfLeaving(leaving);
+		application.setStatus(ApplicationStatus.REQUESTED);
 
 		LOG.debug("Saving application " + application);
 		applicationService.saveApplication(application);

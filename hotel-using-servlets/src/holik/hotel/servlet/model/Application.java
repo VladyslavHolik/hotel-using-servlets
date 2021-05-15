@@ -6,9 +6,12 @@ public final class Application {
 	private int id;
 	private int userId;
 	private int space;
+	private int roomId;
 	private RoomClass roomClass;
+	private ApplicationStatus status;
 	private LocalDateTime datetimeOfArrival;
 	private LocalDateTime datetimeOfLeaving;
+	private LocalDateTime datetimeOfBooking;
 
 	public int getId() {
 		return id;
@@ -56,5 +59,29 @@ public final class Application {
 
 	public void setDatetimeOfLeaving(LocalDateTime datetimeOfLeaving) {
 		this.datetimeOfLeaving = datetimeOfLeaving;
+	}
+
+	public int getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
+	}
+
+	public ApplicationStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ApplicationStatus status) {
+		this.status = status;
+	}
+
+	public LocalDateTime getDatetimeOfBooking() {
+		return datetimeOfBooking;
+	}
+
+	public void setDatetimeOfBooking(LocalDateTime datetimeOfBooking) {
+		this.datetimeOfBooking = datetimeOfBooking;
 	}
 }

@@ -59,7 +59,7 @@
 		</init-param>
 		<init-param>
 			<param-name>user</param-name>
-			<param-value>getapplication application</param-value>
+			<param-value>getapplication application getmyapplications book bills pay</param-value>
 		</init-param>
 		<init-param>
 			<param-name>common</param-name>
@@ -67,7 +67,7 @@
 		</init-param>
 		<init-param>
 			<param-name>out-of-control</param-name>
-			<param-value>login home getlogin signup getsignup rooms room language sorting</param-value>
+			<param-value>login home getlogin signup getsignup rooms room language sorting getimage</param-value>
 		</init-param>
 	</filter>
 
