@@ -1,6 +1,5 @@
 package holik.hotel.servlet.service;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 import holik.hotel.servlet.model.User;

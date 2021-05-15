@@ -20,6 +20,7 @@ public final class CommandManager {
 		commands.put("getapplication", new GetApplicationCommand());
 		commands.put("application", new ApplicationCommand());
 		commands.put("applications", new ApplicationsCommand());
+		commands.put("getapplicationform", new GetApplicationFormCommand());
 	}
 	
 	public static Command get(String commandName) {

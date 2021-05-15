@@ -22,8 +22,12 @@ public class ApplicationsCommand implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		List<Application> applications = applicationService.getAllApplications();
-		
+		request.setAttribute("applications", applications);
 		return "WEB-INF/applications.jsp";
 	}
 
+	@Override
+	public String toString() {
+		return "Applications Command";
+	}
 }

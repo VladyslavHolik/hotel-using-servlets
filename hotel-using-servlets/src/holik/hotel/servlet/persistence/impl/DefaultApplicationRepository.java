@@ -67,7 +67,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 					application.setSpace(resultSet.getInt("space"));
 					application.setDatetimeOfArrival(resultSet.getObject("arrival", LocalDateTime.class));
 					application.setDatetimeOfLeaving(resultSet.getObject("leaving", LocalDateTime.class));
-					application.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class_id")));
+					application.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
 				}
 			} catch (SQLException exception) {
 				String message = exception.getLocalizedMessage();
@@ -99,7 +99,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 					application.setSpace(resultSet.getInt("space"));
 					application.setDatetimeOfArrival(resultSet.getObject("arrival", LocalDateTime.class));
 					application.setDatetimeOfLeaving(resultSet.getObject("leaving", LocalDateTime.class));
-					application.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class_id")));
+					application.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
 					list.add(application);
 				}
 			} catch (SQLException exception) {
@@ -114,5 +114,4 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 		}
 		return list;
 	}
-
 }

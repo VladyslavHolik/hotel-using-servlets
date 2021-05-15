@@ -49,8 +49,39 @@ public class DefaultUserRepository implements UserRepository {
 
 	@Override
 	public Optional<User> getUserById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = null;
+		Connection connection = null;
+		try {
+			connection = DBManager.getConnection();
+			if (connection != null) {
+
+				String sql = "SELECT * FROM Users WHERE id=?";
+				PreparedStatement statement = connection.prepareStatement(sql);
+				statement.setInt(1, id);
+
+				ResultSet resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					user = new User();
+					user.setId(resultSet.getInt("id"));
+					user.setFirstName(resultSet.getString("first_name"));
+					user.setLastName(resultSet.getString("last_name"));
+					user.setPhone(resultSet.getString("phone"));
+					user.setEmail(resultSet.getString("email"));
+					user.setRole(Role.getRole(resultSet.getInt("role_id")));
+					user.setSalt(resultSet.getString("salt"));
+					user.setPasswordHash(resultSet.getString("password_hash"));
+				}
+			}
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+			DBManager.rollbackAndClose(connection);
+		} finally {
+			if (connection != null) {
+				DBManager.commitAndClose(connection);
+			}
+		}
+		return Optional.ofNullable(user);
 	}
 
 	@Override

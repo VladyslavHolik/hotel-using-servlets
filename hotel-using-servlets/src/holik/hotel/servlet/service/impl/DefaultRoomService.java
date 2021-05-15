@@ -26,4 +26,9 @@ public class DefaultRoomService implements RoomService {
 		return roomRepository.getRoomById(id);
 	}
 
+	@Override
+	public List<Room> getSpecificRooms(int classId, int space, int status) {
+		return roomRepository.getSpecificRooms(classId, space, status);
+	}
+
 }

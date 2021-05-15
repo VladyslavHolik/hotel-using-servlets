@@ -2,7 +2,6 @@ package holik.hotel.servlet.persistence;
 
 import java.util.Optional;
 
-import holik.hotel.servlet.exception.DaoException;
 import holik.hotel.servlet.model.User;
 
 public interface UserRepository {

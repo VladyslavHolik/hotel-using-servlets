@@ -41,30 +41,50 @@
 				</div>
 			</div>
 		</form>
-		<c:forEach items="${roomsContent.rooms}" var="room">
-			<div class="row" style="padding: 10px;">
+		<div class="container">
+			<div class="row">
 				<div class="col-1"></div>
-				<div class="col-4">
-					<img class="w-100" src="${room.preview}" />
+				<div class="col-10">
+					<div class="list-group">
+
+						<c:forEach items="${roomsContent.rooms}" var="room">
+							<a href="room?id=${room.id}" class="list-group-item list-group-item-action">
+								<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">Room №${room.number}</h5>
+								</div>
+								<div class="row" style="padding: 10px;">
+									<div class="col-5">
+										<img class="w-100" src="${room.preview}" />
+									</div>
+									<div class="col-7">
+										<p>
+											<fmt:message key="rooms.class" />
+											: ${room.roomClass}
+										</p>
+										<p>
+											<fmt:message key="rooms.space" />
+											: ${room.space}
+										</p>
+										<p>
+											<fmt:message key="rooms.price" />
+											${room.price}$ p/h <br />
+										</p>
+										<p>
+											<fmt:message key="rooms.status" />
+											: ${room.status.toString().toLowerCase()}
+										</p>
+									</div>
+								</div>
+							</a>
+						</c:forEach>
+					</div>
 				</div>
-				<div class="col-7">
-					<a href="room?id=${room.id}">Room</a>
-					<h2>
-						<fmt:message key="rooms.class" />
-						: ${room.roomClass}
-						<fmt:message key="rooms.space" />
-						: ${room.space}
-						<fmt:message key="rooms.price" />
-						${room.price}$ p/h <br />
-						<fmt:message key="rooms.status" />
-						: ${room.status.toString().toLowerCase()}
-					</h2>
-				</div>
+				<div class="col-1"></div>
 			</div>
-		</c:forEach>
+		</div>
 	</div>
 	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
+		<ul class="pagination justify-content-center p-3">
 			<c:forEach items="${roomsContent.pages}" var="page">
 				<li class="${page.pageClass}">
 					<form method="post" action="">

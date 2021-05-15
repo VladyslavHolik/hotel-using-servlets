@@ -85,4 +85,40 @@ public class DefaultRoomRepository implements RoomRepository {
 		return Optional.ofNullable(room);
 	}
 
+	@Override
+	public List<Room> getSpecificRooms(int classId, int space, int status) {
+		List<Room> result = new ArrayList<>();
+		Connection connection = null;
+		try {
+			connection = DBManager.getConnection();
+			if (connection != null) {
+				String sql = "select * from rooms where class=? and space=? and status=?";
+				PreparedStatement statement = connection.prepareStatement(sql);
+				statement.setInt(1, classId);
+				statement.setInt(2, space);
+				statement.setInt(3, status);
+				ResultSet resultSet = statement.executeQuery();
+				while (resultSet.next()) {
+					Room room = new Room();
+					room.setId(resultSet.getInt("id"));
+					room.setNumber(resultSet.getString("number"));
+					room.setPrice(resultSet.getInt("price"));
+					room.setSpace(resultSet.getInt("space"));
+					room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
+					room.setStatus(RoomStatus.getStatusById(resultSet.getInt("status")));
+					result.add(room);
+				}
+			}
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+			DBManager.rollbackAndClose(connection);
+		} finally {
+			if (connection != null) {
+				DBManager.commitAndClose(connection);
+			}
+		}
+		return result;
+	}
+
 }
