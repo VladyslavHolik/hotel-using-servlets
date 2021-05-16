@@ -23,6 +23,10 @@ import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.service.impl.DefaultRoomService;
 import holik.hotel.servlet.service.impl.DefaultUserService;
 
+/**
+ * Command that forward manager to page with application,
+ * so that manager could decline or set room for it.
+ */
 public final class GetApplicationFormCommand implements Command {
 	private ApplicationService applicationService;
 	private UserService userService;
@@ -58,6 +62,16 @@ public final class GetApplicationFormCommand implements Command {
 			return forward;
 		}
 
+		List<Room> availableRooms = getAvailableRooms(application);
+
+		User user = userOptional.get();
+		request.setAttribute("user", user);
+		request.setAttribute("application", application);
+		request.setAttribute("rooms", availableRooms);
+		return Path.PAGE__APPLICATION_FORM;
+	}
+
+	private List<Room> getAvailableRooms(Application application) {
 		List<Room> allRooms = roomService.getAllRooms();
 		List<Room> availableRooms = new ArrayList<>();
 
@@ -72,12 +86,7 @@ public final class GetApplicationFormCommand implements Command {
 				}
 			}
 		}
-
-		User user = userOptional.get();
-		request.setAttribute("user", user);
-		request.setAttribute("application", application);
-		request.setAttribute("rooms", availableRooms);
-		return "WEB-INF/applicationForm.jsp";
+		return availableRooms;
 	}
 
 	private boolean isAvailable(Room room, Application application) {
@@ -97,7 +106,6 @@ public final class GetApplicationFormCommand implements Command {
 				result = false;
 				break;
 			}
-
 		}
 		return result;
 	}

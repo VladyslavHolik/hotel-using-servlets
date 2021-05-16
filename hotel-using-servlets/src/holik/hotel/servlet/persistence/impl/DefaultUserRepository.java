@@ -13,6 +13,9 @@ import holik.hotel.servlet.model.User;
 import holik.hotel.servlet.persistence.UserRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 
+/**
+ * Default realization of user repository.
+ */
 public class DefaultUserRepository implements UserRepository {
 	private static final Logger LOG = Logger.getLogger(DefaultUserRepository.class);
 

@@ -2,6 +2,9 @@ package holik.hotel.servlet.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Application model.
+ */
 public final class Application {
 	private int id;
 	private int userId;

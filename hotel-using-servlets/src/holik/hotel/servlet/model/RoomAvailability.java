@@ -1,5 +1,8 @@
 package holik.hotel.servlet.model;
 
+/**
+ * Enumeration of room availability.
+ */
 public enum RoomAvailability {
 	AVAILABLE(1), UNAVAILABLE(2);
 	

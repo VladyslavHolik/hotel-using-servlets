@@ -12,6 +12,9 @@ import javax.crypto.spec.PBEKeySpec;
 
 import org.apache.catalina.tribes.util.Arrays;
 
+/**
+ * Default realization of encoder.
+ */
 public final class DefaultEncoder implements Encoder {
 	private static final Logger LOG = Logger.getLogger(DefaultEncoder.class.getName());
 	private static final String ALGORITHM = "PBKDF2WithHmacSHA1";

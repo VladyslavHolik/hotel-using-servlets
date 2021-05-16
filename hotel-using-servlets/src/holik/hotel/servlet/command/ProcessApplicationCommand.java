@@ -15,6 +15,9 @@ import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 
+/**
+ * Command that processes manager's choice for application.
+ */
 public class ProcessApplicationCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(ProcessApplicationCommand.class);
 	private ApplicationService applicationService;
@@ -42,17 +45,19 @@ public class ProcessApplicationCommand implements Command {
 		Optional<Application> optionalApplication = applicationService.getApplicationById(id);
 		if (optionalApplication.isPresent()) {
 			Application application = optionalApplication.get();
-			if ("decline".equals(choice)) {
-				application.setStatus(ApplicationStatus.DECLINED);
-			} else {
-				int roomId = Integer.parseInt(choice);
-				application.setRoomId(roomId);
-				application.setStatus(ApplicationStatus.APPROVED);
-			}
-			applicationService.updateApplication(application);
-			
+			processApplication(choice, application);
 		}
 		return "redirect:applications";
 	}
 
+	private void processApplication(String choice, Application application) {
+		if ("decline".equals(choice)) {
+			application.setStatus(ApplicationStatus.DECLINED);
+		} else {
+			int roomId = Integer.parseInt(choice);
+			application.setRoomId(roomId);
+			application.setStatus(ApplicationStatus.APPROVED);
+		}
+		applicationService.updateApplication(application);
+	}
 }

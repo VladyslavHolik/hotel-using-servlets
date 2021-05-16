@@ -6,6 +6,9 @@ import java.util.List;
 
 import holik.hotel.servlet.model.Room;
 
+/**
+ * Enumeration for sorting methods.
+ */
 public enum SortMethod {
 	PRICE(new PriceComparator()), SPACE(new SpaceComparator()),
 	CLASS(new ClassComparator()), STATUS(new StatusComparator());

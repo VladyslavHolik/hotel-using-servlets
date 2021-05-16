@@ -14,6 +14,9 @@ import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 
+/**
+ * Command that is responsible for paying bill.
+ */
 public class PayBillCommand implements Command {
 	private ApplicationService applicationService;
 

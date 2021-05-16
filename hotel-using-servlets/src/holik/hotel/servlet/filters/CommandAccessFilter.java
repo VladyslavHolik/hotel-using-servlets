@@ -22,6 +22,9 @@ import holik.hotel.servlet.model.Role;
 import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.path.PathParser;
 
+/**
+ * Filter that manages access for all commands;
+ */
 public class CommandAccessFilter implements Filter {
 	private static final Logger LOG = Logger.getLogger(CommandAccessFilter.class);
 
@@ -37,10 +40,7 @@ public class CommandAccessFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		LOG.debug("Filter starts");
-
 		if (accessAllowed(request)) {
-			LOG.debug("Filter finished");
 			chain.doFilter(request, response);
 		} else {
 			String errorMessasge = "You do not have permission to access the requested resource";
@@ -81,19 +81,15 @@ public class CommandAccessFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig config) throws ServletException {
-		LOG.info("Initialisation of CommandAccessFilter");
-
 		accessMap.put(Role.MANAGER, asList(config.getInitParameter("manager")));
 		accessMap.put(Role.USER, asList(config.getInitParameter("user")));
-		LOG.info("Access map - " + accessMap);
+		LOG.debug("Access map - " + accessMap);
 
 		commons = asList(config.getInitParameter("common"));
-		LOG.info("Commons - " + commons);
+		LOG.debug("Commons - " + commons);
 
 		outOfControl = asList(config.getInitParameter("out-of-control"));
-		LOG.info("OutOfControl - " + outOfControl);
-
-		LOG.info("Initialisation of CommandAccessFilter finished");
+		LOG.debug("OutOfControl - " + outOfControl);
 	}
 
 	private List<String> asList(String string) {

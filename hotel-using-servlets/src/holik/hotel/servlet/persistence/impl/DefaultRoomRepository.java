@@ -17,6 +17,9 @@ import holik.hotel.servlet.model.RoomAvailability;
 import holik.hotel.servlet.persistence.RoomRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 
+/**
+ * Default realization of room repository.
+ */
 public class DefaultRoomRepository implements RoomRepository {
 	private static final Logger LOG = Logger.getLogger(DefaultRoomRepository.class);
 
@@ -151,5 +154,4 @@ public class DefaultRoomRepository implements RoomRepository {
 		}
 		return result;
 	}
-
 }

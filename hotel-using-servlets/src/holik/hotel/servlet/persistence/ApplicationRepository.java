@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import holik.hotel.servlet.model.Application;
 
+/**
+ * Interface for application repository.
+ */
 public interface ApplicationRepository {
 	boolean saveApplication(Application application);
 	Optional<Application> getApplicationById(int id);

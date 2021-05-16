@@ -4,6 +4,9 @@ import java.util.List;
 
 import holik.hotel.servlet.model.Room;
 
+/**
+ * Class that is used for storing data for rooms page.
+ */
 public final class RoomsContent {
 	private List<Room> rooms;
 	private List<Page> pages;

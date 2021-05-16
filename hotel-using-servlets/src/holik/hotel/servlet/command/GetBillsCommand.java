@@ -15,11 +15,15 @@ import holik.hotel.servlet.model.Application;
 import holik.hotel.servlet.model.ApplicationStatus;
 import holik.hotel.servlet.model.Bill;
 import holik.hotel.servlet.model.Room;
+import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.RoomService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.service.impl.DefaultRoomService;
 
+/**
+ * Command that forwards user to page that contains his bills.
+ */
 public class GetBillsCommand implements Command {
 	private ApplicationService applicationService;
 	private RoomService roomService;
@@ -35,6 +39,13 @@ public class GetBillsCommand implements Command {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userId");
 		List<Application> allApplications = applicationService.getAllApplications();
+		List<Bill> bills = getUserBills(userId, allApplications);
+		
+		request.setAttribute("bills", bills);
+		return Path.PAGE__BILLS;
+	}
+
+	private List<Bill> getUserBills(int userId, List<Application> allApplications) {
 		List<Bill> bills = new ArrayList<>();
 		
 		for (Application application : allApplications) {
@@ -57,9 +68,7 @@ public class GetBillsCommand implements Command {
 				}
 			}
 		}
-		
-		request.setAttribute("bills", bills);
-		return "WEB-INF/bills.jsp";
+		return bills;
 	}
 
 }

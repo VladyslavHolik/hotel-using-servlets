@@ -7,13 +7,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import holik.hotel.servlet.path.Path;
+
+/**
+ * Command that forward user to form for creating application.
+ */
 public final class GetApplicationCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		request.setAttribute("minTime", LocalDateTime.now().plusDays(1).toString().substring(0, 16));
-		return "WEB-INF/application.jsp";
+		return Path.PAGE__APPLICATION;
 	}
 
 }

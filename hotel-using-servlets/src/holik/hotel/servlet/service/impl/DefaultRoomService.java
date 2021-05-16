@@ -8,8 +8,10 @@ import holik.hotel.servlet.persistence.RoomRepository;
 import holik.hotel.servlet.persistence.impl.DefaultRoomRepository;
 import holik.hotel.servlet.service.RoomService;
 
+/**
+ * Default realization of room service.
+ */
 public class DefaultRoomService implements RoomService {
-
 	private RoomRepository roomRepository;
 	
 	public DefaultRoomService() {

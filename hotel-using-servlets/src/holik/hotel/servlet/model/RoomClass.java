@@ -1,5 +1,8 @@
 package holik.hotel.servlet.model;
 
+/**
+ * Enumeration of room classes.
+ */
 public enum RoomClass {
 	Apartment(1), Balcony(2), ConnectedRooms(3), Business(4), Bedroom(5), DeLuxe(6),
 	Duplex(7), FamilyRoom(8), HoneymoonRoom(9), President(10), Standart(11);

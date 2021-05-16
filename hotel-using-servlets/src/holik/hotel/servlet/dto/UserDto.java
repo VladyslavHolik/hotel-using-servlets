@@ -1,5 +1,8 @@
 package holik.hotel.servlet.dto;
 
+/**
+ * Class that is used for storing user inputed data.
+ */
 public class UserDto {
 	private String firstName;
 	private String lastName;

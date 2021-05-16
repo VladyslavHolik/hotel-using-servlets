@@ -11,6 +11,10 @@ import holik.hotel.servlet.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 
+/**
+ * Runnable class that is responsible for declining unpaid orders.
+ * The application will be declined if more than 48 hours have passed since the time of booking.
+ */
 public class BookingRemover implements Runnable {
 	private static final Logger LOG = Logger.getLogger(BookingRemover.class);
 	private ApplicationService applicationService;

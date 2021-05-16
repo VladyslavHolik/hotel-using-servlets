@@ -14,6 +14,9 @@ import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.RoomService;
 import holik.hotel.servlet.service.impl.DefaultRoomService;
 
+/**
+ * Command that forward user to room page.
+ */
 public class RoomCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(RoomCommand.class);
 	private RoomService roomService;
@@ -30,8 +33,7 @@ public class RoomCommand implements Command {
 		String errorMessage = null;
 		String forward = Path.PAGE__ERROR_PAGE;
 
-		Optional<Room> optionalRoom = null;
-		optionalRoom = roomService.getRoomById(roomId);
+		Optional<Room> optionalRoom = roomService.getRoomById(roomId);
 
 		if (optionalRoom.isEmpty()) {
 			errorMessage = "Room with this id doesn't exist";
@@ -41,11 +43,11 @@ public class RoomCommand implements Command {
 		
 		LOG.debug("Setting attribute room");
 		request.setAttribute("room", optionalRoom.get());
-		return "WEB-INF/room.jsp";
+		return Path.PAGE__ROOM;
 	}
 
 	@Override
 	public String toString() {
-		return "RoomCommand []";
+		return "RoomCommand";
 	}
 }

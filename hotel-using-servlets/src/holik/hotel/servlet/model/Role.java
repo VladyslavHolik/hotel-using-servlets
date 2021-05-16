@@ -1,5 +1,8 @@
 package holik.hotel.servlet.model;
 
+/**
+ * Enumeration of user roles.
+ */
 public enum Role {
 	MANAGER(1), USER(2);
 	

@@ -10,9 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import holik.hotel.servlet.model.Application;
 import holik.hotel.servlet.model.ApplicationStatus;
+import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 
+/**
+ * Command that is responsible for forwarding user to applications page.
+ */
 public class ApplicationsCommand implements Command {
 	private ApplicationService applicationService;
 	
@@ -31,7 +35,7 @@ public class ApplicationsCommand implements Command {
 			}
 		}
 		request.setAttribute("applications", requestedApplications);
-		return "WEB-INF/applications.jsp";
+		return Path.PAGE__APPLICATIONS;
 	}
 
 	@Override

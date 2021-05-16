@@ -25,6 +25,9 @@ import holik.hotel.servlet.service.RoomService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.service.impl.DefaultRoomService;
 
+/**
+ * Command that forward user to rooms page.
+ */
 public class RoomsCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(RoomsCommand.class);
 	private RoomService roomService;
@@ -47,8 +50,7 @@ public class RoomsCommand implements Command {
 		String errorMessage = null;
 		String forward = Path.PAGE__ERROR_PAGE;
 
-		List<Room> allRooms = null;
-		allRooms = roomService.getAllRooms();
+		List<Room> allRooms = roomService.getAllRooms();
 		if (allRooms == null) {
 			errorMessage = "Something went wrong";
 			request.setAttribute("errorMessage", errorMessage);
@@ -56,22 +58,9 @@ public class RoomsCommand implements Command {
 			return forward;
 		}
 		
-		List<Room> availableRooms = new ArrayList<>();
-		for (Room room : allRooms) {
-			if (RoomAvailability.AVAILABLE.equals(room.getAvailability())) {
-				room.setRoomStatus(getRoomStatus(room));
-				availableRooms.add(room);
-			}
-		}
+		List<Room> availableRooms = getAvailableRooms(allRooms);
 		
-		HttpSession session = request.getSession();
-		Object methodObject = session.getAttribute("sort");
-		SortMethod method = null;
-		if (methodObject == null) {
-			method = SortMethod.CLASS;
-		} else {
-			method = (SortMethod) methodObject;
-		}
+		SortMethod method = getSortMethod(request);
 		sort(availableRooms, method);
 
 		int numberOfPages = (int) Math.ceil(availableRooms.size() / 4.0);
@@ -82,6 +71,25 @@ public class RoomsCommand implements Command {
 			return forward;
 		}
 
+		RoomsContent roomsContent = getRoomsContent(pageNumber, numberOfPages);
+		List<Room> roomsOnPage = getRoomsOnPage(pageNumber, availableRooms);
+
+		roomsContent.setRooms(roomsOnPage);
+		request.setAttribute("roomsContent", roomsContent);
+		return Path.PAGE__ROOMS;
+	}
+
+	private List<Room> getRoomsOnPage(int pageNumber, List<Room> availableRooms) {
+		int startRoomIndex = (pageNumber - 1) * 4;
+		int endRoomIndex = startRoomIndex + 3 > availableRooms.size() - 1 ? availableRooms.size() - 1 : startRoomIndex + 3;
+		List<Room> roomsOnPage = new ArrayList<>();
+		for (int i = startRoomIndex; i <= endRoomIndex; i++) {
+			roomsOnPage.add(availableRooms.get(i));
+		}
+		return roomsOnPage;
+	}
+
+	private RoomsContent getRoomsContent(int pageNumber, int numberOfPages) {
 		RoomsContent roomsContent = new RoomsContent();
 		List<RoomsContent.Page> pages = new ArrayList<>();
 		for (int currentPage = 1; currentPage <= numberOfPages; currentPage++) {
@@ -95,17 +103,30 @@ public class RoomsCommand implements Command {
 			pages.add(page);
 		}
 		roomsContent.setPages(pages);
+		return roomsContent;
+	}
 
-		int startRoomIndex = (pageNumber - 1) * 4;
-		int endRoomIndex = startRoomIndex + 3 > availableRooms.size() - 1 ? availableRooms.size() - 1 : startRoomIndex + 3;
-		List<Room> roomsOnPage = new ArrayList<>();
-		for (int i = startRoomIndex; i <= endRoomIndex; i++) {
-			roomsOnPage.add(availableRooms.get(i));
+	private SortMethod getSortMethod(HttpServletRequest request) {
+		SortMethod method;
+		HttpSession session = request.getSession();
+		Object methodObject = session.getAttribute("sort");
+		if (methodObject == null) {
+			method = SortMethod.CLASS;
+		} else {
+			method = (SortMethod) methodObject;
 		}
+		return method;
+	}
 
-		roomsContent.setRooms(roomsOnPage);
-		request.setAttribute("roomsContent", roomsContent);
-		return "WEB-INF/rooms.jsp";
+	private List<Room> getAvailableRooms(List<Room> allRooms) {
+		List<Room> availableRooms = new ArrayList<>();
+		for (Room room : allRooms) {
+			if (RoomAvailability.AVAILABLE.equals(room.getAvailability())) {
+				room.setRoomStatus(getRoomStatus(room));
+				availableRooms.add(room);
+			}
+		}
+		return availableRooms;
 	}
 
 	private void sort(List<Room> rooms, SortMethod method) {

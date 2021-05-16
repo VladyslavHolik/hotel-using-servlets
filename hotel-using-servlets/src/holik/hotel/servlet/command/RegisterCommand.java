@@ -16,6 +16,9 @@ import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.UserService;
 import holik.hotel.servlet.service.impl.DefaultUserService;
 
+/**
+ * Command that registers user.
+ */
 public class RegisterCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(RegisterCommand.class);
 	private UserService userService;

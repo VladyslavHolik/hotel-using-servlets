@@ -16,6 +16,9 @@ import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 
+/**
+ * Command that is responsible for booking room.
+ */
 public class BookRoomCommand implements Command {
 	private ApplicationService applicationService;
 
@@ -49,9 +52,7 @@ public class BookRoomCommand implements Command {
 			int currentUserId = (int) session.getAttribute("userId");
 			if (currentUserId == originUserId) {
 				if (isAvailable(application)) {
-					application.setStatus(ApplicationStatus.BOOKED);
-					application.setDatetimeOfBooking(LocalDateTime.now());
-					applicationService.updateApplication(application);
+					bookRoom(application);
 				} else {
 					errorMessage = "Sorry, that room is already booked";
 					request.setAttribute("errorMessage", errorMessage);
@@ -64,6 +65,12 @@ public class BookRoomCommand implements Command {
 			}
 		}
 		return "redirect:home";
+	}
+
+	private void bookRoom(Application application) {
+		application.setStatus(ApplicationStatus.BOOKED);
+		application.setDatetimeOfBooking(LocalDateTime.now());
+		applicationService.updateApplication(application);
 	}
 
 	private boolean isAvailable(Application application) {

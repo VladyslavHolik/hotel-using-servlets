@@ -19,6 +19,9 @@ import holik.hotel.servlet.service.impl.DefaultUserService;
 import holik.hotel.servlet.util.DefaultEncoder;
 import holik.hotel.servlet.util.Encoder;
 
+/**
+ * Command that authenticates user.
+ */
 public class LoginCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(LoginCommand.class);
 	private UserService userService;
@@ -52,9 +55,7 @@ public class LoginCommand implements Command {
 			try {
 				Encoder encoder = new DefaultEncoder();
 				if (encoder.areHashesEqual(salt, hash, password)) {
-					HttpSession session = request.getSession();
-					session.setAttribute("userId", user.getId());
-					session.setAttribute("userRole", user.getRole());
+					authenticateUser(request, user);
 				} else {
 					errorMessage = "Email or password is incorrect";
 					request.setAttribute("errorMessage", errorMessage);
@@ -68,6 +69,12 @@ public class LoginCommand implements Command {
 			}
 		}
 		return "redirect:home";
+	}
+
+	private void authenticateUser(HttpServletRequest request, User user) {
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", user.getId());
+		session.setAttribute("userRole", user.getRole());
 	}
 
 	@Override

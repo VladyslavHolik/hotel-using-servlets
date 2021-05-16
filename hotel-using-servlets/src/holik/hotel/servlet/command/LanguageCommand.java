@@ -12,6 +12,9 @@ import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.path.Path;
 
+/**
+ * Command that sets preferred language for interface.
+ */
 public class LanguageCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(LanguageCommand.class);
 	

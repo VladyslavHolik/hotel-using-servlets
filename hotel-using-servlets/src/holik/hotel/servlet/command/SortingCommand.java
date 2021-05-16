@@ -12,6 +12,9 @@ import org.apache.log4j.Logger;
 import holik.hotel.servlet.command.sort.SortMethod;
 import holik.hotel.servlet.path.Path;
 
+/**
+ * Command that sets sorting method.
+ */
 public class SortingCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(SortingCommand.class);
 	

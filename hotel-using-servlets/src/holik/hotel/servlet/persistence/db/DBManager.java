@@ -10,6 +10,9 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Class that realizes actions with database.
+ */
 public final class DBManager {
 	private static final Logger LOG = Logger.getLogger(DBManager.class);
 	

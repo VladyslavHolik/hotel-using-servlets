@@ -10,6 +10,9 @@ import holik.hotel.servlet.model.User;
 import holik.hotel.servlet.util.DefaultEncoder;
 import holik.hotel.servlet.util.Encoder;
 
+/**
+ * Mapping class for user.
+ */
 public final class UserMapper {
 	public static User getUserFromDto(UserDto userDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		Encoder encoder = new DefaultEncoder();

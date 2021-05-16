@@ -18,6 +18,9 @@ import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 
+/**
+ * Command that is responsible for creating application.
+ */
 public class ApplicationCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(ApplicationCommand.class);
 	private ApplicationService applicationService;
@@ -87,6 +90,14 @@ public class ApplicationCommand implements Command {
 			return forward;
 		}
 
+		createApplication(request, space, roomClassId, arrival, leaving);
+
+		return "redirect:home";
+
+	}
+
+	private void createApplication(HttpServletRequest request, int space, int roomClassId, LocalDateTime arrival,
+			LocalDateTime leaving) {
 		Application application = new Application();
 		application.setSpace(space);
 
@@ -100,9 +111,6 @@ public class ApplicationCommand implements Command {
 
 		LOG.debug("Saving application " + application);
 		applicationService.saveApplication(application);
-
-		return "redirect:home";
-
 	}
 
 	private void setInvalidSpaceError(HttpServletRequest request) {

@@ -3,6 +3,9 @@ package holik.hotel.servlet.command;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that is responsible for getting command realizations.
+ */
 public final class CommandManager {
 	private static Map<String, Command> commands = new HashMap<String, Command>();
 	
@@ -27,6 +30,7 @@ public final class CommandManager {
 		commands.put("book", new BookRoomCommand());
 		commands.put("bills", new GetBillsCommand());
 		commands.put("pay", new PayBillCommand());
+		commands.put("unknownCommand", new UnknownCommand());
 	}
 	
 	public static Command get(String commandName) {

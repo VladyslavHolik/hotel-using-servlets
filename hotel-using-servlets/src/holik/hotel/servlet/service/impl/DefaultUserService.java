@@ -7,8 +7,10 @@ import holik.hotel.servlet.persistence.UserRepository;
 import holik.hotel.servlet.persistence.impl.DefaultUserRepository;
 import holik.hotel.servlet.service.UserService;
 
+/**
+ * Default realization of user service.
+ */
 public class DefaultUserService implements UserService {
-
 	private final UserRepository userRepository;
 	
 	public DefaultUserService() {
@@ -29,5 +31,4 @@ public class DefaultUserService implements UserService {
 	public Optional<User> getUserByEmail(String email) {
 		return userRepository.getUserByEmail(email);
 	}
-
 }

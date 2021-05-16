@@ -10,6 +10,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Command for getting image data.
+ */
 public class GetImage implements Command {
 
 	@Override
@@ -20,12 +23,8 @@ public class GetImage implements Command {
 		response.setContentType("image/jpeg");
 		ServletOutputStream out = response.getOutputStream();
 		String webappPath = request.getServletContext().getRealPath("/");
-		String imagePath;
-		if ("main".equals(type)) {
-			imagePath = webappPath + "WEB-INF/images/" + type + "/" + id + ".jpg";
-		} else {
-			imagePath = webappPath + "WEB-INF/images/" + type + "/" + id + "/1.jpg";
-		}
+		String imagePath = getImagePath(type, id, webappPath);
+
 		FileInputStream inputStream = new FileInputStream(imagePath);
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
 		BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(out);
@@ -39,6 +38,16 @@ public class GetImage implements Command {
 		bufferedOutputStream.close();
 		out.close();
 		return null;
+	}
+
+	private String getImagePath(String type, String id, String webappPath) {
+		String imagePath;
+		if ("main".equals(type)) {
+			imagePath = webappPath + "WEB-INF/images/" + type + "/" + id + ".jpg";
+		} else {
+			imagePath = webappPath + "WEB-INF/images/" + type + "/" + id + "/1.jpg";
+		}
+		return imagePath;
 	}
 
 }

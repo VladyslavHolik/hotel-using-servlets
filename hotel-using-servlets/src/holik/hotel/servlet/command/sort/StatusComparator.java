@@ -3,6 +3,9 @@ package holik.hotel.servlet.command.sort;
 import java.util.Comparator;
 import holik.hotel.servlet.model.Room;
 
+/**
+ * Comparator that is used for sorting by room status.
+ */
 public class StatusComparator implements Comparator<Room> {
 
 	@Override

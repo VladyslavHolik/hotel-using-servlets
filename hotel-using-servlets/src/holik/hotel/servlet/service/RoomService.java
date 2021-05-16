@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import holik.hotel.servlet.model.Room;
 
+/**
+ * Interface for room service.
+ */
 public interface RoomService {
 	List<Room> getAllRooms();
 	Optional<Room> getRoomById(int id);

@@ -18,6 +18,9 @@ import holik.hotel.servlet.model.RoomClass;
 import holik.hotel.servlet.persistence.ApplicationRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 
+/**
+ * Default realization of application repository.
+ */
 public class DefaultApplicationRepository implements ApplicationRepository {
 	private static final Logger LOG = Logger.getLogger(DefaultApplicationRepository.class);
 

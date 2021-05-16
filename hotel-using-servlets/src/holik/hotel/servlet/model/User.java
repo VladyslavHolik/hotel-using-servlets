@@ -1,5 +1,8 @@
 package holik.hotel.servlet.model;
 
+/**
+ * User model.
+ */
 public final class User {
 	private int id;
 	private String firstName;

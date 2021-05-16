@@ -1,5 +1,8 @@
 package holik.hotel.servlet.model;
 
+/**
+ * Enumeration of application statuses.
+ */
 public enum ApplicationStatus {
 	REQUESTED(1), APPROVED(2), DECLINED(3), BOOKED(4), PAID(5);
 	

@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 import holik.hotel.servlet.model.Room;
 
+/**
+ * Comparator that is used for sorting by room price.
+ */
 public class PriceComparator implements Comparator<Room> {
 
 	@Override

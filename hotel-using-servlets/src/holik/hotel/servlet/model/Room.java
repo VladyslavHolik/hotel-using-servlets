@@ -1,5 +1,8 @@
 package holik.hotel.servlet.model;
 
+/**
+ * Room model.
+ */
 public final class Room {
 	private int id;
 	private String number;

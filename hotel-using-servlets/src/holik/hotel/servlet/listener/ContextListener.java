@@ -14,6 +14,9 @@ import org.apache.log4j.PropertyConfigurator;
 
 import holik.hotel.servlet.booking.BookingRemover;
 
+/**
+ * Listener that sets log4j and executor.
+ */
 public class ContextListener implements ServletContextListener {
 	private static final Logger LOG = Logger.getLogger(ContextListener.class);
 	private static final int RATE = 5;

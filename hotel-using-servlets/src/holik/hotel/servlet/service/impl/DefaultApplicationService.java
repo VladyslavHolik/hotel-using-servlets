@@ -8,6 +8,9 @@ import holik.hotel.servlet.persistence.ApplicationRepository;
 import holik.hotel.servlet.persistence.impl.DefaultApplicationRepository;
 import holik.hotel.servlet.service.ApplicationService;
 
+/**
+ * Default realization of application service.
+ */
 public class DefaultApplicationService implements ApplicationService {
 	private ApplicationRepository applicationRepository;
 	

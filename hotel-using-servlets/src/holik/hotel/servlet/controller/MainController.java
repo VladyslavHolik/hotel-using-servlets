@@ -12,6 +12,9 @@ import holik.hotel.servlet.command.Command;
 import holik.hotel.servlet.command.CommandManager;
 import holik.hotel.servlet.path.PathParser;
 
+/**
+ * Controller that is responsible for managing all requests.
+ */
 public class MainController extends HttpServlet {
 	private static final Logger LOG = Logger.getLogger(MainController.class);
 	private static final int REDIRECT_OFFSET = 9;

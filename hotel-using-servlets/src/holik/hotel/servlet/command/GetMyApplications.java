@@ -12,38 +12,47 @@ import javax.servlet.http.HttpSession;
 
 import holik.hotel.servlet.model.Application;
 import holik.hotel.servlet.model.ApplicationStatus;
+import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 
+/**
+ * Command that forwards user to his applications.
+ */
 public class GetMyApplications implements Command {
 	private ApplicationService applicationService;
-	
+
 	public GetMyApplications() {
 		applicationService = new DefaultApplicationService();
 	}
-	
+
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		List<Application> userApprovedApplications = getApprovedApplications(request);
+		request.setAttribute("applications", userApprovedApplications);
+		return Path.PAGE__MY_APPLICATIONS;
+	}
+
+	private List<Application> getApprovedApplications(HttpServletRequest request) {
 		List<Application> allAplications = applicationService.getAllApplications();
-		List<Application> userApprovedAplications = new ArrayList<>();
+		List<Application> approvedApplications = new ArrayList<>();
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userId");
 		for (Application application : allAplications) {
-			if (application.getUserId() == userId && 
-					ApplicationStatus.APPROVED.equals(application.getStatus()) && isAvailable(application)) {
-				userApprovedAplications.add(application);
+			if (application.getUserId() == userId && ApplicationStatus.APPROVED.equals(application.getStatus())
+					&& isAvailable(application)) {
+				approvedApplications.add(application);
 			}
 		}
-		request.setAttribute("applications", userApprovedAplications);
-		return "WEB-INF/myapplications.jsp";
+		return approvedApplications;
 	}
 
 	private boolean isAvailable(Application application) {
 		boolean result = true;
 		LocalDateTime datetimeOfArrival = application.getDatetimeOfArrival();
 		LocalDateTime datetimeOfLeaving = application.getDatetimeOfLeaving();
-		
+
 		List<Application> allApplications = applicationService.getAllApplications();
 		for (Application originApplication : allApplications) {
 			if ((originApplication.getStatus().equals(ApplicationStatus.PAID)
@@ -56,7 +65,6 @@ public class GetMyApplications implements Command {
 				result = false;
 				break;
 			}
-
 		}
 		return result;
 	}

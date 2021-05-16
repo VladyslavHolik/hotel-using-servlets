@@ -1,5 +1,8 @@
 package holik.hotel.servlet.path;
 
+/**
+ * Class that is used to get command from URI.
+ */
 public final class PathParser {
 
 	public static String getCommand(String uri) {

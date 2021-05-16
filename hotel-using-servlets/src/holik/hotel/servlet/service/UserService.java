@@ -4,6 +4,9 @@ import java.util.Optional;
 
 import holik.hotel.servlet.model.User;
 
+/**
+ * Interface for user service.
+ */
 public interface UserService {
 	boolean createUser(User user);
 	Optional<User> getUserById(int id);
