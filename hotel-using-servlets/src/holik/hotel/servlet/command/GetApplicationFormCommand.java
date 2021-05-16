@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import holik.hotel.servlet.model.Application;
 import holik.hotel.servlet.model.ApplicationStatus;
 import holik.hotel.servlet.model.Room;
+import holik.hotel.servlet.model.RoomAvailability;
 import holik.hotel.servlet.model.User;
 import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
@@ -60,12 +61,18 @@ public final class GetApplicationFormCommand implements Command {
 		List<Room> allRooms = roomService.getAllRooms();
 		List<Room> availableRooms = new ArrayList<>();
 
-		for (Room room : allRooms) {
-			if (room.getRoomClass().equals(application.getRoomClass()) && room.getSpace() == application.getSpace()
-					&& isAvailable(room, application)) {
-				availableRooms.add(room);
+		LocalDateTime datetimeOfLeaving = application.getDatetimeOfLeaving();
+		LocalDateTime now = LocalDateTime.now();
+		
+		if (!datetimeOfLeaving.isBefore(now)) {
+			for (Room room : allRooms) {
+				if (RoomAvailability.AVAILABLE.equals(room.getAvailability()) && room.getRoomClass().equals(application.getRoomClass())
+						&& room.getSpace() == application.getSpace() && isAvailable(room, application)) {
+					availableRooms.add(room);
+				}
 			}
 		}
+
 		User user = userOptional.get();
 		request.setAttribute("user", user);
 		request.setAttribute("application", application);
@@ -77,11 +84,11 @@ public final class GetApplicationFormCommand implements Command {
 		boolean result = true;
 		LocalDateTime datetimeOfArrival = application.getDatetimeOfArrival();
 		LocalDateTime datetimeOfLeaving = application.getDatetimeOfLeaving();
-
+		
 		List<Application> allApplications = applicationService.getAllApplications();
 		for (Application originApplication : allApplications) {
-			if ((originApplication.getStatus().equals(ApplicationStatus.PAID) || originApplication.getStatus().equals(ApplicationStatus.BOOKED))
-					&& originApplication.getId() != application.getId()
+			if ((originApplication.getStatus().equals(ApplicationStatus.PAID)
+					|| originApplication.getStatus().equals(ApplicationStatus.BOOKED))
 					&& originApplication.getRoomId() == room.getId()
 					&& (isBetween(datetimeOfArrival, originApplication.getDatetimeOfArrival(),
 							originApplication.getDatetimeOfLeaving())

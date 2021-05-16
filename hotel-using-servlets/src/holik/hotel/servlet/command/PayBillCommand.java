@@ -10,21 +10,15 @@ import javax.servlet.http.HttpSession;
 
 import holik.hotel.servlet.model.Application;
 import holik.hotel.servlet.model.ApplicationStatus;
-import holik.hotel.servlet.model.Room;
-import holik.hotel.servlet.model.RoomStatus;
 import holik.hotel.servlet.path.Path;
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.RoomService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
-import holik.hotel.servlet.service.impl.DefaultRoomService;
 
 public class PayBillCommand implements Command {
 	private ApplicationService applicationService;
-	private RoomService roomService;
 
 	public PayBillCommand() {
 		applicationService = new DefaultApplicationService();
-		roomService = new DefaultRoomService();
 	}
 
 	@Override
@@ -42,13 +36,7 @@ public class PayBillCommand implements Command {
 			Application application = optionalApplication.get();
 			if (userId == application.getUserId() && ApplicationStatus.BOOKED.equals(application.getStatus())) {
 				application.setStatus(ApplicationStatus.PAID);
-				Optional<Room> optionalRoom = roomService.getRoomById(application.getRoomId());
-				if (optionalRoom.isPresent()) {
-					Room room = optionalRoom.get();
-					room.setStatus(RoomStatus.BUSY);
-					roomService.updateRoom(room);
-					applicationService.updateApplication(application);
-				}
+				applicationService.updateApplication(application);
 			} else {
 				errorMessage = "Invalid request";
 				request.setAttribute("errorMessage", errorMessage);

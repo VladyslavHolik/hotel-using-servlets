@@ -1,7 +1,7 @@
 package holik.hotel.servlet.model;
 
 public enum RoomStatus {
-	FREE(1), BOOKED(2), BUSY(3), UNAVAILABLE(4);
+	FREE(1), BOOKED(2), BUSY(3);
 	
 	private int id;
 	

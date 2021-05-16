@@ -1,6 +1,7 @@
 package holik.hotel.servlet.command;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class GetMyApplications implements Command {
 		int userId = (int) session.getAttribute("userId");
 		for (Application application : allAplications) {
 			if (application.getUserId() == userId && 
-					ApplicationStatus.APPROVED.equals(application.getStatus())) {
+					ApplicationStatus.APPROVED.equals(application.getStatus()) && isAvailable(application)) {
 				userApprovedAplications.add(application);
 			}
 		}
@@ -38,4 +39,29 @@ public class GetMyApplications implements Command {
 		return "WEB-INF/myapplications.jsp";
 	}
 
+	private boolean isAvailable(Application application) {
+		boolean result = true;
+		LocalDateTime datetimeOfArrival = application.getDatetimeOfArrival();
+		LocalDateTime datetimeOfLeaving = application.getDatetimeOfLeaving();
+		
+		List<Application> allApplications = applicationService.getAllApplications();
+		for (Application originApplication : allApplications) {
+			if ((originApplication.getStatus().equals(ApplicationStatus.PAID)
+					|| originApplication.getStatus().equals(ApplicationStatus.BOOKED))
+					&& originApplication.getRoomId() == application.getRoomId()
+					&& (isBetween(datetimeOfArrival, originApplication.getDatetimeOfArrival(),
+							originApplication.getDatetimeOfLeaving())
+							|| isBetween(datetimeOfLeaving, originApplication.getDatetimeOfArrival(),
+									originApplication.getDatetimeOfLeaving()))) {
+				result = false;
+				break;
+			}
+
+		}
+		return result;
+	}
+
+	private boolean isBetween(LocalDateTime origin, LocalDateTime start, LocalDateTime end) {
+		return origin.isAfter(start) && origin.isBefore(end);
+	}
 }

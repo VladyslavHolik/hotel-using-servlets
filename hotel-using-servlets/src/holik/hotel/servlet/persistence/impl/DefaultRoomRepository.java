@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.model.Room;
 import holik.hotel.servlet.model.RoomClass;
-import holik.hotel.servlet.model.RoomStatus;
+import holik.hotel.servlet.model.RoomAvailability;
 import holik.hotel.servlet.persistence.RoomRepository;
 import holik.hotel.servlet.persistence.db.DBManager;
 
@@ -37,7 +37,7 @@ public class DefaultRoomRepository implements RoomRepository {
 					room.setPrice(resultSet.getInt("price"));
 					room.setSpace(resultSet.getInt("space"));
 					room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
-					room.setStatus(RoomStatus.getStatusById(resultSet.getInt("status")));
+					room.setAvailability(RoomAvailability.getStatusById(resultSet.getInt("status")));
 					result.add(room);
 				}
 			}
@@ -105,7 +105,7 @@ public class DefaultRoomRepository implements RoomRepository {
 					room.setPrice(resultSet.getInt("price"));
 					room.setSpace(resultSet.getInt("space"));
 					room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
-					room.setStatus(RoomStatus.getStatusById(resultSet.getInt("status")));
+					room.setAvailability(RoomAvailability.getStatusById(resultSet.getInt("status")));
 					result.add(room);
 				}
 			}
@@ -135,7 +135,7 @@ public class DefaultRoomRepository implements RoomRepository {
 					statement.setInt(2, room.getPrice());
 					statement.setInt(3, room.getSpace());
 					statement.setInt(4, room.getRoomClass().getId());
-					statement.setObject(5, room.getStatus().getId());
+					statement.setObject(5, room.getAvailability().getId());
 					statement.setInt(6, room.getId());
 					result = statement.execute();
 				} catch (SQLException exception) {

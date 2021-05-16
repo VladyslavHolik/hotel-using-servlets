@@ -1,0 +1,42 @@
+package holik.hotel.servlet.booking;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import holik.hotel.servlet.model.Application;
+import holik.hotel.servlet.model.ApplicationStatus;
+import holik.hotel.servlet.service.ApplicationService;
+import holik.hotel.servlet.service.impl.DefaultApplicationService;
+
+public class BookingRemover implements Runnable {
+	private static final Logger LOG = Logger.getLogger(BookingRemover.class);
+	private ApplicationService applicationService;
+	
+	public BookingRemover() {
+		applicationService = new DefaultApplicationService();
+	}
+	
+	@Override
+	public void run() {
+		LOG.debug("Job starts");
+		
+		List<Application> allApplications = applicationService.getAllApplications();
+		LocalDateTime now = LocalDateTime.now();
+		
+		for (Application application : allApplications) {
+			if (ApplicationStatus.BOOKED.equals(application.getStatus())) {
+				LocalDateTime booked = application.getDatetimeOfBooking();
+				Duration duration = Duration.between(booked, now);
+				if (duration.toHours() > 48) {
+					LOG.debug("Setting application to declined, id " + application.getId());
+					application.setStatus(ApplicationStatus.DECLINED);
+					applicationService.updateApplication(application);
+				}
+			}
+		}
+	}
+
+}

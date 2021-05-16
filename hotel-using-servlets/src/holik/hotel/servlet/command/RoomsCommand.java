@@ -1,6 +1,7 @@
 package holik.hotel.servlet.command;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,17 +14,25 @@ import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.command.sort.SortMethod;
 import holik.hotel.servlet.dto.RoomsContent;
+import holik.hotel.servlet.model.Application;
+import holik.hotel.servlet.model.ApplicationStatus;
 import holik.hotel.servlet.model.Room;
+import holik.hotel.servlet.model.RoomAvailability;
+import holik.hotel.servlet.model.RoomStatus;
 import holik.hotel.servlet.path.Path;
+import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.RoomService;
+import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.service.impl.DefaultRoomService;
 
 public class RoomsCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(RoomsCommand.class);
 	private RoomService roomService;
+	private ApplicationService applicationService;
 
 	public RoomsCommand() {
 		roomService = new DefaultRoomService();
+		applicationService = new DefaultApplicationService();
 	}
 
 	@Override
@@ -38,14 +47,23 @@ public class RoomsCommand implements Command {
 		String errorMessage = null;
 		String forward = Path.PAGE__ERROR_PAGE;
 
-		List<Room> rooms = null;
-		rooms = roomService.getAllRooms();
-		if (rooms == null) {
+		List<Room> allRooms = null;
+		allRooms = roomService.getAllRooms();
+		if (allRooms == null) {
 			errorMessage = "Something went wrong";
 			request.setAttribute("errorMessage", errorMessage);
 			LOG.error("Nothing returned while getting all rooms");
 			return forward;
 		}
+		
+		List<Room> availableRooms = new ArrayList<>();
+		for (Room room : allRooms) {
+			if (RoomAvailability.AVAILABLE.equals(room.getAvailability())) {
+				room.setRoomStatus(getRoomStatus(room));
+				availableRooms.add(room);
+			}
+		}
+		
 		HttpSession session = request.getSession();
 		Object methodObject = session.getAttribute("sort");
 		SortMethod method = null;
@@ -54,9 +72,9 @@ public class RoomsCommand implements Command {
 		} else {
 			method = (SortMethod) methodObject;
 		}
-		sort(rooms, method);
+		sort(availableRooms, method);
 
-		int numberOfPages = (int) Math.ceil(rooms.size() / 4.0);
+		int numberOfPages = (int) Math.ceil(availableRooms.size() / 4.0);
 
 		if (pageNumber > numberOfPages || pageNumber < 1) {
 			errorMessage = "Incorrect page number";
@@ -79,10 +97,10 @@ public class RoomsCommand implements Command {
 		roomsContent.setPages(pages);
 
 		int startRoomIndex = (pageNumber - 1) * 4;
-		int endRoomIndex = startRoomIndex + 3 > rooms.size() - 1 ? rooms.size() - 1 : startRoomIndex + 3;
+		int endRoomIndex = startRoomIndex + 3 > availableRooms.size() - 1 ? availableRooms.size() - 1 : startRoomIndex + 3;
 		List<Room> roomsOnPage = new ArrayList<>();
 		for (int i = startRoomIndex; i <= endRoomIndex; i++) {
-			roomsOnPage.add(rooms.get(i));
+			roomsOnPage.add(availableRooms.get(i));
 		}
 
 		roomsContent.setRooms(roomsOnPage);
@@ -92,6 +110,27 @@ public class RoomsCommand implements Command {
 
 	private void sort(List<Room> rooms, SortMethod method) {
 		method.sort(rooms);
+	}
+	
+	private RoomStatus getRoomStatus(Room room) {
+		RoomStatus result = RoomStatus.FREE;
+		int roomId = room.getId();
+		List<Application> allApplications = applicationService.getAllApplications();
+		LocalDateTime now = LocalDateTime.now();
+		for (Application application : allApplications) {
+			if (application.getRoomId() == roomId && now.isAfter(application.getDatetimeOfArrival())
+					&& now.isBefore(application.getDatetimeOfLeaving())) {
+				if (application.getDatetimeOfBooking() != null) {
+					if (ApplicationStatus.BOOKED.equals(application.getStatus())) {
+						result = RoomStatus.BOOKED;
+					} else {
+						result = RoomStatus.BUSY;
+					}
+					break;
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override

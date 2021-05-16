@@ -6,7 +6,8 @@ public final class Room {
 	private int price;
 	private int space;
 	private RoomClass roomClass;
-	private RoomStatus status;
+	private RoomAvailability availability;
+	private RoomStatus roomStatus;
 	
 	public int getId() {
 		return id;
@@ -48,15 +49,23 @@ public final class Room {
 		this.roomClass = roomClass;
 	}
 	
-	public RoomStatus getStatus() {
-		return status;
+	public RoomAvailability getAvailability() {
+		return availability;
 	}
 	
-	public void setStatus(RoomStatus status) {
-		this.status = status;
+	public void setAvailability(RoomAvailability availability) {
+		this.availability = availability;
 	}
 	
 	public String getPreview() {
 		return "getimage?type=rooms&id=" + id;
 	}
+
+	public RoomStatus getRoomStatus() {
+		return roomStatus;
+	}
+
+	public void setRoomStatus(RoomStatus roomStatus) {
+		this.roomStatus = roomStatus;
+	}	
 }
