@@ -1,0 +1,9 @@
+<Context>
+  <Resource name="jdbc/ST4DB"
+  			auth="Container" 
+  			type="javax.sql.DataSource"
+			maxActive="20" maxIdle="5" maxWait="10000"
+			username="servlet_app" password="ksdfh3kldsf9" 
+			driverClassName="org.postgresql.Driver"
+			url="jdbc:postgresql://localhost:5432/hotel_servlets"/>
+</Context>
