@@ -15,10 +15,10 @@ import java.util.List;
 /**
  * Command that forwards user to his applications.
  */
-public class GetMyApplications implements Command {
+public class GetMyApplicationsCommand implements Command {
 	private final ApplicationService applicationService;
 
-	public GetMyApplications() {
+	public GetMyApplicationsCommand() {
 		applicationService = ApplicationContext.getApplicationService();
 	}
 

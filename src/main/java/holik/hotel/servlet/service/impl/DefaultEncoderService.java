@@ -27,7 +27,7 @@ public class DefaultEncoderService implements EncoderService {
 		return salt;
 	}
 
-	public byte[] generateHash(byte[] salt, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public byte[] generateHash(byte[] salt, String password) {
 		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
 		byte[] hash = null;
 		try {
@@ -35,15 +35,15 @@ public class DefaultEncoderService implements EncoderService {
 			hash = factory.generateSecret(spec).getEncoded();
 		} catch (NoSuchAlgorithmException e) {
 			LOG.severe("Cannot find algorithm for hashing");
-			throw e;
+			throw new IllegalStateException("Invalid algorithm");
 		} catch (InvalidKeySpecException e) {
 			LOG.severe("Invalid keySpec");
-			throw e;
+			throw new IllegalStateException("Invalid keySpec");
 		}
 		return hash;
 	}
 
-	public boolean areHashesEqual(String salt, String hash, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public boolean areHashesEqual(String salt, String hash, String password) {
 		byte[] saltMassive = Base64.getDecoder().decode(salt);
 		byte[] hashMassive = Base64.getDecoder().decode(hash);
 

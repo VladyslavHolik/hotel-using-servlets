@@ -1,6 +1,7 @@
 package holik.hotel.servlet.web.validator;
 
 import holik.hotel.servlet.repository.model.Application;
+import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.repository.model.RoomClass;
 import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.service.ApplicationService;
@@ -93,6 +94,14 @@ public class ApplicationValidator {
         if (!applicationService.canBeBooked(application)) {
             // Can't book room when it is already booked or paid
             throw new IllegalArgumentException("Room is already booked");
+        }
+    }
+
+    public void validateForPaying(int applicationId, int userId) {
+        Optional<Application> optionalApplication = applicationService.getApplicationById(applicationId);
+        Application application = optionalApplication.orElseThrow(() -> new IllegalArgumentException("Invalid application id"));
+        if (!(userId == application.getUserId() && ApplicationStatus.BOOKED.equals(application.getStatus()))) {
+            throw new IllegalStateException("Application can't be paid");
         }
     }
 }

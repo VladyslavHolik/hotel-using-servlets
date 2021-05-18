@@ -1,57 +1,44 @@
 package holik.hotel.servlet.web.command;
 
-import java.io.IOException;
-import java.util.Optional;
+import holik.hotel.servlet.repository.model.Application;
+import holik.hotel.servlet.repository.model.ApplicationStatus;
+import holik.hotel.servlet.service.ApplicationService;
+import holik.hotel.servlet.web.context.ApplicationContext;
+import holik.hotel.servlet.web.validator.ApplicationValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.repository.model.Application;
-import holik.hotel.servlet.repository.model.ApplicationStatus;
-import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.impl.DefaultApplicationService;
-import holik.hotel.servlet.web.context.ApplicationContext;
+import java.io.IOException;
 
 /**
  * Command that is responsible for paying bill.
  */
 public class PayBillCommand implements Command {
-	private final ApplicationService applicationService;
+    private final ApplicationService applicationService;
+    private final ApplicationValidator applicationValidator;
 
-	public PayBillCommand() {
-		applicationService = ApplicationContext.getApplicationService();
-	}
+    public PayBillCommand() {
+        applicationService = ApplicationContext.getApplicationService();
+        applicationValidator = ApplicationContext.getApplicationValidator();
+    }
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("userId");
-		int applicationId = Integer.parseInt(request.getParameter("id"));
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("userId");
+        int applicationId = Integer.parseInt(request.getParameter("id"));
 
-		String errorMessage = null;
-		String forward = Pages.PAGE_ERROR_PAGE;
+        applicationValidator.validateForPaying(applicationId, userId);
 
-		Optional<Application> optionalApplication = applicationService.getApplicationById(applicationId);
-		if (optionalApplication.isPresent()) {
-			Application application = optionalApplication.get();
-			if (userId == application.getUserId() && ApplicationStatus.BOOKED.equals(application.getStatus())) {
-				application.setStatus(ApplicationStatus.PAID);
-				applicationService.updateApplication(application);
-			} else {
-				errorMessage = "Invalid request";
-				request.setAttribute("errorMessage", errorMessage);
-				return forward;
-			}
-		} else {
-			errorMessage = "Application doesn't exist";
-			request.setAttribute("errorMessage", errorMessage);
-			return forward;
-		}
-		return "redirect:home";
-	}
+        Application application = applicationService.getApplicationById(applicationId).orElseThrow();
+
+        application.setStatus(ApplicationStatus.PAID);
+        applicationService.updateApplication(application);
+
+        return "redirect:home";
+    }
 
 }

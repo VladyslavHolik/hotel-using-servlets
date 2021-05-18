@@ -25,12 +25,12 @@
 					<input type="hidden" name="command" value="login" />
 					<div class="mb-3">
 						<label class="form-label"><fmt:message key='signin.email' /></label>
-						<input type="email" class="form-control" name="email">
+						<input type="email" class="form-control" name="email" required>
 					</div>
 					<div class="mb-3">
 						<label class="form-label"><fmt:message
 								key='signin.password' /></label> <input type="password"
-							class="form-control" name="password">
+							class="form-control" name="password" required>
 					</div>
 					<button type="submit" class="btn btn-primary">
 						<fmt:message key='signin.signin' />
