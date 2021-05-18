@@ -78,6 +78,11 @@ public class DefaultApplicationService implements ApplicationService {
 		return freeRooms;
 	}
 
+	@Override
+	public List<Application> getBookedApplicationsByUserId(int userId) {
+		return applicationRepository.getBookedApplicationsByUserId(userId);
+	}
+
 	private boolean isAvailable(Room room, Application application) {
 		boolean result = true;
 		LocalDateTime datetimeOfArrival = application.getDatetimeOfArrival();

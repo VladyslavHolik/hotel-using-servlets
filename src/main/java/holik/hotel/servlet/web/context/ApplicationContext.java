@@ -6,14 +6,8 @@ import holik.hotel.servlet.repository.UserRepository;
 import holik.hotel.servlet.repository.impl.DefaultApplicationRepository;
 import holik.hotel.servlet.repository.impl.DefaultRoomRepository;
 import holik.hotel.servlet.repository.impl.DefaultUserRepository;
-import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.EncoderService;
-import holik.hotel.servlet.service.RoomService;
-import holik.hotel.servlet.service.UserService;
-import holik.hotel.servlet.service.impl.DefaultApplicationService;
-import holik.hotel.servlet.service.impl.DefaultEncoderService;
-import holik.hotel.servlet.service.impl.DefaultRoomService;
-import holik.hotel.servlet.service.impl.DefaultUserService;
+import holik.hotel.servlet.service.*;
+import holik.hotel.servlet.service.impl.*;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
 
 public class ApplicationContext {
@@ -21,6 +15,7 @@ public class ApplicationContext {
     private static final EncoderService encoderService;
     private static final RoomService roomService;
     private static final UserService userService;
+    private static final BillService billService;
     private static final ApplicationValidator applicationValidator;
 
     static {
@@ -31,6 +26,7 @@ public class ApplicationContext {
         roomService = new DefaultRoomService(roomRepository);
         applicationService = new DefaultApplicationService(applicationRepository, roomService);
         userService = new DefaultUserService(userRepository);
+        billService = new DefaultBillService(applicationService, roomService);
         encoderService = new DefaultEncoderService();
         applicationValidator = new ApplicationValidator(applicationService, userService);
     }
@@ -54,4 +50,8 @@ public class ApplicationContext {
     public static ApplicationValidator getApplicationValidator() {
         return applicationValidator;
     };
+
+    public static BillService getBillService() {
+        return billService;
+    }
 }

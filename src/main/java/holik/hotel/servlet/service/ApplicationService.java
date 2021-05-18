@@ -18,4 +18,5 @@ public interface ApplicationService {
 	boolean canBeBooked(Application application);
 	void bookRoom(Application application);
 	List<Room> getFreeRooms(Application application);
+	List<Application> getBookedApplicationsByUserId(int userId);
 }

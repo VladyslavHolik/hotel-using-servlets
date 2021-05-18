@@ -15,4 +15,5 @@ public interface ApplicationRepository {
 	boolean updateApplication(Application application);
     List<Application> getAllRequestedApplications();
     boolean canBeBooked(Application application);
+	List<Application> getBookedApplicationsByUserId(int userId);
 }
