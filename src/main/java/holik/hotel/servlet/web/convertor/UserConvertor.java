@@ -1,20 +1,18 @@
 package holik.hotel.servlet.web.convertor;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Base64;
-
-import holik.hotel.servlet.service.EncoderService;
-import holik.hotel.servlet.web.dto.UserDto;
 import holik.hotel.servlet.repository.model.Role;
 import holik.hotel.servlet.repository.model.User;
+import holik.hotel.servlet.service.EncoderService;
 import holik.hotel.servlet.service.impl.DefaultEncoderService;
+import holik.hotel.servlet.web.dto.UserDto;
+
+import java.util.Base64;
 
 /**
  * Mapping class for user.
  */
 public class UserConvertor {
-	public static User getUserFromDto(UserDto userDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public static User getUserFromDto(UserDto userDto) {
 		EncoderService encoder = new DefaultEncoderService();
 		byte[] salt = encoder.generateRandomSalt();
 		byte[] hash = encoder.generateHash(salt, userDto.getPassword().trim());
