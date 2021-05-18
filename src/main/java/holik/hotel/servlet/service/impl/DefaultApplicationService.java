@@ -95,6 +95,20 @@ public class DefaultApplicationService implements ApplicationService {
         return readyToBookApplications;
     }
 
+    @Override
+    public void processApplication(int applicationId, String choice) {
+        Optional<Application> optionalApplication = getApplicationById(applicationId);
+        Application application = optionalApplication.orElseThrow();
+        if ("decline".equals(choice)) {
+            application.setStatus(ApplicationStatus.DECLINED);
+        } else {
+            int roomId = Integer.parseInt(choice);
+            application.setRoomId(roomId);
+            application.setStatus(ApplicationStatus.APPROVED);
+        }
+        updateApplication(application);
+    }
+
     private boolean isAvailable(Room room, Application application) {
         boolean result = true;
         LocalDateTime datetimeOfArrival = application.getDatetimeOfArrival();

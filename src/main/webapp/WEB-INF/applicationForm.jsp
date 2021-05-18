@@ -24,7 +24,7 @@
 
 				<form action="" method="post">
 					<input type="hidden" name="command" value="processapplication" />
-					<input type="hidden" name="applicationid" value="${application.id}"/>
+					<input type="hidden" name="applicationId" value="${application.id}"/>
 					<div class="mb-3">
 						<label class="form-label"><fmt:message
 								key='applicationform.name' /> ${user.firstName}

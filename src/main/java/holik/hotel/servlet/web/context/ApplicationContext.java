@@ -9,6 +9,7 @@ import holik.hotel.servlet.repository.impl.DefaultUserRepository;
 import holik.hotel.servlet.service.*;
 import holik.hotel.servlet.service.impl.*;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
+import holik.hotel.servlet.web.validator.ChoiceValidator;
 import holik.hotel.servlet.web.validator.LanguageValidator;
 import holik.hotel.servlet.web.validator.LoginValidator;
 
@@ -21,6 +22,7 @@ public class ApplicationContext {
     private static final ApplicationValidator applicationValidator;
     private static final LanguageValidator languageValidator;
     private static final LoginValidator loginValidator;
+    private static final ChoiceValidator choiceValidator;
 
     static {
         ApplicationRepository applicationRepository = new DefaultApplicationRepository();
@@ -35,6 +37,7 @@ public class ApplicationContext {
         applicationValidator = new ApplicationValidator(applicationService, userService);
         languageValidator = new LanguageValidator();
         loginValidator = new LoginValidator();
+        choiceValidator = new ChoiceValidator();
     }
 
     public static ApplicationService getApplicationService() {
@@ -67,5 +70,9 @@ public class ApplicationContext {
 
     public static LoginValidator getLoginValidator() {
         return loginValidator;
+    }
+
+    public static ChoiceValidator getChoiceValidator() {
+        return choiceValidator;
     }
 }

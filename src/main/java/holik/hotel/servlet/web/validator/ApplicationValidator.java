@@ -60,7 +60,7 @@ public class ApplicationValidator {
     public void validateApplicationId(int applicationId) {
         Optional<Application> applicationOptional = applicationService.getApplicationById(applicationId);
         if (applicationOptional.isEmpty()) {
-            // getting application form for non existing application is invalid
+            // non existing application
             throw new IllegalArgumentException("Invalid application id" + applicationId);
         }
 

@@ -21,4 +21,5 @@ public interface ApplicationService {
 	List<Room> getFreeRooms(Application application);
 	List<Application> getBookedApplicationsByUserId(int userId);
 	List<Application> getReadyToBookApplications(int userId);
+	void processApplication(int applicationId, String choice);
 }

@@ -1,64 +1,38 @@
 package holik.hotel.servlet.web.command;
 
-import java.io.IOException;
-import java.util.Optional;
+import holik.hotel.servlet.service.ApplicationService;
+import holik.hotel.servlet.web.context.ApplicationContext;
+import holik.hotel.servlet.web.validator.ApplicationValidator;
+import holik.hotel.servlet.web.validator.ChoiceValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import holik.hotel.servlet.web.context.ApplicationContext;
-import org.apache.log4j.Logger;
-
-import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.repository.model.Application;
-import holik.hotel.servlet.repository.model.ApplicationStatus;
-import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.impl.DefaultApplicationService;
+import java.io.IOException;
 
 /**
  * Command that processes manager's choice for application.
  */
 public class ProcessApplicationCommand implements Command {
-	private static final Logger LOG = Logger.getLogger(ProcessApplicationCommand.class);
 	private final ApplicationService applicationService;
-	
+	private final ChoiceValidator choiceValidator;
+	private final ApplicationValidator applicationValidator;
+
 	public ProcessApplicationCommand() {
 		applicationService = ApplicationContext.getApplicationService();
+		choiceValidator = ApplicationContext.getChoiceValidator();
+		applicationValidator = ApplicationContext.getApplicationValidator();
 	}
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		int id = Integer.parseInt(request.getParameter("applicationid"));
+		int id = Integer.parseInt(request.getParameter("applicationId"));
 		String choice = request.getParameter("choice");
+		choiceValidator.validateChoice(choice);
+		applicationValidator.validateApplicationId(id);
 
-		String errorMessage = null;
-		String forward = Pages.PAGE_ERROR_PAGE;
-
-		if (choice == null || choice.isEmpty()) {
-			errorMessage = "Invalid choice " + choice;
-			LOG.debug(errorMessage);
-			request.setAttribute("errorMessage", errorMessage);
-			return forward;
-		}
-
-		Optional<Application> optionalApplication = applicationService.getApplicationById(id);
-		if (optionalApplication.isPresent()) {
-			Application application = optionalApplication.get();
-			processApplication(choice, application);
-		}
+		applicationService.processApplication(id, choice);
 		return "redirect:applications";
-	}
-
-	private void processApplication(String choice, Application application) {
-		if ("decline".equals(choice)) {
-			application.setStatus(ApplicationStatus.DECLINED);
-		} else {
-			int roomId = Integer.parseInt(choice);
-			application.setRoomId(roomId);
-			application.setStatus(ApplicationStatus.APPROVED);
-		}
-		applicationService.updateApplication(application);
 	}
 }
