@@ -3,9 +3,9 @@ package holik.hotel.servlet.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import holik.hotel.servlet.model.Application;
-import holik.hotel.servlet.persistence.ApplicationRepository;
-import holik.hotel.servlet.persistence.impl.DefaultApplicationRepository;
+import holik.hotel.servlet.repository.model.Application;
+import holik.hotel.servlet.repository.ApplicationRepository;
+import holik.hotel.servlet.repository.impl.DefaultApplicationRepository;
 import holik.hotel.servlet.service.ApplicationService;
 
 /**

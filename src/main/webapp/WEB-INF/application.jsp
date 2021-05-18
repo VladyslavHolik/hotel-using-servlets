@@ -32,7 +32,7 @@
 					<label class="form-label"><fmt:message
 								key='application.roomclass' /></label> 
 					<select
-						class="form-select" name="roomclass" required>
+						class="form-select" name="roomClass" required>
 						<option selected value="1">Apartment</option>
 						<option value="2">Balcony</option>
 						<option value="3">Connected rooms</option>

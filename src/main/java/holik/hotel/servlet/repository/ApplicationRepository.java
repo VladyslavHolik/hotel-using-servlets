@@ -1,4 +1,4 @@
-package holik.hotel.servlet.service;
+package holik.hotel.servlet.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,9 +6,9 @@ import java.util.Optional;
 import holik.hotel.servlet.repository.model.Application;
 
 /**
- * Interface for application service.
+ * Interface for application repository.
  */
-public interface ApplicationService {
+public interface ApplicationRepository {
 	boolean saveApplication(Application application);
 	Optional<Application> getApplicationById(int id);
 	List<Application> getAllApplications();

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="holik.hotel.servlet.model.Role"%>
+<%@ page import="holik.hotel.servlet.repository.model.Role"%>
 <!DOCTYPE html>
 <html>
 <head>

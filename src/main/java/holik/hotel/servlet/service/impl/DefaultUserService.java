@@ -2,9 +2,9 @@ package holik.hotel.servlet.service.impl;
 
 import java.util.Optional;
 
-import holik.hotel.servlet.model.User;
-import holik.hotel.servlet.persistence.UserRepository;
-import holik.hotel.servlet.persistence.impl.DefaultUserRepository;
+import holik.hotel.servlet.repository.model.User;
+import holik.hotel.servlet.repository.UserRepository;
+import holik.hotel.servlet.repository.impl.DefaultUserRepository;
 import holik.hotel.servlet.service.UserService;
 
 /**

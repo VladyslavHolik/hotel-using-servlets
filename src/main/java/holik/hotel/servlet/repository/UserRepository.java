@@ -1,13 +1,13 @@
-package holik.hotel.servlet.service;
+package holik.hotel.servlet.repository;
 
 import java.util.Optional;
 
 import holik.hotel.servlet.repository.model.User;
 
 /**
- * Interface for user service.
+ * Interface for user repository.
  */
-public interface UserService {
+public interface UserRepository {
 	boolean createUser(User user);
 	Optional<User> getUserById(int id);
 	Optional<User> getUserByEmail(String email);

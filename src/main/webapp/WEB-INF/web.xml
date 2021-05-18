@@ -8,12 +8,12 @@
 	</welcome-file-list>
 
 	<listener>
-		<listener-class>holik.hotel.servlet.listener.ContextListener</listener-class>
+		<listener-class>holik.hotel.servlet.job.listener.ContextListener</listener-class>
 	</listener>
 
 	<servlet>
 		<servlet-name>main</servlet-name>
-		<servlet-class>holik.hotel.servlet.controller.MainController</servlet-class>
+		<servlet-class>holik.hotel.servlet.web.controller.MainController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>main</servlet-name>
@@ -37,12 +37,12 @@
 
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
-		<location>/WEB-INF/jsp/error_page.jsp</location>
+		<location>/WEB-INF/error_page.jsp</location>
 	</error-page>
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/jsp/error_page.jsp</location>
+		<location>/WEB-INF/error_page.jsp</location>
 	</error-page>
 
 	<context-param>
@@ -52,7 +52,7 @@
 
 	<filter>
 		<filter-name>CommandAccessFilter</filter-name>
-		<filter-class>holik.hotel.servlet.filters.CommandAccessFilter</filter-class>
+		<filter-class>holik.hotel.servlet.web.filter.CommandAccessFilter</filter-class>
 		<init-param>
 			<param-name>manager</param-name>
 			<param-value>applications getapplicationform processapplication</param-value>
