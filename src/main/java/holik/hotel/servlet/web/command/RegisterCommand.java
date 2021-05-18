@@ -1,22 +1,14 @@
 package holik.hotel.servlet.web.command;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import holik.hotel.servlet.service.UserService;
 import holik.hotel.servlet.web.context.ApplicationContext;
+import holik.hotel.servlet.web.convertor.UserConvertor;
+import holik.hotel.servlet.web.dto.UserDto;
 import holik.hotel.servlet.web.validator.UserValidator;
 import org.apache.log4j.Logger;
 
-import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.web.convertor.UserConvertor;
-import holik.hotel.servlet.web.dto.UserDto;
-import holik.hotel.servlet.service.UserService;
-import holik.hotel.servlet.service.impl.DefaultUserService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Command that registers user.
@@ -41,6 +33,8 @@ public class RegisterCommand implements Command {
 
         UserDto userDto = new UserDto(firstName, lastName, phone, email, password);
         userValidator.validateUser(userDto);
+
+        LOG.debug("Registering user");
         userService.createUser(UserConvertor.getUserFromDto(userDto));
 
         return "redirect:home";

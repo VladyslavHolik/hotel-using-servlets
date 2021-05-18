@@ -88,7 +88,7 @@ public class DefaultApplicationService implements ApplicationService {
         List<Application> approvedApplications = applicationRepository.getApplicationsByStatus(ApplicationStatus.APPROVED);
         List<Application> readyToBookApplications = new ArrayList<>();
         for (Application application : approvedApplications) {
-            if (canBeBooked(application)) {
+            if (canBeBooked(application) && application.getUserId() == userId) {
                 readyToBookApplications.add(application);
             }
         }
