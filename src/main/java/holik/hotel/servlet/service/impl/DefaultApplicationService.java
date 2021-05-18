@@ -34,6 +34,11 @@ public class DefaultApplicationService implements ApplicationService {
 	}
 
 	@Override
+	public List<Application> getAllRequestedApplications() {
+		return applicationRepository.getAllRequestedApplications();
+	}
+
+	@Override
 	public boolean updateApplication(Application application) {
 		return applicationRepository.updateApplication(application);
 	}

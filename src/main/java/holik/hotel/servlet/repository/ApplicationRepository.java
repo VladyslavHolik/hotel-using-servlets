@@ -13,4 +13,5 @@ public interface ApplicationRepository {
 	Optional<Application> getApplicationById(int id);
 	List<Application> getAllApplications();
 	boolean updateApplication(Application application);
+    List<Application> getAllRequestedApplications();
 }

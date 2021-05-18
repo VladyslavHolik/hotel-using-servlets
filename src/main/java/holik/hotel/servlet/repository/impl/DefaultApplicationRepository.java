@@ -63,14 +63,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 			if (resultSet.next()) {
 				application = new Application();
 				application.setId(id);
-				application.setUserId(resultSet.getInt("user_id"));
-				application.setSpace(resultSet.getInt("space"));
-				application.setRoomId(resultSet.getInt("room_id"));
-				application.setDatetimeOfArrival(resultSet.getObject("arrival", LocalDateTime.class));
-				application.setDatetimeOfLeaving(resultSet.getObject("leaving", LocalDateTime.class));
-				application.setDatetimeOfBooking(resultSet.getObject("booked", LocalDateTime.class));
-				application.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
-				application.setStatus(ApplicationStatus.getStatusById(resultSet.getInt("status")));
+				fillApplication(application, resultSet);
 			}
 		} catch (SQLException exception) {
 			String message = exception.getLocalizedMessage();
@@ -82,6 +75,17 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 		return Optional.ofNullable(application);
 	}
 
+	private void fillApplication(Application application, ResultSet resultSet) throws SQLException {
+		application.setUserId(resultSet.getInt("user_id"));
+		application.setSpace(resultSet.getInt("space"));
+		application.setRoomId(resultSet.getInt("room_id"));
+		application.setDatetimeOfArrival(resultSet.getObject("arrival", LocalDateTime.class));
+		application.setDatetimeOfLeaving(resultSet.getObject("leaving", LocalDateTime.class));
+		application.setDatetimeOfBooking(resultSet.getObject("booked", LocalDateTime.class));
+		application.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
+		application.setStatus(ApplicationStatus.getStatusById(resultSet.getInt("status")));
+	}
+
 	@Override
 	public List<Application> getAllApplications() {
 		List<Application> list = new ArrayList<>();
@@ -89,21 +93,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 		Connection connection = DBManager.getConnection();
 		try {
 			String sql = "select * from applications";
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(sql);
-			while (resultSet.next()) {
-				Application application = new Application();
-				application.setId(resultSet.getInt("id"));
-				application.setUserId(resultSet.getInt("user_id"));
-				application.setSpace(resultSet.getInt("space"));
-				application.setRoomId(resultSet.getInt("room_id"));
-				application.setDatetimeOfArrival(resultSet.getObject("arrival", LocalDateTime.class));
-				application.setDatetimeOfLeaving(resultSet.getObject("leaving", LocalDateTime.class));
-				application.setDatetimeOfBooking(resultSet.getObject("booked", LocalDateTime.class));
-				application.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
-				application.setStatus(ApplicationStatus.getStatusById(resultSet.getInt("status")));
-				list.add(application);
-			}
+			addApplications(list, connection, sql);
 		} catch (SQLException exception) {
 			String message = exception.getLocalizedMessage();
 			LOG.error("SQL exception occurred: " + message);
@@ -140,5 +130,33 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<Application> getAllRequestedApplications() {
+		List<Application> list = new ArrayList<>();
+
+		Connection connection = DBManager.getConnection();
+		try {
+			String sql = "select * from applications where status=1";
+			addApplications(list, connection, sql);
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+		} finally {
+			DBManager.closeConnection(connection);
+		}
+		return list;
+	}
+
+	private void addApplications(List<Application> list, Connection connection, String sql) throws SQLException {
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(sql);
+		while (resultSet.next()) {
+			Application application = new Application();
+			application.setId(resultSet.getInt("id"));
+			fillApplication(application, resultSet);
+			list.add(application);
+		}
 	}
 }

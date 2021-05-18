@@ -1,18 +1,15 @@
 package holik.hotel.servlet.web.command;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import holik.hotel.servlet.repository.model.Application;
+import holik.hotel.servlet.service.ApplicationService;
+import holik.hotel.servlet.service.impl.DefaultApplicationService;
+import holik.hotel.servlet.web.command.constant.Pages;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.repository.model.Application;
-import holik.hotel.servlet.repository.model.ApplicationStatus;
-import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.impl.DefaultApplicationService;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Command that is responsible for forwarding user to applications page.
@@ -27,13 +24,7 @@ public class ApplicationsCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		List<Application> allApplications = applicationService.getAllApplications();
-		List<Application> requestedApplications = new ArrayList<>();
-		for (Application application : allApplications) {
-			if (application.getStatus().equals(ApplicationStatus.REQUESTED)) {
-				requestedApplications.add(application);
-			}
-		}
+		List<Application> requestedApplications = applicationService.getAllRequestedApplications();
 		request.setAttribute("applications", requestedApplications);
 		return Pages.PAGE_APPLICATIONS;
 	}

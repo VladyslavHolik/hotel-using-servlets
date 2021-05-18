@@ -12,5 +12,6 @@ public interface ApplicationService {
 	boolean saveApplication(Application application);
 	Optional<Application> getApplicationById(int id);
 	List<Application> getAllApplications();
+	List<Application> getAllRequestedApplications();
 	boolean updateApplication(Application application);
 }
