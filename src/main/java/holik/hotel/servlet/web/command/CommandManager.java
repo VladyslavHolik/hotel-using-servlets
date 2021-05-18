@@ -30,12 +30,11 @@ public final class CommandManager {
 		commands.put("book", new BookRoomCommand());
 		commands.put("bills", new GetBillsCommand());
 		commands.put("pay", new PayBillCommand());
-		commands.put("unknownCommand", new UnknownCommand());
 	}
 	
 	public static Command get(String commandName) {
 		if (commandName == null || !commands.containsKey(commandName)) {
-			return commands.get("unknownCommand"); 
+			throw new IllegalArgumentException("Unknown command" + commandName);
 		}
 		
 		return commands.get(commandName);
