@@ -26,8 +26,8 @@ public class DefaultApplicationService implements ApplicationService {
 	}
 	
 	@Override
-	public boolean saveApplication(Application application) {
-		return applicationRepository.saveApplication(application);
+	public void saveApplication(Application application) {
+		applicationRepository.saveApplication(application);
 	}
 
 	@Override
@@ -41,13 +41,13 @@ public class DefaultApplicationService implements ApplicationService {
 	}
 
 	@Override
-	public List<Application> getAllRequestedApplications() {
-		return applicationRepository.getAllRequestedApplications();
+	public List<Application> getApplicationsByStatus(ApplicationStatus status) {
+		return applicationRepository.getApplicationsByStatus(status);
 	}
 
 	@Override
-	public boolean updateApplication(Application application) {
-		return applicationRepository.updateApplication(application);
+	public void updateApplication(Application application) {
+		applicationRepository.updateApplication(application);
 	}
 
 	@Override
@@ -81,6 +81,18 @@ public class DefaultApplicationService implements ApplicationService {
 	@Override
 	public List<Application> getBookedApplicationsByUserId(int userId) {
 		return applicationRepository.getBookedApplicationsByUserId(userId);
+	}
+
+	@Override
+	public List<Application> getReadyToBookApplications(int userId) {
+		List<Application> approvedApplications = applicationRepository.getApplicationsByStatus(ApplicationStatus.APPROVED);
+		List<Application> readyToBookApplications = new ArrayList<>();
+		for (Application application : approvedApplications) {
+			if (canBeBooked(application)) {
+				readyToBookApplications.add(application);
+			}
+		}
+		return readyToBookApplications;
 	}
 
 	private boolean isAvailable(Room room, Application application) {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import holik.hotel.servlet.repository.model.Application;
+import holik.hotel.servlet.repository.model.ApplicationStatus;
 
 /**
  * Interface for application repository.
@@ -13,7 +14,7 @@ public interface ApplicationRepository {
 	Optional<Application> getApplicationById(int id);
 	List<Application> getAllApplications();
 	boolean updateApplication(Application application);
-    List<Application> getAllRequestedApplications();
+    List<Application> getApplicationsByStatus(ApplicationStatus status);
     boolean canBeBooked(Application application);
 	List<Application> getBookedApplicationsByUserId(int userId);
 }

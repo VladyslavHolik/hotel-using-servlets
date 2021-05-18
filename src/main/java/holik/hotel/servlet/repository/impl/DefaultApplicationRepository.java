@@ -133,13 +133,20 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     }
 
     @Override
-    public List<Application> getAllRequestedApplications() {
+    public List<Application> getApplicationsByStatus(ApplicationStatus status) {
         List<Application> list = new ArrayList<>();
 
         Connection connection = DBManager.getConnection();
         try {
-            String sql = "select * from applications where status=1";
-            addApplications(list, connection, sql);
+            String sql = "select * from applications where status=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, status.getId());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Application application = new Application();
+                fillApplication(application, resultSet);
+                list.add(application);
+            }
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);

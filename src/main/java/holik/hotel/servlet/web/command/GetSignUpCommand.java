@@ -23,5 +23,4 @@ public class GetSignUpCommand implements Command {
 	public String toString() {
 		return "GetSignUpCommand";
 	}
-
 }

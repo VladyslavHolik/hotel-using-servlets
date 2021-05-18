@@ -9,6 +9,7 @@ import holik.hotel.servlet.repository.impl.DefaultUserRepository;
 import holik.hotel.servlet.service.*;
 import holik.hotel.servlet.service.impl.*;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
+import holik.hotel.servlet.web.validator.LanguageValidator;
 
 public class ApplicationContext {
     private static final ApplicationService applicationService;
@@ -17,6 +18,7 @@ public class ApplicationContext {
     private static final UserService userService;
     private static final BillService billService;
     private static final ApplicationValidator applicationValidator;
+    private static final LanguageValidator languageValidator;
 
     static {
         ApplicationRepository applicationRepository = new DefaultApplicationRepository();
@@ -29,6 +31,7 @@ public class ApplicationContext {
         billService = new DefaultBillService(applicationService, roomService);
         encoderService = new DefaultEncoderService();
         applicationValidator = new ApplicationValidator(applicationService, userService);
+        languageValidator = new LanguageValidator();
     }
 
     public static ApplicationService getApplicationService() {
@@ -53,5 +56,9 @@ public class ApplicationContext {
 
     public static BillService getBillService() {
         return billService;
+    }
+
+    public static LanguageValidator getLanguageValidator() {
+        return languageValidator;
     }
 }

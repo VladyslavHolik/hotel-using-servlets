@@ -1,6 +1,7 @@
 package holik.hotel.servlet.web.command;
 
 import holik.hotel.servlet.repository.model.Application;
+import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.web.command.constant.Pages;
@@ -25,7 +26,7 @@ public class ApplicationsCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		List<Application> requestedApplications = applicationService.getAllRequestedApplications();
+		List<Application> requestedApplications = applicationService.getApplicationsByStatus(ApplicationStatus.REQUESTED);
 		request.setAttribute("applications", requestedApplications);
 		return Pages.PAGE_APPLICATIONS;
 	}
