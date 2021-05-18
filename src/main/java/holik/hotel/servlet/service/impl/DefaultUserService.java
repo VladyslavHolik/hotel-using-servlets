@@ -13,8 +13,8 @@ import holik.hotel.servlet.service.UserService;
 public class DefaultUserService implements UserService {
 	private final UserRepository userRepository;
 	
-	public DefaultUserService() {
-		userRepository = new DefaultUserRepository();
+	public DefaultUserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 	
 	@Override

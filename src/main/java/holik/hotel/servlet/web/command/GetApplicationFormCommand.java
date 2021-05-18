@@ -22,6 +22,8 @@ import holik.hotel.servlet.service.UserService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.service.impl.DefaultRoomService;
 import holik.hotel.servlet.service.impl.DefaultUserService;
+import holik.hotel.servlet.web.context.ApplicationContext;
+import holik.hotel.servlet.web.validator.ApplicationValidator;
 
 /**
  * Command that forward manager to page with application,
@@ -30,87 +32,27 @@ import holik.hotel.servlet.service.impl.DefaultUserService;
 public final class GetApplicationFormCommand implements Command {
 	private final ApplicationService applicationService;
 	private final UserService userService;
-	private final RoomService roomService;
+	private final ApplicationValidator applicationValidator;
 
 	public GetApplicationFormCommand() {
-		applicationService = new DefaultApplicationService();
-		userService = new DefaultUserService();
-		roomService = new DefaultRoomService();
+		applicationService = ApplicationContext.getApplicationService();
+		userService = ApplicationContext.getUserService();
+		applicationValidator = ApplicationContext.getApplicationValidator();
 	}
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Optional<Application> applicationOptional = applicationService.getApplicationById(id);
+		applicationValidator.validateApplicationId(id);
 
-		String errorMessage = null;
-		String forward = Pages.PAGE_ERROR_PAGE;
+		Application application = applicationService.getApplicationById(id).orElseThrow();
+		List<Room> freeRooms = applicationService.getFreeRooms(application);
+		User user = userService.getUserById(application.getUserId()).orElseThrow();
 
-		if (applicationOptional.isEmpty()) {
-			errorMessage = "Application with this id doesn't exist";
-			request.setAttribute("errorMessage", errorMessage);
-			return forward;
-		}
-
-		Application application = applicationOptional.get();
-		Optional<User> userOptional = userService.getUserById(application.getUserId());
-
-		if (userOptional.isEmpty()) {
-			errorMessage = "User with this id doesn't exist";
-			request.setAttribute("errorMessage", errorMessage);
-			return forward;
-		}
-
-		List<Room> availableRooms = getAvailableRooms(application);
-
-		User user = userOptional.get();
 		request.setAttribute("user", user);
 		request.setAttribute("application", application);
-		request.setAttribute("rooms", availableRooms);
+		request.setAttribute("rooms", freeRooms);
 		return Pages.PAGE_APPLICATION_FORM;
-	}
-
-	private List<Room> getAvailableRooms(Application application) {
-		List<Room> allRooms = roomService.getAllRooms();
-		List<Room> availableRooms = new ArrayList<>();
-
-		LocalDateTime datetimeOfLeaving = application.getDatetimeOfLeaving();
-		LocalDateTime now = LocalDateTime.now();
-		
-		if (!datetimeOfLeaving.isBefore(now)) {
-			for (Room room : allRooms) {
-				if (RoomAvailability.AVAILABLE.equals(room.getAvailability()) && room.getRoomClass().equals(application.getRoomClass())
-						&& room.getSpace() == application.getSpace() && isAvailable(room, application)) {
-					availableRooms.add(room);
-				}
-			}
-		}
-		return availableRooms;
-	}
-
-	private boolean isAvailable(Room room, Application application) {
-		boolean result = true;
-		LocalDateTime datetimeOfArrival = application.getDatetimeOfArrival();
-		LocalDateTime datetimeOfLeaving = application.getDatetimeOfLeaving();
-		
-		List<Application> allApplications = applicationService.getAllApplications();
-		for (Application originApplication : allApplications) {
-			if ((originApplication.getStatus().equals(ApplicationStatus.PAID)
-					|| originApplication.getStatus().equals(ApplicationStatus.BOOKED))
-					&& originApplication.getRoomId() == room.getId()
-					&& (isBetween(datetimeOfArrival, originApplication.getDatetimeOfArrival(),
-							originApplication.getDatetimeOfLeaving())
-							|| isBetween(datetimeOfLeaving, originApplication.getDatetimeOfArrival(),
-									originApplication.getDatetimeOfLeaving()))) {
-				result = false;
-				break;
-			}
-		}
-		return result;
-	}
-
-	private boolean isBetween(LocalDateTime origin, LocalDateTime start, LocalDateTime end) {
-		return origin.isAfter(start) && origin.isBefore(end);
 	}
 }

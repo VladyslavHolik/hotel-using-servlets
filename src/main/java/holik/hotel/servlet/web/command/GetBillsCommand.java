@@ -20,6 +20,7 @@ import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.RoomService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.service.impl.DefaultRoomService;
+import holik.hotel.servlet.web.context.ApplicationContext;
 
 /**
  * Command that forwards user to page that contains his bills.
@@ -29,8 +30,8 @@ public class GetBillsCommand implements Command {
 	private final RoomService roomService;
 	
 	public GetBillsCommand() {
-		applicationService = new DefaultApplicationService();
-		roomService = new DefaultRoomService();
+		applicationService = ApplicationContext.getApplicationService();
+		roomService = ApplicationContext.getRoomService();
 	}
 	
 	@Override

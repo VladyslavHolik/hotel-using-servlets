@@ -3,6 +3,7 @@ package holik.hotel.servlet.repository;
 import java.util.List;
 import java.util.Optional;
 
+import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.Room;
 
 /**

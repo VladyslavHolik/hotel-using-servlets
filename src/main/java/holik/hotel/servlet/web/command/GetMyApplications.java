@@ -15,6 +15,7 @@ import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
+import holik.hotel.servlet.web.context.ApplicationContext;
 
 /**
  * Command that forwards user to his applications.
@@ -23,7 +24,7 @@ public class GetMyApplications implements Command {
 	private final ApplicationService applicationService;
 
 	public GetMyApplications() {
-		applicationService = new DefaultApplicationService();
+		applicationService = ApplicationContext.getApplicationService();
 	}
 
 	@Override

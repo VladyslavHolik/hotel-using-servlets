@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.repository.model.Application;
@@ -20,7 +21,7 @@ public class BookingRemover implements Runnable {
 	private final ApplicationService applicationService;
 	
 	public BookingRemover() {
-		applicationService = new DefaultApplicationService();
+		applicationService = ApplicationContext.getApplicationService();
 	}
 	
 	@Override

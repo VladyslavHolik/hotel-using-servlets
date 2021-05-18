@@ -4,6 +4,7 @@ import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.web.command.constant.Pages;
+import holik.hotel.servlet.web.context.ApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ public class ApplicationsCommand implements Command {
 	private final ApplicationService applicationService;
 	
 	public ApplicationsCommand() {
-		applicationService = new DefaultApplicationService();
+		applicationService = ApplicationContext.getApplicationService();
 	}
 	
 	@Override

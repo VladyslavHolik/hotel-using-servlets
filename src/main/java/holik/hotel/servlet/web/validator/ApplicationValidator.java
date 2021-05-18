@@ -2,12 +2,24 @@ package holik.hotel.servlet.web.validator;
 
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.RoomClass;
+import holik.hotel.servlet.repository.model.User;
+import holik.hotel.servlet.service.ApplicationService;
+import holik.hotel.servlet.service.UserService;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class ApplicationValidator {
-    public static void validate(Application application) {
+    private final ApplicationService applicationService;
+    private final UserService userService;
+
+    public ApplicationValidator(ApplicationService applicationService, UserService userService) {
+        this.applicationService = applicationService;
+        this.userService = userService;
+    }
+
+    public void validate(Application application) {
         RoomClass roomClass = application.getRoomClass();
         if (roomClass == null) {
             // room should have class
@@ -41,6 +53,46 @@ public class ApplicationValidator {
         if (space > 6 || space < 1) {
             // room should have valid space
             throw new IllegalArgumentException("Invalid space");
+        }
+    }
+
+    public void validateApplicationId(int applicationId) {
+        Optional<Application> applicationOptional = applicationService.getApplicationById(applicationId);
+        if (applicationOptional.isEmpty()) {
+            // getting application form for non existing application is invalid
+            throw new IllegalArgumentException("Invalid application id" + applicationId);
+        }
+
+        Application application = applicationOptional.get();
+        Optional<User> userOptional = userService.getUserById(application.getUserId());
+
+        if (userOptional.isEmpty()) {
+            // application cannot have non existing user
+            throw new IllegalArgumentException("Invalid user id in application " + applicationId);
+        }
+    }
+
+    public void validateForBooking(int applicationId, int userId) {
+        Optional<Application> optionalApplication = applicationService.getApplicationById(applicationId);
+        Application application = optionalApplication.orElseThrow(() -> new IllegalArgumentException("Invalid application id"));
+
+        LocalDateTime datetimeOfLeaving = application.getDatetimeOfLeaving();
+        LocalDateTime now = LocalDateTime.now();
+
+        if (datetimeOfLeaving.isBefore(now)) {
+            // Application should not be expired
+            throw new IllegalArgumentException("Application is expired");
+        }
+
+        int originUserId = application.getUserId();
+
+        if (userId != originUserId) {
+            // Only authorized user can book room
+            throw new IllegalArgumentException("User is not authorized");
+        }
+        if (!applicationService.canBeBooked(application)) {
+            // Can't book room when it is already booked or paid
+            throw new IllegalArgumentException("Room is already booked");
         }
     }
 }

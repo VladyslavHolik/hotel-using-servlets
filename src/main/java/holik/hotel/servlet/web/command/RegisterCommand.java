@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.web.command.constant.Pages;
@@ -24,7 +25,7 @@ public class RegisterCommand implements Command {
 	private final UserService userService;
 
 	public RegisterCommand() {
-		userService = new DefaultUserService();
+		userService = ApplicationContext.getUserService();
 	}
 
 	@Override

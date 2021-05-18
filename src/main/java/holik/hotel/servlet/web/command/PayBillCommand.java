@@ -13,6 +13,7 @@ import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.impl.DefaultApplicationService;
+import holik.hotel.servlet.web.context.ApplicationContext;
 
 /**
  * Command that is responsible for paying bill.
@@ -21,7 +22,7 @@ public class PayBillCommand implements Command {
 	private final ApplicationService applicationService;
 
 	public PayBillCommand() {
-		applicationService = new DefaultApplicationService();
+		applicationService = ApplicationContext.getApplicationService();
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.web.command.constant.Pages;
@@ -34,8 +35,8 @@ public class RoomsCommand implements Command {
 	private final ApplicationService applicationService;
 
 	public RoomsCommand() {
-		roomService = new DefaultRoomService();
-		applicationService = new DefaultApplicationService();
+		roomService = ApplicationContext.getRoomService();
+		applicationService = ApplicationContext.getApplicationService();
 	}
 
 	@Override

@@ -12,13 +12,13 @@ import holik.hotel.servlet.web.command.constant.Pages;
 /**
  * Command that forward user to form for creating application.
  */
-public final class GetApplicationCommand implements Command {
+public class GetApplicationCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		request.setAttribute("minTime", LocalDateTime.now().plusDays(1).toString().substring(0, 16));
+		String minTime = LocalDateTime.now().plusDays(1).toString().substring(0, 16);
+		request.setAttribute("minTime", minTime);
 		return Pages.PAGE_APPLICATION;
 	}
-
 }

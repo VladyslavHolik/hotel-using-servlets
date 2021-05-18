@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import holik.hotel.servlet.service.EncoderService;
+import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.web.command.constant.Pages;
@@ -27,7 +28,7 @@ public class LoginCommand implements Command {
 	private final UserService userService;
 
 	public LoginCommand() {
-		userService = new DefaultUserService();
+		userService = ApplicationContext.getUserService();
 	}
 
 	@Override

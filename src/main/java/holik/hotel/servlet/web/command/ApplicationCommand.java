@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
 import org.apache.log4j.Logger;
 
@@ -24,9 +25,11 @@ import holik.hotel.servlet.service.impl.DefaultApplicationService;
 public class ApplicationCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(ApplicationCommand.class);
 	private final ApplicationService applicationService;
+	private final ApplicationValidator applicationValidator;
 
 	public ApplicationCommand() {
-		applicationService = new DefaultApplicationService();
+		applicationService = ApplicationContext.getApplicationService();
+		applicationValidator = ApplicationContext.getApplicationValidator();
 	}
 
 	@Override
@@ -38,7 +41,7 @@ public class ApplicationCommand implements Command {
 		LocalDateTime leaving = LocalDateTime.parse(request.getParameter("leaving"));
 
 		Application application = getApplication(request, space, roomClassId, arrival, leaving);
-		ApplicationValidator.validate(application);
+		applicationValidator.validate(application);
 
 		LOG.debug("Saving application " + application);
 		applicationService.saveApplication(application);

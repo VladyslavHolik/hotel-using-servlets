@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import holik.hotel.servlet.repository.model.Application;
 import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.repository.model.Room;

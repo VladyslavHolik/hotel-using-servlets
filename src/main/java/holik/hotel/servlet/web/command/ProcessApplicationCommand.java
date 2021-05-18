@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import holik.hotel.servlet.web.command.constant.Pages;
@@ -23,7 +24,7 @@ public class ProcessApplicationCommand implements Command {
 	private final ApplicationService applicationService;
 	
 	public ProcessApplicationCommand() {
-		applicationService = new DefaultApplicationService();
+		applicationService = ApplicationContext.getApplicationService();
 	}
 
 	@Override

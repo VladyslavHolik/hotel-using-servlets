@@ -149,6 +149,36 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 		return list;
 	}
 
+	@Override
+	public boolean canBeBooked(Application application) {
+		boolean result = true;
+		Connection connection = DBManager.getConnection();
+		try {
+			String sql = "select * from applications where (status=5 or status=4) and (room_id=?)";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, application.getRoomId());
+			ResultSet resultSet = statement.executeQuery();
+			LocalDateTime arrival = application.getDatetimeOfArrival();
+			LocalDateTime leaving = application.getDatetimeOfLeaving();
+
+			while (resultSet.next()) {
+				LocalDateTime originArrival = resultSet.getObject("arrival", LocalDateTime.class);
+				LocalDateTime originLeaving = resultSet.getObject("leaving", LocalDateTime.class);
+				if (isBetween(arrival, originArrival, originLeaving)
+						|| isBetween(leaving, originArrival, originLeaving)) {
+					result = false;
+					break;
+				}
+			}
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+		} finally {
+			DBManager.closeConnection(connection);
+		}
+		return result;
+	}
+
 	private void addApplications(List<Application> list, Connection connection, String sql) throws SQLException {
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
@@ -158,5 +188,9 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 			fillApplication(application, resultSet);
 			list.add(application);
 		}
+	}
+
+	private boolean isBetween(LocalDateTime origin, LocalDateTime start, LocalDateTime end) {
+		return origin.isAfter(start) && origin.isBefore(end);
 	}
 }

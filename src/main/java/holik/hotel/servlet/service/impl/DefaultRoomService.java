@@ -14,8 +14,8 @@ import holik.hotel.servlet.service.RoomService;
 public class DefaultRoomService implements RoomService {
 	private final RoomRepository roomRepository;
 	
-	public DefaultRoomService() {
-		roomRepository = new DefaultRoomRepository();
+	public DefaultRoomService(RoomRepository roomRepository) {
+		this.roomRepository = roomRepository;
 	}
 	
 	@Override
