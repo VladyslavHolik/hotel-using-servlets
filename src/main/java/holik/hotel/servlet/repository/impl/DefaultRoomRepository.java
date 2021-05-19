@@ -27,22 +27,12 @@ public class DefaultRoomRepository implements RoomRepository {
 	@Override
 	public List<Room> getAllRooms() {
 		List<Room> result = new ArrayList<>();
-		Connection connection = null;
+		Connection connection = DBManager.getConnection();
 		try {
-			connection = DBManager.getConnection();
 			String sql = "select * from rooms;";
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
-			while (resultSet.next()) {
-				Room room = new Room();
-				room.setId(resultSet.getInt("id"));
-				room.setNumber(resultSet.getString("number"));
-				room.setPrice(resultSet.getInt("price"));
-				room.setSpace(resultSet.getInt("space"));
-				room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
-				room.setAvailability(RoomAvailability.getStatusById(resultSet.getInt("status")));
-				result.add(room);
-			}
+			addRooms(result, resultSet);
 		} catch (SQLException exception) {
 			String message = exception.getLocalizedMessage();
 			LOG.error("SQL exception occurred: " + message);
@@ -50,6 +40,19 @@ public class DefaultRoomRepository implements RoomRepository {
 			DBManager.closeConnection(connection);
 		}
 		return result;
+	}
+
+	private void addRooms(List<Room> result, ResultSet resultSet) throws SQLException {
+		while (resultSet.next()) {
+			Room room = new Room();
+			room.setId(resultSet.getInt("id"));
+			room.setNumber(resultSet.getString("number"));
+			room.setPrice(resultSet.getInt("price"));
+			room.setSpace(resultSet.getInt("space"));
+			room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
+			room.setAvailability(RoomAvailability.getStatusById(resultSet.getInt("status")));
+			result.add(room);
+		}
 	}
 
 	@Override
@@ -83,25 +86,15 @@ public class DefaultRoomRepository implements RoomRepository {
 	@Override
 	public List<Room> getSpecificRooms(int classId, int space, int status) {
 		List<Room> result = new ArrayList<>();
-		Connection connection = null;
+		Connection connection = DBManager.getConnection();
 		try {
-			connection = DBManager.getConnection();
 			String sql = "select * from rooms where class=? and space=? and status=?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, classId);
 			statement.setInt(2, space);
 			statement.setInt(3, status);
 			ResultSet resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				Room room = new Room();
-				room.setId(resultSet.getInt("id"));
-				room.setNumber(resultSet.getString("number"));
-				room.setPrice(resultSet.getInt("price"));
-				room.setSpace(resultSet.getInt("space"));
-				room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
-				room.setAvailability(RoomAvailability.getStatusById(resultSet.getInt("status")));
-				result.add(room);
-			}
+			addRooms(result, resultSet);
 		} catch (SQLException exception) {
 			String message = exception.getLocalizedMessage();
 			LOG.error("SQL exception occurred: " + message);
@@ -133,6 +126,104 @@ public class DefaultRoomRepository implements RoomRepository {
 			} finally {
 				DBManager.closeConnection(connection);
 			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<Room> getAvailableRooms() {
+		List<Room> result = new ArrayList<>();
+		Connection connection = DBManager.getConnection();
+		try {
+			String sql = "select * from rooms where status=1";
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			addRooms(result, resultSet);
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+		} finally {
+			DBManager.closeConnection(connection);
+		}
+		return result;
+	}
+
+	@Override
+	public List<Room> getRoomsOrderedByPrice(int limit, int offset) {
+		List<Room> result = new ArrayList<>();
+		Connection connection = DBManager.getConnection();
+		try {
+			String sql = "select * from rooms order by price limit ? offset ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, limit);
+			statement.setInt(2, offset);
+			ResultSet resultSet = statement.executeQuery();
+			addRooms(result, resultSet);
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+		} finally {
+			DBManager.closeConnection(connection);
+		}
+		return result;
+	}
+
+	@Override
+	public List<Room> getRoomsOrderedBySpace(int limit, int offset) {
+		List<Room> result = new ArrayList<>();
+		Connection connection = DBManager.getConnection();
+		try {
+			String sql = "select * from rooms order by space limit ? offset ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, limit);
+			statement.setInt(2, offset);
+			ResultSet resultSet = statement.executeQuery();
+			addRooms(result, resultSet);
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+		} finally {
+			DBManager.closeConnection(connection);
+		}
+		return result;
+	}
+
+	@Override
+	public List<Room> getRoomsOrderedByClass(int limit, int offset) {
+		List<Room> result = new ArrayList<>();
+		Connection connection = DBManager.getConnection();
+		try {
+			String sql = "select * from rooms order by class limit ? offset ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, limit);
+			statement.setInt(2, offset);
+			ResultSet resultSet = statement.executeQuery();
+			addRooms(result, resultSet);
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+		} finally {
+			DBManager.closeConnection(connection);
+		}
+		return result;
+	}
+
+	@Override
+	public List<Room> getRoomsOrderedByStatus(int limit, int offset) {
+		List<Room> result = new ArrayList<>();
+		Connection connection = DBManager.getConnection();
+		try {
+			String sql = "select * from rooms order by status limit ? offset ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, limit);
+			statement.setInt(2, offset);
+			ResultSet resultSet = statement.executeQuery();
+			addRooms(result, resultSet);
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+		} finally {
+			DBManager.closeConnection(connection);
 		}
 		return result;
 	}

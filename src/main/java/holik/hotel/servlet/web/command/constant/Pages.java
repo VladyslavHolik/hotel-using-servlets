@@ -4,7 +4,7 @@ package holik.hotel.servlet.web.command.constant;
  * Class that stores page names.
  */
 public final class Pages {
-	public static final String PAGE_ERROR_PAGE = "WEB-INF/error_page.jsp";
+	public static final String PAGE_ERROR_PAGE = "WEB-INF/errorPage.jsp";
 	public static final String PAGE_APPLICATIONS = "WEB-INF/applications.jsp";
 	public static final String PAGE_APPLICATION = "WEB-INF/application.jsp";
 	public static final String PAGE_APPLICATION_FORM = "WEB-INF/applicationForm.jsp";

@@ -71,7 +71,7 @@
 										</p>
 										<p>
 											<fmt:message key="rooms.status" />
-											: ${room.roomStatus.toString().toLowerCase()}
+											: ${room.availability.toString().toLowerCase()}
 										</p>
 									</div>
 								</div>

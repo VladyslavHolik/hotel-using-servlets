@@ -21,6 +21,8 @@ public class ApplicationContext {
     private static final LoginValidator loginValidator;
     private static final ChoiceValidator choiceValidator;
     private static final UserValidator userValidator;
+    private static final RoomValidator roomValidator;
+    private static final PageValidator pageValidator;
 
     static {
         ApplicationRepository applicationRepository = new DefaultApplicationRepository();
@@ -37,6 +39,8 @@ public class ApplicationContext {
         loginValidator = new LoginValidator();
         choiceValidator = new ChoiceValidator();
         userValidator = new UserValidator(userService);
+        roomValidator = new RoomValidator(roomService);
+        pageValidator = new PageValidator(roomService);
     }
 
     public static ApplicationService getApplicationService() {
@@ -77,5 +81,13 @@ public class ApplicationContext {
 
     public static UserValidator getUserValidator() {
         return userValidator;
+    }
+
+    public static RoomValidator getRoomValidator() {
+        return roomValidator;
+    }
+
+    public static PageValidator getPageValidator() {
+        return pageValidator;
     }
 }
