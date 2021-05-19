@@ -39,7 +39,7 @@ public class ApplicationContext {
         applicationValidator = new ApplicationValidator(applicationService, userService);
         languageValidator = new LanguageValidator();
         loginValidator = new LoginValidator();
-        choiceValidator = new ChoiceValidator();
+        choiceValidator = new ChoiceValidator(roomService);
         userValidator = new UserValidator(userService);
         roomValidator = new RoomValidator(roomService);
         pageValidator = new PageValidator(roomService);
