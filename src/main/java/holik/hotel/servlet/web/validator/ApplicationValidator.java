@@ -21,6 +21,21 @@ public class ApplicationValidator {
     }
 
     public void validate(Application application) {
+        if (application.getUserId() < 1) {
+            // user cannot have id less than 1
+            throw new IllegalArgumentException("User does not exist");
+        }
+
+        Optional<User> optionalUser = userService.getUserById(application.getUserId());
+        if (optionalUser.isEmpty()) {
+            // user must exist
+            throw new IllegalArgumentException("User does not exist");
+        }
+        if (application.getRoomId() < 1) {
+            // room id cannot be less than 1
+            throw new IllegalArgumentException("Invalid room id");
+        }
+
         RoomClass roomClass = application.getRoomClass();
         if (roomClass == null) {
             // room should have class

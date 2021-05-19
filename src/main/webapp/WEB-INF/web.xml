@@ -67,7 +67,7 @@
 		</init-param>
 		<init-param>
 			<param-name>out-of-control</param-name>
-			<param-value>login /home /getlogin signup /getsignup /rooms /room /language sorting /getimage</param-value>
+			<param-value>/login /home /getlogin signup /getsignup /rooms /room /language sorting /getimage</param-value>
 		</init-param>
 	</filter>
 
