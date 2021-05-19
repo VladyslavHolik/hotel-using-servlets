@@ -13,8 +13,12 @@ public class RoomValidator {
     }
 
     public void validateRoom(int roomId) {
-        Optional<Room> optionalRoom = roomService.getRoomById(roomId);
+        if (roomId < 1) {
+            // room cannot have id less than 1
+            throw new IllegalArgumentException("Room doesn't exit");
+        }
 
+        Optional<Room> optionalRoom = roomService.getRoomById(roomId);
         if (optionalRoom.isEmpty()) {
             // room must exist
             throw new IllegalArgumentException("Room doesn't exit");
