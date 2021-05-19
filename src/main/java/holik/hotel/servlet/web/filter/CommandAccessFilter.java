@@ -28,9 +28,9 @@ import holik.hotel.servlet.path.PathParser;
 public class CommandAccessFilter implements Filter {
 	private static final Logger LOG = Logger.getLogger(CommandAccessFilter.class);
 
-	private static List<String> commons = new ArrayList<String>();
-	private static List<String> outOfControl = new ArrayList<String>();
-	private static final Map<Role, List<String>> accessMap = new HashMap<Role, List<String>>();
+	private static List<String> commons = new ArrayList<>();
+	private static List<String> outOfControl = new ArrayList<>();
+	private static final Map<Role, List<String>> accessMap = new HashMap<>();
 
 	@Override
 	public void destroy() {

@@ -7,7 +7,7 @@ import java.util.Map;
  * Class that is responsible for getting command realizations.
  */
 public final class CommandManager {
-	private static final Map<String, Command> commands = new HashMap<String, Command>();
+	private static final Map<String, Command> commands = new HashMap<>();
 	
 	static {
 		commands.put("home", new HomeCommand());

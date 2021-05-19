@@ -12,6 +12,11 @@ import java.util.Base64;
  * Mapping class for user.
  */
 public class UserConvertor {
+	private EncoderService encoderService;
+
+	public UserConvertor(EncoderService encoderService) {
+
+	}
 	public static User getUserFromDto(UserDto userDto) {
 		EncoderService encoder = new DefaultEncoderService();
 		byte[] salt = encoder.generateRandomSalt();
