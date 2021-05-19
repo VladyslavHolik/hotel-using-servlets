@@ -2,7 +2,7 @@ package holik.hotel.servlet.web.command;
 
 import holik.hotel.servlet.service.UserService;
 import holik.hotel.servlet.web.context.ApplicationContext;
-import holik.hotel.servlet.web.convertor.UserConvertor;
+import holik.hotel.servlet.web.converter.UserConverter;
 import holik.hotel.servlet.web.dto.UserDto;
 import holik.hotel.servlet.web.validator.UserValidator;
 import org.apache.log4j.Logger;
@@ -17,12 +17,12 @@ public class RegisterCommand implements Command {
     private static final Logger LOG = Logger.getLogger(RegisterCommand.class);
     private final UserService userService;
     private final UserValidator userValidator;
-    private final UserConvertor userConvertor;
+    private final UserConverter userConverter;
 
     public RegisterCommand() {
         userService = ApplicationContext.getUserService();
         userValidator = ApplicationContext.getUserValidator();
-        userConvertor = ApplicationContext.getUserConvertor();
+        userConverter = ApplicationContext.getUserConvertor();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RegisterCommand implements Command {
         userValidator.validateUser(userDto);
 
         LOG.debug("Registering user");
-        userService.createUser(userConvertor.getUserFromDto(userDto));
+        userService.createUser(userConverter.getUserFromDto(userDto));
 
         return "redirect:/home";
     }

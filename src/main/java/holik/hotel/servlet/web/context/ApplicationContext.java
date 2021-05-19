@@ -8,7 +8,7 @@ import holik.hotel.servlet.repository.impl.DefaultRoomRepository;
 import holik.hotel.servlet.repository.impl.DefaultUserRepository;
 import holik.hotel.servlet.service.*;
 import holik.hotel.servlet.service.impl.*;
-import holik.hotel.servlet.web.convertor.UserConvertor;
+import holik.hotel.servlet.web.converter.UserConverter;
 import holik.hotel.servlet.web.validator.*;
 
 public class ApplicationContext {
@@ -24,7 +24,7 @@ public class ApplicationContext {
     private static final UserValidator userValidator;
     private static final RoomValidator roomValidator;
     private static final PageValidator pageValidator;
-    private static final UserConvertor userConvertor;
+    private static final UserConverter USER_CONVERTER;
 
     static {
         ApplicationRepository applicationRepository = new DefaultApplicationRepository();
@@ -43,7 +43,7 @@ public class ApplicationContext {
         userValidator = new UserValidator(userService);
         roomValidator = new RoomValidator(roomService);
         pageValidator = new PageValidator(roomService);
-        userConvertor = new UserConvertor(encoderService);
+        USER_CONVERTER = new UserConverter(encoderService);
     }
 
     public static ApplicationService getApplicationService() {
@@ -90,7 +90,7 @@ public class ApplicationContext {
         return pageValidator;
     }
 
-    public static UserConvertor getUserConvertor() {
-        return userConvertor;
+    public static UserConverter getUserConvertor() {
+        return USER_CONVERTER;
     }
 }

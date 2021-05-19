@@ -1,10 +1,8 @@
-package holik.hotel.servlet.web.convertor;
+package holik.hotel.servlet.web.converter;
 
 import holik.hotel.servlet.repository.model.Role;
 import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.service.EncoderService;
-import holik.hotel.servlet.service.impl.DefaultEncoderService;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.dto.UserDto;
 
 import java.util.Base64;
@@ -12,10 +10,10 @@ import java.util.Base64;
 /**
  * Mapping class for user.
  */
-public class UserConvertor {
+public class UserConverter {
 	private final EncoderService encoderService;
 
-	public UserConvertor(EncoderService encoderService) {
+	public UserConverter(EncoderService encoderService) {
 		this.encoderService = encoderService;
 	}
 	public User getUserFromDto(UserDto userDto) {
