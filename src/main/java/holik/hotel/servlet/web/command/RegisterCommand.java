@@ -17,10 +17,12 @@ public class RegisterCommand implements Command {
     private static final Logger LOG = Logger.getLogger(RegisterCommand.class);
     private final UserService userService;
     private final UserValidator userValidator;
+    private final UserConvertor userConvertor;
 
     public RegisterCommand() {
         userService = ApplicationContext.getUserService();
         userValidator = ApplicationContext.getUserValidator();
+        userConvertor = ApplicationContext.getUserConvertor();
     }
 
     @Override
@@ -35,9 +37,9 @@ public class RegisterCommand implements Command {
         userValidator.validateUser(userDto);
 
         LOG.debug("Registering user");
-        userService.createUser(UserConvertor.getUserFromDto(userDto));
+        userService.createUser(userConvertor.getUserFromDto(userDto));
 
-        return "redirect:home";
+        return "redirect:/home";
     }
 
     @Override

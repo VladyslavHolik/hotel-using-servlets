@@ -10,10 +10,10 @@ import holik.hotel.servlet.repository.model.ApplicationStatus;
  * Interface for application repository.
  */
 public interface ApplicationRepository {
-	boolean saveApplication(Application application);
+	void saveApplication(Application application);
 	Optional<Application> getApplicationById(int id);
 	List<Application> getAllApplications();
-	boolean updateApplication(Application application);
+	void updateApplication(Application application);
     List<Application> getApplicationsByStatus(ApplicationStatus status);
     boolean canBeBooked(Application application);
 	List<Application> getBookedApplicationsByUserId(int userId);

@@ -25,7 +25,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     private static final Logger LOG = Logger.getLogger(DefaultApplicationRepository.class);
 
     @Override
-    public boolean saveApplication(Application application) {
+    public void saveApplication(Application application) {
         boolean result = false;
 
         Connection connection = DBManager.getConnection();
@@ -47,7 +47,6 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } finally {
             DBManager.closeConnection(connection);
         }
-        return result;
     }
 
     @Override
@@ -104,7 +103,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     }
 
     @Override
-    public boolean updateApplication(Application application) {
+    public void updateApplication(Application application) {
         boolean result = false;
         Optional<Application> storedApplication = getApplicationById(application.getId());
         if (storedApplication.isPresent()) {
@@ -129,7 +128,6 @@ public class DefaultApplicationRepository implements ApplicationRepository {
                 DBManager.closeConnection(connection);
             }
         }
-        return result;
     }
 
     @Override

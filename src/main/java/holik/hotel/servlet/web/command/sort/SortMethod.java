@@ -10,17 +10,10 @@ import holik.hotel.servlet.repository.model.Room;
  * Enumeration for sorting methods.
  */
 public enum SortMethod {
-	PRICE(new PriceComparator()), SPACE(new SpaceComparator()),
-	CLASS(new ClassComparator()), STATUS(new StatusComparator());
-	
-	private final Comparator<Room> comparator;
-	
-	SortMethod(Comparator<Room> comparator) {
-		this.comparator = comparator;
-	}
+	PRICE, SPACE, CLASS;
 	
 	public static SortMethod getMethod(String method) {
-		if (!isValidMethod(method)) {
+		if (isMethodInvalid(method)) {
 			throw new IllegalArgumentException("method is invalid");
 		}
 		
@@ -34,7 +27,7 @@ public enum SortMethod {
 		return result;
 	}
 	
-	public static boolean isValidMethod(String method) {
+	public static boolean isMethodInvalid(String method) {
 		boolean result = false;
 		for (SortMethod sortMethod : SortMethod.values()) {
 			if (sortMethod.name().equals(method.toUpperCase())) {
@@ -42,10 +35,6 @@ public enum SortMethod {
 				break;
 			}
 		}
-		return result;
-	}
-	
-	public void sort(List<Room> rooms) {
-		Collections.sort(rooms, comparator);
+		return !result;
 	}
 }

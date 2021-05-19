@@ -3,7 +3,6 @@ package holik.hotel.servlet.web.command;
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.impl.DefaultApplicationService;
 import holik.hotel.servlet.web.command.constant.Pages;
 import holik.hotel.servlet.web.context.ApplicationContext;
 

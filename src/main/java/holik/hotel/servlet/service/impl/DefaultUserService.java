@@ -1,14 +1,11 @@
 package holik.hotel.servlet.service.impl;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Optional;
-
-import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.repository.UserRepository;
-import holik.hotel.servlet.repository.impl.DefaultUserRepository;
+import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.service.EncoderService;
 import holik.hotel.servlet.service.UserService;
+
+import java.util.Optional;
 
 /**
  * Default realization of user service.
@@ -23,8 +20,8 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public boolean createUser(User user) {
-        return userRepository.createUser(user);
+    public void createUser(User user) {
+        userRepository.createUser(user);
     }
 
     @Override

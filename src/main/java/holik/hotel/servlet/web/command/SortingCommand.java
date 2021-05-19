@@ -18,13 +18,13 @@ public class SortingCommand implements Command {
 			throws IOException, ServletException {
 		String sortBy = request.getParameter("sortingMethod");
 		
-		if (!SortMethod.isValidMethod(sortBy)) {
+		if (SortMethod.isMethodInvalid(sortBy)) {
 			// Sorting method must be existing
 			throw new IllegalArgumentException("Invalid sorting method");
 		}
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("sort", SortMethod.getMethod(sortBy));
-		return "redirect:rooms";
+		return "redirect:/rooms";
 	}
 }

@@ -3,7 +3,7 @@ package holik.hotel.servlet.repository.model;
 /**
  * Bill model.
  */
-public final class Bill {
+public class Bill {
 	private Room room;
 	private Application application;
 	private long price;

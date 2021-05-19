@@ -16,7 +16,7 @@ public class LogoutCommand implements Command {
 			session.invalidate();
 		}
 		
-		return "redirect:home";
+		return "redirect:/home";
 	}
 
 	@Override

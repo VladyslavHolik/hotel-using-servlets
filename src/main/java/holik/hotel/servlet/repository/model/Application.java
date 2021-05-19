@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Application model.
  */
-public final class Application {
+public class Application {
 	private int id;
 	private int userId;
 	private int space;

@@ -33,6 +33,6 @@ public class ProcessApplicationCommand implements Command {
 		applicationValidator.validateApplicationId(id);
 
 		applicationService.processApplication(id, choice);
-		return "redirect:applications";
+		return "redirect:/applications";
 	}
 }

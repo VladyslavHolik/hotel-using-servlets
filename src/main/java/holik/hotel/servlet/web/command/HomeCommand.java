@@ -11,7 +11,7 @@ import holik.hotel.servlet.web.command.constant.Pages;
 /**
  * Command that forward user to home page.
  */
-public final class HomeCommand implements Command {
+public class HomeCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)

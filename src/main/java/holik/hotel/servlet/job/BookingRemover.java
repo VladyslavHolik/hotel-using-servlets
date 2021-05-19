@@ -1,16 +1,14 @@
 package holik.hotel.servlet.job;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import holik.hotel.servlet.web.context.ApplicationContext;
-import org.apache.log4j.Logger;
-
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.impl.DefaultApplicationService;
+import holik.hotel.servlet.web.context.ApplicationContext;
+import org.apache.log4j.Logger;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Runnable class that is responsible for declining unpaid orders.

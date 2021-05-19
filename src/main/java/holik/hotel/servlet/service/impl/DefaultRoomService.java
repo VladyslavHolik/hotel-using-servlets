@@ -1,16 +1,14 @@
 package holik.hotel.servlet.service.impl;
 
+import holik.hotel.servlet.repository.RoomRepository;
+import holik.hotel.servlet.repository.model.Room;
+import holik.hotel.servlet.service.RoomService;
+import holik.hotel.servlet.web.command.sort.SortMethod;
+import holik.hotel.servlet.web.dto.RoomsContent;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import holik.hotel.servlet.repository.model.Room;
-import holik.hotel.servlet.repository.RoomRepository;
-import holik.hotel.servlet.repository.impl.DefaultRoomRepository;
-import holik.hotel.servlet.service.RoomService;
-import holik.hotel.servlet.web.command.RoomsCommand;
-import holik.hotel.servlet.web.command.sort.SortMethod;
-import holik.hotel.servlet.web.dto.RoomsContent;
 
 /**
  * Default realization of room service.

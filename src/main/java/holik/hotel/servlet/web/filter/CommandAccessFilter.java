@@ -1,26 +1,14 @@
 package holik.hotel.servlet.web.filter;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import holik.hotel.servlet.repository.model.Role;
+import holik.hotel.servlet.web.command.constant.Pages;
 import org.apache.log4j.Logger;
 
-import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.repository.model.Role;
-import holik.hotel.servlet.path.PathParser;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Filter that manages access for all commands;
@@ -59,7 +47,7 @@ public class CommandAccessFilter implements Filter {
 		if ("POST".equals(httpRequest.getMethod())) {
 			commandName = httpRequest.getParameter("command");
 		} else if ("GET".equals(httpRequest.getMethod())) {
-			commandName = PathParser.getCommand(httpRequest.getRequestURI());
+			commandName = httpRequest.getRequestURI();
 		}
 		
 		if (commandName == null || commandName.isEmpty())
@@ -80,7 +68,7 @@ public class CommandAccessFilter implements Filter {
 	}
 	
 	@Override
-	public void init(FilterConfig config) throws ServletException {
+	public void init(FilterConfig config) {
 		accessMap.put(Role.MANAGER, asList(config.getInitParameter("manager")));
 		accessMap.put(Role.USER, asList(config.getInitParameter("user")));
 		LOG.debug("Access map - " + accessMap);
@@ -93,7 +81,7 @@ public class CommandAccessFilter implements Filter {
 	}
 
 	private List<String> asList(String string) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		StringTokenizer tokenizer = new StringTokenizer(string);
 		while (tokenizer.hasMoreTokens())
 			list.add(tokenizer.nextToken());

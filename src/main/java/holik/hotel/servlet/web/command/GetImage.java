@@ -28,7 +28,7 @@ public class GetImage implements Command {
 		FileInputStream inputStream = new FileInputStream(imagePath);
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
 		BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(out);
-		int ch = 0;
+		int ch;
 		while ((ch = bufferedInputStream.read()) != -1) {
 			bufferedOutputStream.write(ch);
 		}

@@ -1,9 +1,7 @@
 package holik.hotel.servlet.web.command;
 
 import holik.hotel.servlet.repository.model.User;
-import holik.hotel.servlet.service.EncoderService;
 import holik.hotel.servlet.service.UserService;
-import holik.hotel.servlet.service.impl.DefaultEncoderService;
 import holik.hotel.servlet.web.command.constant.Pages;
 import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.LoginValidator;
@@ -14,15 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Optional;
 
 /**
  * Command that authenticates user.
  */
 public class LoginCommand implements Command {
-    private static final Logger LOG = Logger.getLogger(LoginCommand.class);
     private final UserService userService;
     private final LoginValidator loginValidator;
 
@@ -51,7 +45,7 @@ public class LoginCommand implements Command {
             return forward;
         }
 
-        return "redirect:home";
+        return "redirect:/home";
     }
 
     private void authenticateUser(HttpServletRequest request, User user) {

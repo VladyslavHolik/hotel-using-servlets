@@ -3,14 +3,13 @@ package holik.hotel.servlet.repository.model;
 /**
  * Room model.
  */
-public final class Room {
+public class Room {
 	private int id;
 	private String number;
 	private int price;
 	private int space;
 	private RoomClass roomClass;
 	private RoomAvailability availability;
-	private RoomStatus roomStatus;
 	
 	public int getId() {
 		return id;
@@ -61,14 +60,6 @@ public final class Room {
 	}
 	
 	public String getPreview() {
-		return "getimage?type=rooms&id=" + id;
+		return "/getimage?type=rooms&id=" + id;
 	}
-
-	public RoomStatus getRoomStatus() {
-		return roomStatus;
-	}
-
-	public void setRoomStatus(RoomStatus roomStatus) {
-		this.roomStatus = roomStatus;
-	}	
 }

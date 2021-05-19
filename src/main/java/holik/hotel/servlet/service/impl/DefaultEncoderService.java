@@ -29,7 +29,7 @@ public class DefaultEncoderService implements EncoderService {
 
 	public byte[] generateHash(byte[] salt, String password) {
 		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-		byte[] hash = null;
+		byte[] hash;
 		try {
 			SecretKeyFactory factory = SecretKeyFactory.getInstance(ALGORITHM);
 			hash = factory.generateSecret(spec).getEncoded();

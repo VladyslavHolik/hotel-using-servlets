@@ -38,7 +38,7 @@ public class PayBillCommand implements Command {
         application.setStatus(ApplicationStatus.PAID);
         applicationService.updateApplication(application);
 
-        return "redirect:home";
+        return "redirect:/home";
     }
 
 }

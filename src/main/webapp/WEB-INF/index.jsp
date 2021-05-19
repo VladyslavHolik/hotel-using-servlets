@@ -12,7 +12,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="/portal_content/css/index.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -88,19 +87,19 @@ p {
 		data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="getimage?type=main&id=1" class="d-block w-100">
+				<img src="/getimage?type=main&id=1" class="d-block w-100">
 			</div>
 			<div class="carousel-item">
-				<img src="getimage?type=main&id=2" class="d-block w-100">
+				<img src="/getimage?type=main&id=2" class="d-block w-100">
 			</div>
 			<div class="carousel-item">
-				<img src="getimage?type=main&id=3" class="d-block w-100">
+				<img src="/getimage?type=main&id=3" class="d-block w-100">
 			</div>
 			<div class="carousel-item">
-				<img src="getimage?type=main&id=4" class="d-block w-100">
+				<img src="/getimage?type=main&id=4" class="d-block w-100">
 			</div>
 			<div class="carousel-item">
-				<img src="getimage?type=main&id=5" class="d-block w-100">
+				<img src="/getimage?type=main&id=5" class="d-block w-100">
 			</div>
 		</div>
 	</div>

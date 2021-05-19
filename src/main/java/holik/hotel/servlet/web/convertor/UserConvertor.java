@@ -4,6 +4,7 @@ import holik.hotel.servlet.repository.model.Role;
 import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.service.EncoderService;
 import holik.hotel.servlet.service.impl.DefaultEncoderService;
+import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.dto.UserDto;
 
 import java.util.Base64;
@@ -12,15 +13,14 @@ import java.util.Base64;
  * Mapping class for user.
  */
 public class UserConvertor {
-	private EncoderService encoderService;
+	private final EncoderService encoderService;
 
 	public UserConvertor(EncoderService encoderService) {
-
+		this.encoderService = encoderService;
 	}
-	public static User getUserFromDto(UserDto userDto) {
-		EncoderService encoder = new DefaultEncoderService();
-		byte[] salt = encoder.generateRandomSalt();
-		byte[] hash = encoder.generateHash(salt, userDto.getPassword().trim());
+	public User getUserFromDto(UserDto userDto) {
+		byte[] salt = encoderService.generateRandomSalt();
+		byte[] hash = encoderService.generateHash(salt, userDto.getPassword().trim());
 		String saltString = Base64.getEncoder().encodeToString(salt);
         String hashString = Base64.getEncoder().encodeToString(hash);
 

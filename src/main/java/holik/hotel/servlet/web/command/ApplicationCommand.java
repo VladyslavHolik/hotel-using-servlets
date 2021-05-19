@@ -1,23 +1,19 @@
 package holik.hotel.servlet.web.command;
 
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
+import holik.hotel.servlet.repository.model.Application;
+import holik.hotel.servlet.repository.model.ApplicationStatus;
+import holik.hotel.servlet.repository.model.RoomClass;
+import holik.hotel.servlet.service.ApplicationService;
+import holik.hotel.servlet.web.context.ApplicationContext;
+import holik.hotel.servlet.web.validator.ApplicationValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import holik.hotel.servlet.web.context.ApplicationContext;
-import holik.hotel.servlet.web.validator.ApplicationValidator;
-import org.apache.log4j.Logger;
-
-import holik.hotel.servlet.repository.model.Application;
-import holik.hotel.servlet.repository.model.ApplicationStatus;
-import holik.hotel.servlet.repository.model.RoomClass;
-import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.impl.DefaultApplicationService;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * Command that is responsible for creating application.
@@ -46,7 +42,7 @@ public class ApplicationCommand implements Command {
 		LOG.debug("Saving application " + application);
 		applicationService.saveApplication(application);
 
-		return "redirect:home";
+		return "redirect:/home";
 	}
 
 	private Application getApplication(HttpServletRequest request, int space, int roomClassId, LocalDateTime arrival, LocalDateTime leaving) {

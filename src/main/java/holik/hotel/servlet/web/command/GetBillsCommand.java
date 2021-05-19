@@ -1,27 +1,16 @@
 package holik.hotel.servlet.web.command;
 
-import java.io.IOException;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import holik.hotel.servlet.repository.model.Bill;
+import holik.hotel.servlet.service.BillService;
+import holik.hotel.servlet.web.command.constant.Pages;
+import holik.hotel.servlet.web.context.ApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import holik.hotel.servlet.service.BillService;
-import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.repository.model.Application;
-import holik.hotel.servlet.repository.model.ApplicationStatus;
-import holik.hotel.servlet.repository.model.Bill;
-import holik.hotel.servlet.repository.model.Room;
-import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.RoomService;
-import holik.hotel.servlet.service.impl.DefaultApplicationService;
-import holik.hotel.servlet.service.impl.DefaultRoomService;
-import holik.hotel.servlet.web.context.ApplicationContext;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Command that forwards user to page that contains his bills.

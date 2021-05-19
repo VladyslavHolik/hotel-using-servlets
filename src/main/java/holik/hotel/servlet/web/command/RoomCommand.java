@@ -1,26 +1,20 @@
 package holik.hotel.servlet.web.command;
 
-import java.io.IOException;
-import java.util.Optional;
+import holik.hotel.servlet.repository.model.Room;
+import holik.hotel.servlet.service.RoomService;
+import holik.hotel.servlet.web.command.constant.Pages;
+import holik.hotel.servlet.web.context.ApplicationContext;
+import holik.hotel.servlet.web.validator.RoomValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import holik.hotel.servlet.web.context.ApplicationContext;
-import holik.hotel.servlet.web.validator.RoomValidator;
-import org.apache.log4j.Logger;
-
-import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.repository.model.Room;
-import holik.hotel.servlet.service.RoomService;
-import holik.hotel.servlet.service.impl.DefaultRoomService;
+import java.io.IOException;
 
 /**
  * Command that forward user to room page.
  */
 public class RoomCommand implements Command {
-	private static final Logger LOG = Logger.getLogger(RoomCommand.class);
 	private final RoomService roomService;
 	private final RoomValidator roomValidator;
 

@@ -88,7 +88,7 @@
 			<c:forEach items="${roomsContent.pages}" var="page">
 				<li class="${page.pageClass}">
 					<form method="post" action="">
-						<input type="hidden" name="command" value="rooms"> <input
+						<input type="hidden" name="command" value="/rooms"> <input
 							type="hidden" name="page" value="${page.name}">
 						<button type="submit" class="page-link">${page.name}</button>
 					</form>

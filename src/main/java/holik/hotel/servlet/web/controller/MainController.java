@@ -1,16 +1,14 @@
 package holik.hotel.servlet.web.controller;
 
-import java.io.IOException;
+import holik.hotel.servlet.web.command.Command;
+import holik.hotel.servlet.web.command.CommandManager;
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-
-import holik.hotel.servlet.web.command.Command;
-import holik.hotel.servlet.web.command.CommandManager;
-import holik.hotel.servlet.path.PathParser;
+import java.io.IOException;
 
 /**
  * Controller that is responsible for managing all requests.
@@ -22,26 +20,19 @@ public class MainController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO get command here
-		manage(request, response);
+		Command command = CommandManager.get(request.getRequestURI());
+		manage(request, response, command);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO get command here
-		String uri = request.getRequestURI();
-		manage(request, response);
+		String commandName = request.getParameter("command");
+		Command command = CommandManager.get(commandName);
+		manage(request, response, command);
 	}
 
-	private void manage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String commandName;
-		if ("POST".equals(request.getMethod())) {
-			commandName = request.getParameter("command");
-		} else {
-			commandName = PathParser.getCommand(request.getRequestURI());
-		}
-		Command command = CommandManager.get(commandName);
+	private void manage(HttpServletRequest request, HttpServletResponse response, Command command) throws IOException, ServletException {
 		LOG.debug("Request with command " + command);
 		String page = command.execute(request, response);
 		if (page != null) {

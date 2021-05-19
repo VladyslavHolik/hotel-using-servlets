@@ -1,17 +1,16 @@
 package holik.hotel.servlet.repository.impl;
 
+import holik.hotel.servlet.repository.UserRepository;
+import holik.hotel.servlet.repository.db.DBManager;
+import holik.hotel.servlet.repository.model.Role;
+import holik.hotel.servlet.repository.model.User;
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
-
-import org.apache.log4j.Logger;
-
-import holik.hotel.servlet.repository.model.Role;
-import holik.hotel.servlet.repository.model.User;
-import holik.hotel.servlet.repository.UserRepository;
-import holik.hotel.servlet.repository.db.DBManager;
 
 /**
  * Default realization of user repository.
@@ -22,9 +21,8 @@ public class DefaultUserRepository implements UserRepository {
 	@Override
 	public boolean createUser(User user) {
 		boolean result = false;
-		Connection connection = null;
+		Connection connection = DBManager.getConnection();
 		try {
-			connection = DBManager.getConnection();
 			String sql = "INSERT INTO Users (first_name, last_name, phone, email, role_id, salt, password_hash) VALUES(?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, user.getFirstName());
@@ -48,9 +46,8 @@ public class DefaultUserRepository implements UserRepository {
 	@Override
 	public Optional<User> getUserById(int id) {
 		User user = null;
-		Connection connection = null;
+		Connection connection = DBManager.getConnection();
 		try {
-			connection = DBManager.getConnection();
 			String sql = "SELECT * FROM Users WHERE id=?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, id);
@@ -79,10 +76,8 @@ public class DefaultUserRepository implements UserRepository {
 	@Override
 	public Optional<User> getUserByEmail(String email) {
 		User user = null;
-		Connection connection = null;
+		Connection connection = DBManager.getConnection();
 		try {
-			connection = DBManager.getConnection();
-
 			String sql = "SELECT * FROM Users WHERE email=?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, email);

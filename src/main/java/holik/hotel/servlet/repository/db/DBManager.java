@@ -17,7 +17,7 @@ public final class DBManager {
 	private static final Logger LOG = Logger.getLogger(DBManager.class);
 	
 	public static Connection getConnection() {
-		Connection connection = null;
+		Connection connection;
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
