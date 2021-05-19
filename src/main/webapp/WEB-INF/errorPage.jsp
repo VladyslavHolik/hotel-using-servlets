@@ -74,14 +74,14 @@
 </style>
 <div class="message">
     <c:choose>
-        <c:when test="${not empty errorMessage and empty exception and empty code}">
+        <c:when test="${not empty errorMessage}">
             <h2>${errorMessage}</h2>
         </c:when>
         <c:otherwise>
             <h1>500</h1>
             <h3>Server Error</h3>
             <h2>It's not you, it's me.</h2>
-            <a href="/home"><button>Go Back</button></a>
         </c:otherwise>
     </c:choose>
+    <a href="/home"><button>Go Home</button></a>
 </div>

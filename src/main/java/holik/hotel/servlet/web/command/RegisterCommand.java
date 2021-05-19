@@ -37,7 +37,7 @@ public class RegisterCommand implements Command {
         userValidator.validateUser(userDto);
 
         LOG.debug("Registering user");
-        userService.createUser(userConverter.getUserFromDto(userDto));
+        userService.createUser(userConverter.covertToEntity(userDto));
 
         return "redirect:/home";
     }
