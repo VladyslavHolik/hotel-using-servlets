@@ -24,7 +24,7 @@ public class ApplicationContext {
     private static final UserValidator userValidator;
     private static final RoomValidator roomValidator;
     private static final PageValidator pageValidator;
-    private static final UserConverter USER_CONVERTER;
+    private static final UserConverter userConverter;
 
     static {
         ApplicationRepository applicationRepository = new DefaultApplicationRepository();
@@ -43,7 +43,7 @@ public class ApplicationContext {
         userValidator = new UserValidator(userService);
         roomValidator = new RoomValidator(roomService);
         pageValidator = new PageValidator(roomService);
-        USER_CONVERTER = new UserConverter(encoderService);
+        userConverter = new UserConverter(encoderService);
     }
 
     public static ApplicationService getApplicationService() {
@@ -91,6 +91,6 @@ public class ApplicationContext {
     }
 
     public static UserConverter getUserConvertor() {
-        return USER_CONVERTER;
+        return userConverter;
     }
 }
