@@ -10,7 +10,7 @@ import holik.hotel.servlet.repository.model.Room;
  * Enumeration for sorting methods.
  */
 public enum SortMethod {
-	PRICE, SPACE, CLASS;
+	PRICE, SPACE, CLASS, STATUS;
 	
 	public static SortMethod getMethod(String method) {
 		if (isMethodInvalid(method)) {

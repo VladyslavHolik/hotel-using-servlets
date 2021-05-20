@@ -8,7 +8,7 @@ import holik.hotel.servlet.repository.model.Room;
  * Class that is used for storing data for rooms page.
  */
 public class RoomsContent {
-	public static final int NUMBER_OF_ROOMS_ON_PAGE = 4;
+	public static final int NUMBER_OF_ROOMS_ON_PAGE = 3;
 	private List<Room> rooms;
 	private List<Page> pages;
 	

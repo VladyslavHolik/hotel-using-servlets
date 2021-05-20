@@ -70,7 +70,7 @@ public class DefaultRoomService implements RoomService {
 
 	@Override
 	public List<Room> getRoomsOnPage(int pageNumber, SortMethod method) {
-		int offset = (pageNumber - 1) * 4;
+		int offset = (pageNumber - 1) * RoomsContent.NUMBER_OF_ROOMS_ON_PAGE;
 		int limit = RoomsContent.NUMBER_OF_ROOMS_ON_PAGE;
 		List<Room> rooms;
 		if (SortMethod.PRICE.equals(method)) {

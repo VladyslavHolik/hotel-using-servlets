@@ -26,8 +26,6 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 
     @Override
     public void saveApplication(Application application) {
-        boolean result = false;
-
         Connection connection = DBManager.getConnection();
         try {
             String sql = "INSERT INTO Applications (user_id, space, class, arrival, leaving, booked, status) VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -40,7 +38,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             statement.setObject(6, application.getDatetimeOfBooking());
             statement.setInt(7, application.getStatus().getId());
 
-            result = statement.execute();
+            statement.execute();
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
@@ -104,7 +102,6 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 
     @Override
     public void updateApplication(Application application) {
-        boolean result = false;
         Optional<Application> storedApplication = getApplicationById(application.getId());
         if (storedApplication.isPresent()) {
             Connection connection = DBManager.getConnection();
@@ -120,7 +117,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
                 statement.setObject(7, application.getDatetimeOfBooking());
                 statement.setInt(8, application.getStatus().getId());
                 statement.setInt(9, application.getId());
-                result = statement.execute();
+                statement.execute();
             } catch (SQLException exception) {
                 String message = exception.getLocalizedMessage();
                 LOG.error("SQL exception occurred: " + message);

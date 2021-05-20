@@ -36,10 +36,10 @@ public class MainController extends HttpServlet {
 		LOG.debug("Request with command " + command);
 		String page = command.execute(request, response);
 		if (page != null) {
-			if (!page.startsWith("redirect:")) {
-				request.getRequestDispatcher(page).forward(request, response);
-			} else {
+			if (page.startsWith("redirect:")) {
 				response.sendRedirect(page.substring(REDIRECT_OFFSET));
+			} else {
+				request.getRequestDispatcher(page).forward(request, response);
 			}
 		}
 	}
