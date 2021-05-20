@@ -16,7 +16,7 @@ public class RoomValidatorTest {
     private RoomValidator roomValidator;
 
     @Before
-    public void initialize() {
+    public void setUp() {
         roomService = mock(RoomService.class);
         roomValidator = new RoomValidator(roomService);
     }

@@ -15,7 +15,7 @@ public class ChoiceValidatorTest {
     private RoomService roomService;
 
     @Before
-    public void initialize() {
+    public void setUp() {
         roomService = mock(RoomService.class);
         choiceValidator = new ChoiceValidator(roomService);
     }

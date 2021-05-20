@@ -17,7 +17,7 @@ public class UserValidatorTest {
     private UserValidator userValidator;
 
     @Before
-    public void initialize() {
+    public void setUp() {
         userService = mock(UserService.class);
         userValidator = new UserValidator(userService);
     }

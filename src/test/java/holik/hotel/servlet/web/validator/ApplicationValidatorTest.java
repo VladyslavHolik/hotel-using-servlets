@@ -21,7 +21,7 @@ public class ApplicationValidatorTest {
     private ApplicationService applicationService;
 
     @Before
-    public void initializeValidator() {
+    public void setUp() {
         userService = mock(UserService.class);
         applicationService = mock(ApplicationService.class);
 

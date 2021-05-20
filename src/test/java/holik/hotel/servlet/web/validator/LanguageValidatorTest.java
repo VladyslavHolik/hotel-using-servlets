@@ -9,7 +9,7 @@ public class LanguageValidatorTest {
     private LanguageValidator languageValidator;
 
     @Before
-    public void initialize() {
+    public void setUp() {
         languageValidator = new LanguageValidator();
     }
 

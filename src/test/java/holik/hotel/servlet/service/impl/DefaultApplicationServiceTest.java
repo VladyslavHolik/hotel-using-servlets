@@ -7,7 +7,6 @@ import holik.hotel.servlet.repository.model.Room;
 import holik.hotel.servlet.repository.model.RoomClass;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.RoomService;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +16,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class DefaultApplicationServiceTest {
@@ -26,7 +26,7 @@ public class DefaultApplicationServiceTest {
     private ApplicationService applicationService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         applicationRepository = mock(ApplicationRepository.class);
         roomService = mock(RoomService.class);
         applicationService = new DefaultApplicationService(applicationRepository, roomService);

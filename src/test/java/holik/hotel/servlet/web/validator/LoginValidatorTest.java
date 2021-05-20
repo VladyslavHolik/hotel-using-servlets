@@ -9,7 +9,7 @@ public class LoginValidatorTest {
     private LoginValidator loginValidator;
 
     @Before
-    public void initialize() {
+    public void setUp() {
         loginValidator = new LoginValidator();
     }
 

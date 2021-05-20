@@ -6,7 +6,6 @@ import holik.hotel.servlet.repository.model.Room;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.BillService;
 import holik.hotel.servlet.service.RoomService;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class DefaultBillServiceTest {

@@ -17,7 +17,7 @@ public class PageValidatorTest {
     private PageValidator pageValidator;
 
     @Before
-    public void initialize() {
+    public void setUp() {
         roomService = mock(RoomService.class);
         pageValidator = new PageValidator(roomService);
     }
