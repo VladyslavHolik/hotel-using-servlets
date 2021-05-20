@@ -27,10 +27,10 @@
 
 					<c:otherwise>
 						<li class='nav-item'><a class='nav-link'
-							href='getlogin'><fmt:message
+							href='signin'><fmt:message
 									key='index.signin' /></a></li>
 						<li class='nav-item'><a class='nav-link'
-							href='getsignup'><fmt:message
+							href='signup'><fmt:message
 									key='index.signup' /></a></li>
 					</c:otherwise>
 				</c:choose>

@@ -26,7 +26,7 @@
 				<div class="list-group">
 
 					<c:forEach items="${applications}" var="application">
-						<a href="getapplicationform?id=${application.id}"
+						<a href="form?id=${application.id}"
 							class="list-group-item list-group-item-action">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 class="mb-1">

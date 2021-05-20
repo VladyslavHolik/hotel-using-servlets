@@ -55,11 +55,11 @@
 		<filter-class>holik.hotel.servlet.web.filter.CommandAccessFilter</filter-class>
 		<init-param>
 			<param-name>manager</param-name>
-			<param-value>/applications /getapplicationform processapplication</param-value>
+			<param-value>/applications /form form</param-value>
 		</init-param>
 		<init-param>
 			<param-name>user</param-name>
-			<param-value>/getapplication application /getmyapplications book /bills pay</param-value>
+			<param-value>/application /myapplications /bills pay book application</param-value>
 		</init-param>
 		<init-param>
 			<param-name>common</param-name>
@@ -67,7 +67,7 @@
 		</init-param>
 		<init-param>
 			<param-name>out-of-control</param-name>
-			<param-value>/login /home /getlogin signup /getsignup /rooms /room /language sorting /getimage</param-value>
+			<param-value>/signin /home signup /signup /rooms /room /language /image sorting signin</param-value>
 		</init-param>
 	</filter>
 

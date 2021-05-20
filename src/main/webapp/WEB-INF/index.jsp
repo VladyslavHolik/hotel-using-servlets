@@ -54,13 +54,13 @@ p {
 							<c:choose>
 								<c:when test="${!Role.MANAGER.equals(userRole)}">
 									<li class='nav-item'><a class='nav-link'
-										href='getmyapplications'> <fmt:message
+										href='myapplications'> <fmt:message
 												key='index.getmyapplications' /></a></li>
 									<li class='nav-item'><a class='nav-link' href='bills'>
 											<fmt:message key='index.bills' />
 									</a></li>
 									<li class='nav-item'><a class='nav-link'
-										href='getapplication'> <fmt:message
+										href='application'> <fmt:message
 												key='index.getapplication' /></a></li>
 								</c:when>
 								<c:otherwise>
@@ -71,10 +71,10 @@ p {
 						</c:when>
 
 						<c:otherwise>
-							<li class='nav-item'><a class='nav-link' href='getlogin'><fmt:message
+							<li class='nav-item'><a class='nav-link' href='signin'><fmt:message
 										key='index.signin' /></a></li>
 										<!-- rename links -->
-							<li class='nav-item'><a class='nav-link' href='getsignup'><fmt:message
+							<li class='nav-item'><a class='nav-link' href='signup'><fmt:message
 										key='index.signup' /></a></li>
 						</c:otherwise>
 					</c:choose>
@@ -87,19 +87,19 @@ p {
 		data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				<img src="/getimage?type=main&id=1" class="d-block w-100">
+				<img src="/image?type=main&id=1" class="d-block w-100">
 			</div>
 			<div class="carousel-item">
-				<img src="/getimage?type=main&id=2" class="d-block w-100">
+				<img src="/image?type=main&id=2" class="d-block w-100">
 			</div>
 			<div class="carousel-item">
-				<img src="/getimage?type=main&id=3" class="d-block w-100">
+				<img src="/image?type=main&id=3" class="d-block w-100">
 			</div>
 			<div class="carousel-item">
-				<img src="/getimage?type=main&id=4" class="d-block w-100">
+				<img src="/image?type=main&id=4" class="d-block w-100">
 			</div>
 			<div class="carousel-item">
-				<img src="/getimage?type=main&id=5" class="d-block w-100">
+				<img src="/image?type=main&id=5" class="d-block w-100">
 			</div>
 		</div>
 	</div>

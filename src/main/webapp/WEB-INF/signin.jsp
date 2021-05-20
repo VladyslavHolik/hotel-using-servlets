@@ -22,7 +22,7 @@
 			<div class="col-10 col-md-8 col-lg-6">
 
 				<form action="" method="post">
-					<input type="hidden" name="command" value="login" />
+					<input type="hidden" name="command" value="signin" />
 					<div class="mb-3">
 						<label class="form-label"><fmt:message key='signin.email' /></label>
 						<input type="email" class="form-control" name="email" required>

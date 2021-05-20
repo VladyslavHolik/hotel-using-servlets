@@ -60,6 +60,6 @@ public class Room {
 	}
 	
 	public String getPreview() {
-		return "/getimage?type=rooms&id=" + id;
+		return "/image?type=rooms&id=" + id;
 	}
 }

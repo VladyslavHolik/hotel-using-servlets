@@ -31,9 +31,9 @@ public class CommandAccessFilter implements Filter {
 		if (accessAllowed(request)) {
 			chain.doFilter(request, response);
 		} else {
-			String errorMessasge = "You do not have permission to access the requested resource";
+			String errorMessage = "You do not have permission to access the requested resource";
 
-			request.setAttribute("errorMessage", errorMessasge);
+			request.setAttribute("errorMessage", errorMessage);
 			LOG.info("Unauthorized user requested access");
 
 			request.getRequestDispatcher(Pages.PAGE_ERROR_PAGE).forward(request, response);
