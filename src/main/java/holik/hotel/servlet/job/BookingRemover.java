@@ -24,7 +24,7 @@ public class BookingRemover implements Runnable {
 
     @Override
     public void run() {
-        LOG.debug("Job starts");
+        LOG.debug("Booking removing job starts");
 
         List<Application> bookedApplications = applicationService.getApplicationsByStatus(ApplicationStatus.BOOKED);
         LocalDateTime now = LocalDateTime.now();

@@ -1,6 +1,7 @@
 package holik.hotel.servlet.job.listener;
 
 import holik.hotel.servlet.job.BookingRemover;
+import holik.hotel.servlet.job.RoomStatusSetter;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
@@ -23,6 +24,7 @@ public class ContextListener implements ServletContextListener {
         // setting executor
         executor = Executors.newSingleThreadScheduledExecutor();
         executor.scheduleAtFixedRate(new BookingRemover(), 0, RATE, TIME_UNIT);
+        executor.scheduleAtFixedRate(new RoomStatusSetter(), 0, RATE, TIME_UNIT);
     }
 
     @Override

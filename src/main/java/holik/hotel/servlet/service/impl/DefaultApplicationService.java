@@ -4,7 +4,7 @@ import holik.hotel.servlet.repository.ApplicationRepository;
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.repository.model.Room;
-import holik.hotel.servlet.repository.model.RoomAvailability;
+import holik.hotel.servlet.repository.model.RoomStatus;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.RoomService;
 
@@ -66,8 +66,7 @@ public class DefaultApplicationService implements ApplicationService {
     public List<Room> getFreeRooms(Application application) {
         int roomClassId = application.getRoomClass().getId();
         int space = application.getSpace();
-        int status = RoomAvailability.AVAILABLE.getId();
-        List<Room> availableRooms = roomService.getSpecificRooms(roomClassId, space, status);
+        List<Room> availableRooms = roomService.getAvailableRooms(roomClassId, space);
         List<Room> freeRooms = new ArrayList<>();
 
         for (Room room : availableRooms) {

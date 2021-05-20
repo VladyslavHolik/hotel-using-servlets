@@ -3,7 +3,7 @@ package holik.hotel.servlet.repository.impl;
 import holik.hotel.servlet.repository.RoomRepository;
 import holik.hotel.servlet.repository.db.DBManager;
 import holik.hotel.servlet.repository.model.Room;
-import holik.hotel.servlet.repository.model.RoomAvailability;
+import holik.hotel.servlet.repository.model.RoomStatus;
 import holik.hotel.servlet.repository.model.RoomClass;
 import org.apache.log4j.Logger;
 
@@ -44,7 +44,7 @@ public class DefaultRoomRepository implements RoomRepository {
 			room.setPrice(resultSet.getInt("price"));
 			room.setSpace(resultSet.getInt("space"));
 			room.setRoomClass(RoomClass.getRoomClassFromId(resultSet.getInt("class")));
-			room.setAvailability(RoomAvailability.getStatusById(resultSet.getInt("status")));
+			room.setRoomStatus(RoomStatus.getStatusById(resultSet.getInt("status")));
 			result.add(room);
 		}
 	}
@@ -111,7 +111,7 @@ public class DefaultRoomRepository implements RoomRepository {
 				statement.setInt(2, room.getPrice());
 				statement.setInt(3, room.getSpace());
 				statement.setInt(4, room.getRoomClass().getId());
-				statement.setObject(5, room.getAvailability().getId());
+				statement.setObject(5, room.getRoomStatus().getId());
 				statement.setInt(6, room.getId());
 				result = statement.execute();
 			} catch (SQLException exception) {
@@ -129,7 +129,7 @@ public class DefaultRoomRepository implements RoomRepository {
 		List<Room> result = new ArrayList<>();
 		Connection connection = DBManager.getConnection();
 		try {
-			String sql = "select * from rooms where status=1";
+			String sql = "select * from rooms where status!=4";
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
 			addRooms(result, resultSet);
@@ -211,6 +211,26 @@ public class DefaultRoomRepository implements RoomRepository {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, limit);
 			statement.setInt(2, offset);
+			ResultSet resultSet = statement.executeQuery();
+			addRooms(result, resultSet);
+		} catch (SQLException exception) {
+			String message = exception.getLocalizedMessage();
+			LOG.error("SQL exception occurred: " + message);
+		} finally {
+			DBManager.closeConnection(connection);
+		}
+		return result;
+	}
+
+	@Override
+	public List<Room> getAvailableRooms(int classId, int space) {
+		List<Room> result = new ArrayList<>();
+		Connection connection = DBManager.getConnection();
+		try {
+			String sql = "select * from rooms where class=? and space=? and status!=4";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, classId);
+			statement.setInt(2, space);
 			ResultSet resultSet = statement.executeQuery();
 			addRooms(result, resultSet);
 		} catch (SQLException exception) {

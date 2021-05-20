@@ -9,7 +9,7 @@ public class Room {
 	private int price;
 	private int space;
 	private RoomClass roomClass;
-	private RoomAvailability availability;
+	private RoomStatus roomStatus;
 	
 	public int getId() {
 		return id;
@@ -51,12 +51,12 @@ public class Room {
 		this.roomClass = roomClass;
 	}
 	
-	public RoomAvailability getAvailability() {
-		return availability;
+	public RoomStatus getRoomStatus() {
+		return roomStatus;
 	}
 	
-	public void setAvailability(RoomAvailability availability) {
-		this.availability = availability;
+	public void setRoomStatus(RoomStatus roomStatus) {
+		this.roomStatus = roomStatus;
 	}
 	
 	public String getPreview() {

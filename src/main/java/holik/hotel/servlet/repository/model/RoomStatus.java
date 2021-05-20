@@ -3,12 +3,12 @@ package holik.hotel.servlet.repository.model;
 /**
  * Enumeration of room availability.
  */
-public enum RoomAvailability {
-	AVAILABLE(1), UNAVAILABLE(2);
+public enum RoomStatus {
+	FREE(1), BOOKED(2), BUSY(3), UNAVAILABLE(4);
 	
 	private final int id;
 	
-	RoomAvailability(int id) {
+	RoomStatus(int id) {
 		this.id = id;
 	}
 	
@@ -16,9 +16,9 @@ public enum RoomAvailability {
 		return id;
 	}
 	
-	public static RoomAvailability getStatusById(int id) {
-		RoomAvailability status = null;
-		for (RoomAvailability roomStatus : RoomAvailability.values()) {
+	public static RoomStatus getStatusById(int id) {
+		RoomStatus status = null;
+		for (RoomStatus roomStatus : RoomStatus.values()) {
 			if (roomStatus.getId() == id) {
 				status = roomStatus;
 			}

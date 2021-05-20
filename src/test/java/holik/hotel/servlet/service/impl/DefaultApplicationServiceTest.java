@@ -103,7 +103,7 @@ public class DefaultApplicationServiceTest {
         availableRooms.add(thirdRoom);
         availableRooms.add(fourthRoom);
 
-        when(roomService.getSpecificRooms(4, 5, 1)).thenReturn(availableRooms);
+        when(roomService.getAvailableRooms(4, 5)).thenReturn(availableRooms);
 
         List<Application> bookedApplications = new ArrayList<>();
         Application bookedApplication = new Application();
@@ -136,7 +136,7 @@ public class DefaultApplicationServiceTest {
 
         List<Room> freeRooms = applicationService.getFreeRooms(myApplication);
 
-        verify(roomService).getSpecificRooms(4,5,1);
+        verify(roomService).getAvailableRooms(4,5);
         verify(applicationRepository, times(4)).getApplicationsByStatus(ApplicationStatus.BOOKED);
         verify(applicationRepository, times(4)).getApplicationsByStatus(ApplicationStatus.PAID);
 
@@ -178,7 +178,7 @@ public class DefaultApplicationServiceTest {
         availableRooms.add(thirdRoom);
         availableRooms.add(fourthRoom);
 
-        when(roomService.getSpecificRooms(2, 3, 1)).thenReturn(availableRooms);
+        when(roomService.getAvailableRooms(2, 3)).thenReturn(availableRooms);
         when(applicationRepository.getApplicationsByStatus(ApplicationStatus.BOOKED)).thenReturn(new ArrayList<>());
         when(applicationRepository.getApplicationsByStatus(ApplicationStatus.PAID)).thenReturn(new ArrayList<>());
 
@@ -188,7 +188,7 @@ public class DefaultApplicationServiceTest {
 
         List<Room> freeRooms = applicationService.getFreeRooms(application);
 
-        verify(roomService).getSpecificRooms(2,3,1);
+        verify(roomService).getAvailableRooms(2,3);
         verify(applicationRepository, times(4)).getApplicationsByStatus(ApplicationStatus.BOOKED);
         verify(applicationRepository, times(4)).getApplicationsByStatus(ApplicationStatus.PAID);
 

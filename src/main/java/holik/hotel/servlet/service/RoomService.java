@@ -16,6 +16,7 @@ public interface RoomService {
 	List<Room> getSpecificRooms(int classId, int space, int status);
 	boolean updateRoom(Room room);
 	List<Room> getAvailableRooms();
+	List<Room> getAvailableRooms(int classId, int space);
 	RoomsContent getRoomsContent(int pageNumber, int numberOfPages);
 	int getNumberOfPages();
 	List<Room> getRoomsOnPage(int pageNumber, SortMethod method);

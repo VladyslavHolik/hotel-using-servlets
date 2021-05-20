@@ -45,6 +45,11 @@ public class DefaultRoomService implements RoomService {
 		return roomRepository.getAvailableRooms();
 	}
 
+	@Override
+	public List<Room> getAvailableRooms(int classId, int space) {
+		return roomRepository.getAvailableRooms(classId, space);
+	}
+
 	public RoomsContent getRoomsContent(int pageNumber, int numberOfPages) {
 		RoomsContent roomsContent = new RoomsContent();
 		List<RoomsContent.Page> pages = new ArrayList<>();

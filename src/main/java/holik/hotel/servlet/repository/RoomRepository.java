@@ -18,4 +18,5 @@ public interface RoomRepository {
 	List<Room> getRoomsOrderedBySpace(int limit, int offset);
 	List<Room> getRoomsOrderedByClass(int limit, int offset);
 	List<Room> getRoomsOrderedByStatus(int limit, int offset);
+	List<Room> getAvailableRooms(int classId, int space);
 }
