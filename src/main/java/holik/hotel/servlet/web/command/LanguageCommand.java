@@ -1,6 +1,5 @@
 package holik.hotel.servlet.web.command;
 
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.LanguageValidator;
 import org.apache.log4j.Logger;
 
@@ -18,9 +17,10 @@ public class LanguageCommand implements Command {
 	private static final Logger LOG = Logger.getLogger(LanguageCommand.class);
 	private final LanguageValidator languageValidator;
 
-	public LanguageCommand() {
-		languageValidator = ApplicationContext.getLanguageValidator();
+	public LanguageCommand(LanguageValidator languageValidator) {
+		this.languageValidator = languageValidator;
 	}
+
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -30,7 +30,7 @@ public class LanguageCommand implements Command {
 		HttpSession session = request.getSession();
 		Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", languageToSet);		
 		LOG.debug("User changes locale to " + languageToSet);
-		return "redirect:/home";
+		return "redirect:/";
 	}
 
 	@Override

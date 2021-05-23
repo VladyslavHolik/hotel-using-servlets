@@ -17,7 +17,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
-					href="home"><fmt:message key='rooms.home' /></a></li>
+					href="/"><fmt:message key='rooms.home' /></a></li>
 				<c:choose>
 					<c:when test="${userRole != null}">
 						<li class='nav-item'><a class='nav-link'

@@ -1,7 +1,6 @@
 package holik.hotel.servlet.web.command;
 
 import holik.hotel.servlet.service.UserService;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.converter.UserConverter;
 import holik.hotel.servlet.web.dto.UserDto;
 import holik.hotel.servlet.web.validator.UserValidator;
@@ -19,10 +18,10 @@ public class RegisterCommand implements Command {
     private final UserValidator userValidator;
     private final UserConverter userConverter;
 
-    public RegisterCommand() {
-        userService = ApplicationContext.getUserService();
-        userValidator = ApplicationContext.getUserValidator();
-        userConverter = ApplicationContext.getUserConvertor();
+    public RegisterCommand(UserService userService, UserValidator userValidator, UserConverter userConverter) {
+        this.userService = userService;
+        this.userValidator = userValidator;
+        this.userConverter = userConverter;
     }
 
     @Override
@@ -39,7 +38,7 @@ public class RegisterCommand implements Command {
         LOG.debug("Registering user");
         userService.createUser(userConverter.covertToEntity(userDto));
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @Override

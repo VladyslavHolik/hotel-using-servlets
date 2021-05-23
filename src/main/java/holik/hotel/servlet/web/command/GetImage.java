@@ -50,4 +50,8 @@ public class GetImage implements Command {
 		return imagePath;
 	}
 
+	@Override
+	public String toString() {
+		return "Get image";
+	}
 }

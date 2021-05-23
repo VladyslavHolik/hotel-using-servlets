@@ -1,7 +1,6 @@
 package holik.hotel.servlet.web.command;
 
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
 import holik.hotel.servlet.web.validator.ChoiceValidator;
 
@@ -18,10 +17,12 @@ public class ProcessApplicationCommand implements Command {
 	private final ChoiceValidator choiceValidator;
 	private final ApplicationValidator applicationValidator;
 
-	public ProcessApplicationCommand() {
-		applicationService = ApplicationContext.getApplicationService();
-		choiceValidator = ApplicationContext.getChoiceValidator();
-		applicationValidator = ApplicationContext.getApplicationValidator();
+	public ProcessApplicationCommand(ApplicationService applicationService,
+									 ChoiceValidator choiceValidator,
+									 ApplicationValidator applicationValidator) {
+		this.applicationService = applicationService;
+		this.choiceValidator = choiceValidator;
+		this.applicationValidator = applicationValidator;
 	}
 
 	@Override

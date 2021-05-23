@@ -3,9 +3,7 @@ package holik.hotel.servlet.web.command;
 import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.service.UserService;
 import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.LoginValidator;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +18,9 @@ public class LoginCommand implements Command {
     private final UserService userService;
     private final LoginValidator loginValidator;
 
-    public LoginCommand() {
-        userService = ApplicationContext.getUserService();
-        loginValidator = ApplicationContext.getLoginValidator();
+    public LoginCommand(UserService userService, LoginValidator loginValidator) {
+        this.userService = userService;
+        this.loginValidator = loginValidator;
     }
 
     @Override
@@ -45,7 +43,7 @@ public class LoginCommand implements Command {
             return forward;
         }
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     private void authenticateUser(HttpServletRequest request, User user) {

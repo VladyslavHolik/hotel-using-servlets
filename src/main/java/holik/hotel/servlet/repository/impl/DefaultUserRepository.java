@@ -19,7 +19,7 @@ public class DefaultUserRepository implements UserRepository {
     private static final Logger LOG = Logger.getLogger(DefaultUserRepository.class);
 
     @Override
-    public boolean createUser(User user) {
+    public void createUser(User user) {
         boolean result = false;
         try (Connection connection = DBManager.getConnection()) {
             String sql = "INSERT INTO Users (first_name, last_name, phone, email, role_id, salt, password_hash) VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -37,7 +37,6 @@ public class DefaultUserRepository implements UserRepository {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
         }
-        return result;
     }
 
     @Override

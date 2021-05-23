@@ -6,7 +6,6 @@ import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.UserService;
 import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
 
 import javax.servlet.ServletException;
@@ -24,10 +23,12 @@ public class GetApplicationFormCommand implements Command {
 	private final UserService userService;
 	private final ApplicationValidator applicationValidator;
 
-	public GetApplicationFormCommand() {
-		applicationService = ApplicationContext.getApplicationService();
-		userService = ApplicationContext.getUserService();
-		applicationValidator = ApplicationContext.getApplicationValidator();
+	public GetApplicationFormCommand(ApplicationService applicationService,
+									 UserService userService,
+									 ApplicationValidator applicationValidator) {
+		this.applicationService = applicationService;
+		this.userService = userService;
+		this.applicationValidator = applicationValidator;
 	}
 
 	@Override

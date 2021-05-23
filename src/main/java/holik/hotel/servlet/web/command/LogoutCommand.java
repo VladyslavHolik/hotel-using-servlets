@@ -15,8 +15,7 @@ public class LogoutCommand implements Command {
 		if (session != null) {
 			session.invalidate();
 		}
-		
-		return "redirect:/home";
+		return "redirect:/";
 	}
 
 	@Override

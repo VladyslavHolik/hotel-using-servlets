@@ -1,22 +1,17 @@
 package holik.hotel.servlet.repository.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import holik.hotel.servlet.repository.ApplicationRepository;
+import holik.hotel.servlet.repository.db.DBManager;
+import holik.hotel.servlet.repository.model.Application;
+import holik.hotel.servlet.repository.model.ApplicationStatus;
+import holik.hotel.servlet.repository.model.RoomClass;
+import org.apache.log4j.Logger;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.apache.log4j.Logger;
-
-import holik.hotel.servlet.repository.model.Application;
-import holik.hotel.servlet.repository.model.ApplicationStatus;
-import holik.hotel.servlet.repository.model.RoomClass;
-import holik.hotel.servlet.repository.ApplicationRepository;
-import holik.hotel.servlet.repository.db.DBManager;
 
 /**
  * Default realization of application repository.

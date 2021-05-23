@@ -2,6 +2,7 @@ package holik.hotel.servlet.job.listener;
 
 import holik.hotel.servlet.job.BookingRemover;
 import holik.hotel.servlet.job.RoomStatusSetter;
+import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
@@ -21,10 +22,16 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
+        // perform dependency injection
+        ApplicationContext.initialise();
+
         // setting executor
         executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleAtFixedRate(new BookingRemover(), 0, RATE, TIME_UNIT);
-        executor.scheduleAtFixedRate(new RoomStatusSetter(), 0, RATE, TIME_UNIT);
+        BookingRemover bookingRemover = ApplicationContext.getBookingRemover();
+        executor.scheduleAtFixedRate(bookingRemover, 0, RATE, TIME_UNIT);
+
+        RoomStatusSetter roomStatusSetter = ApplicationContext.getRoomStatusSetter();
+        executor.scheduleAtFixedRate(roomStatusSetter, 0, RATE, TIME_UNIT);
     }
 
     @Override

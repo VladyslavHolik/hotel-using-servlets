@@ -3,7 +3,6 @@ package holik.hotel.servlet.web.command;
 import holik.hotel.servlet.repository.model.Bill;
 import holik.hotel.servlet.service.BillService;
 import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.web.context.ApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +17,8 @@ import java.util.List;
 public class GetBillsCommand implements Command {
 	private final BillService billService;
 	
-	public GetBillsCommand() {
-		billService = ApplicationContext.getBillService();
+	public GetBillsCommand(BillService billService) {
+		this.billService = billService;
 	}
 	
 	@Override

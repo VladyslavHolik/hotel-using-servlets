@@ -17,15 +17,13 @@ public enum Role {
 	}
 	
 	public static Role getRole(int id) {
-		Role role = null;
-		switch (id) {
-		case 1: 
-			role = Role.MANAGER;
-			break;
-		case 2:
-			role = Role.USER;
-			break;
+		Role result = null;
+		for (Role role : Role.values()) {
+			if (role.getId() == id) {
+				result = role;
+				break;
+			}
 		}
-		return role;
+		return result;
 	}
 }

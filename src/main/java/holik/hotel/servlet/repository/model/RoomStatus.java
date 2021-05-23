@@ -21,6 +21,7 @@ public enum RoomStatus {
 		for (RoomStatus roomStatus : RoomStatus.values()) {
 			if (roomStatus.getId() == id) {
 				status = roomStatus;
+				break;
 			}
 		}
 		return status;

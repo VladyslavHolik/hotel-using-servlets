@@ -3,7 +3,6 @@ package holik.hotel.servlet.job;
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import java.time.Duration;
@@ -18,8 +17,8 @@ public class BookingRemover implements Runnable {
     private static final Logger LOG = Logger.getLogger(BookingRemover.class);
     private final ApplicationService applicationService;
 
-    public BookingRemover() {
-        applicationService = ApplicationContext.getApplicationService();
+    public BookingRemover(ApplicationService applicationService) {
+        this.applicationService = applicationService;
     }
 
     @Override

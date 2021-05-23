@@ -4,7 +4,6 @@ import holik.hotel.servlet.repository.ApplicationRepository;
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.repository.model.Room;
-import holik.hotel.servlet.repository.model.RoomStatus;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.RoomService;
 

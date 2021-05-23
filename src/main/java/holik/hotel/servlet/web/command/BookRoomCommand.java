@@ -2,7 +2,6 @@ package holik.hotel.servlet.web.command;
 
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
 
 import javax.servlet.ServletException;
@@ -18,9 +17,9 @@ public class BookRoomCommand implements Command {
 	private final ApplicationService applicationService;
 	private final ApplicationValidator applicationValidator;
 
-	public BookRoomCommand() {
-		applicationService = ApplicationContext.getApplicationService();
-		applicationValidator = ApplicationContext.getApplicationValidator();
+	public BookRoomCommand(ApplicationService applicationService, ApplicationValidator applicationValidator) {
+		this.applicationService = applicationService;
+		this.applicationValidator = applicationValidator;
 	}
 
 	@Override
@@ -35,6 +34,6 @@ public class BookRoomCommand implements Command {
 		Application application = applicationService.getApplicationById(applicationId).orElseThrow();
 		applicationService.bookRoom(application);
 
-		return "redirect:/home";
+		return "redirect:/";
 	}
 }

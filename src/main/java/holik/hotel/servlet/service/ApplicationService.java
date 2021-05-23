@@ -1,11 +1,11 @@
 package holik.hotel.servlet.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.repository.model.Room;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface for application service.

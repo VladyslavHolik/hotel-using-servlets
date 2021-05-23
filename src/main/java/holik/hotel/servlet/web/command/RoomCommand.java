@@ -3,7 +3,6 @@ package holik.hotel.servlet.web.command;
 import holik.hotel.servlet.repository.model.Room;
 import holik.hotel.servlet.service.RoomService;
 import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.RoomValidator;
 
 import javax.servlet.ServletException;
@@ -18,9 +17,9 @@ public class RoomCommand implements Command {
 	private final RoomService roomService;
 	private final RoomValidator roomValidator;
 
-	public RoomCommand() {
-		roomService = ApplicationContext.getRoomService();
-		roomValidator = ApplicationContext.getRoomValidator();
+	public RoomCommand(RoomService roomService, RoomValidator roomValidator) {
+		this.roomService = roomService;
+		this.roomValidator = roomValidator;
 	}
 
 	@Override

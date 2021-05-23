@@ -1,7 +1,7 @@
 package holik.hotel.servlet.web.controller;
 
 import holik.hotel.servlet.web.command.Command;
-import holik.hotel.servlet.web.command.CommandManager;
+import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -20,7 +20,7 @@ public class MainController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Command command = CommandManager.get(request.getRequestURI());
+		Command command = ApplicationContext.get(request.getRequestURI());
 		manage(request, response, command);
 	}
 
@@ -28,7 +28,7 @@ public class MainController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String commandName = request.getParameter("command");
-		Command command = CommandManager.get(commandName);
+		Command command = ApplicationContext.get(commandName);
 		manage(request, response, command);
 	}
 

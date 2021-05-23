@@ -36,12 +36,12 @@
 	</context-param>
 
 	<error-page>
-		<exception-type>java.lang.Throwable</exception-type>
-		<location>/WEB-INF/errorPage.jsp</location>
+		<error-code>404</error-code>
+		<location>/WEB-INF/404.jsp</location>
 	</error-page>
 
 	<error-page>
-		<error-code>404</error-code>
+		<exception-type>java.lang.Throwable</exception-type>
 		<location>/WEB-INF/errorPage.jsp</location>
 	</error-page>
 
@@ -67,7 +67,7 @@
 		</init-param>
 		<init-param>
 			<param-name>out-of-control</param-name>
-			<param-value>/signin /home signup /signup /rooms /room /language /image sorting signin</param-value>
+			<param-value>/ /signin signup /signup /rooms /room /language /image sorting signin</param-value>
 		</init-param>
 	</filter>
 

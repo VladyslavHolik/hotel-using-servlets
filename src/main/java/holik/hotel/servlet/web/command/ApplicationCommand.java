@@ -4,7 +4,6 @@ import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.repository.model.RoomClass;
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
 import org.apache.log4j.Logger;
 
@@ -23,9 +22,9 @@ public class ApplicationCommand implements Command {
 	private final ApplicationService applicationService;
 	private final ApplicationValidator applicationValidator;
 
-	public ApplicationCommand() {
-		applicationService = ApplicationContext.getApplicationService();
-		applicationValidator = ApplicationContext.getApplicationValidator();
+	public ApplicationCommand(ApplicationService applicationService, ApplicationValidator applicationValidator) {
+		this.applicationService = applicationService;
+		this.applicationValidator = applicationValidator;
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class ApplicationCommand implements Command {
 		LOG.debug("Saving application " + application);
 		applicationService.saveApplication(application);
 
-		return "redirect:/home";
+		return "redirect:/";
 	}
 
 	private Application getApplication(HttpServletRequest request, int space, int roomClassId, LocalDateTime arrival, LocalDateTime leaving) {

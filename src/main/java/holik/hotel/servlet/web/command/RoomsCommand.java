@@ -4,7 +4,6 @@ import holik.hotel.servlet.repository.model.Room;
 import holik.hotel.servlet.service.RoomService;
 import holik.hotel.servlet.web.command.constant.Pages;
 import holik.hotel.servlet.web.command.sort.SortMethod;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.dto.RoomsContent;
 import holik.hotel.servlet.web.validator.PageValidator;
 
@@ -22,9 +21,9 @@ public class RoomsCommand implements Command {
 	private final RoomService roomService;
 	private final PageValidator pageValidator;
 
-	public RoomsCommand() {
-		roomService = ApplicationContext.getRoomService();
-		pageValidator = ApplicationContext.getPageValidator();
+	public RoomsCommand(RoomService roomService, PageValidator pageValidator) {
+		this.roomService = roomService;
+		this.pageValidator = pageValidator;
 	}
 
 	@Override

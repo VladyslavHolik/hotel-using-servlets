@@ -36,8 +36,8 @@ public class DefaultRoomService implements RoomService {
 	}
 
 	@Override
-	public boolean updateRoom(Room room) {
-		return roomRepository.updateRoom(room);
+	public void updateRoom(Room room) {
+		roomRepository.updateRoom(room);
 	}
 
 	@Override

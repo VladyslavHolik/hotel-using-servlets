@@ -1,11 +1,5 @@
 package holik.hotel.servlet.web.command.sort;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import holik.hotel.servlet.repository.model.Room;
-
 /**
  * Enumeration for sorting methods.
  */

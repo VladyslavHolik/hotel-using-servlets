@@ -3,7 +3,6 @@ package holik.hotel.servlet.web.command;
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import holik.hotel.servlet.web.validator.ApplicationValidator;
 
 import javax.servlet.ServletException;
@@ -19,9 +18,9 @@ public class PayBillCommand implements Command {
     private final ApplicationService applicationService;
     private final ApplicationValidator applicationValidator;
 
-    public PayBillCommand() {
-        applicationService = ApplicationContext.getApplicationService();
-        applicationValidator = ApplicationContext.getApplicationValidator();
+    public PayBillCommand(ApplicationService applicationService, ApplicationValidator applicationValidator) {
+        this.applicationService = applicationService;
+        this.applicationValidator = applicationValidator;
     }
 
     @Override
@@ -32,13 +31,11 @@ public class PayBillCommand implements Command {
         int applicationId = Integer.parseInt(request.getParameter("id"));
 
         applicationValidator.validateForPaying(applicationId, userId);
-
         Application application = applicationService.getApplicationById(applicationId).orElseThrow();
 
         application.setStatus(ApplicationStatus.PAID);
         applicationService.updateApplication(application);
 
-        return "redirect:/home";
+        return "redirect:/";
     }
-
 }

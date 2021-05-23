@@ -21,6 +21,7 @@ public enum ApplicationStatus {
 		for (ApplicationStatus applicationStatus : ApplicationStatus.values()) {
 			if (applicationStatus.getId() == id) {
 				status = applicationStatus;
+				break;
 			}
 		}
 		return status;

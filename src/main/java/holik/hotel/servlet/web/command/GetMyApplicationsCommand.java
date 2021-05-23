@@ -3,7 +3,6 @@ package holik.hotel.servlet.web.command;
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.web.command.constant.Pages;
-import holik.hotel.servlet.web.context.ApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +17,8 @@ import java.util.List;
 public class GetMyApplicationsCommand implements Command {
 	private final ApplicationService applicationService;
 
-	public GetMyApplicationsCommand() {
-		applicationService = ApplicationContext.getApplicationService();
+	public GetMyApplicationsCommand(ApplicationService applicationService) {
+		this.applicationService = applicationService;
 	}
 
 	@Override

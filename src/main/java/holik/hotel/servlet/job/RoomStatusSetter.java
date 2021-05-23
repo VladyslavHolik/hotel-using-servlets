@@ -6,7 +6,6 @@ import holik.hotel.servlet.repository.model.Room;
 import holik.hotel.servlet.repository.model.RoomStatus;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.RoomService;
-import holik.hotel.servlet.web.context.ApplicationContext;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDateTime;
@@ -20,9 +19,9 @@ public class RoomStatusSetter implements Runnable {
     private final ApplicationService applicationService;
     private final RoomService roomService;
 
-    public RoomStatusSetter() {
-        applicationService = ApplicationContext.getApplicationService();
-        roomService = ApplicationContext.getRoomService();
+    public RoomStatusSetter(ApplicationService applicationService, RoomService roomService) {
+        this.applicationService = applicationService;
+        this.roomService = roomService;
     }
 
     @Override
