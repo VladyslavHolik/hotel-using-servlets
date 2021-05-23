@@ -124,7 +124,8 @@ public class DefaultApplicationService implements ApplicationService {
                     && (isBetween(datetimeOfArrival, originApplication.getDatetimeOfArrival(),
                     originApplication.getDatetimeOfLeaving())
                     || isBetween(datetimeOfLeaving, originApplication.getDatetimeOfArrival(),
-                    originApplication.getDatetimeOfLeaving()))) {
+                    originApplication.getDatetimeOfLeaving())
+                    || isBetween(originApplication.getDatetimeOfArrival(), datetimeOfArrival, datetimeOfLeaving))) {
                 result = false;
                 break;
             }

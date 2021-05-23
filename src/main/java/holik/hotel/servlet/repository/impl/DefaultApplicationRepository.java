@@ -142,7 +142,8 @@ public class DefaultApplicationRepository implements ApplicationRepository {
                 LocalDateTime originArrival = resultSet.getObject("arrival", LocalDateTime.class);
                 LocalDateTime originLeaving = resultSet.getObject("leaving", LocalDateTime.class);
                 if (isBetween(arrival, originArrival, originLeaving)
-                        || isBetween(leaving, originArrival, originLeaving)) {
+                        || isBetween(leaving, originArrival, originLeaving)
+                        || isBetween(originArrival, arrival, leaving)) {
                     result = false;
                     break;
                 }
