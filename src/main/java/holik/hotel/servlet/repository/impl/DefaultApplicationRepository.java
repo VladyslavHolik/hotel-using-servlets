@@ -26,8 +26,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
 
     @Override
     public void saveApplication(Application application) {
-        Connection connection = DBManager.getConnection();
-        try {
+        try (Connection connection = DBManager.getConnection()) {
             String sql = "INSERT INTO Applications (user_id, space, class, arrival, leaving, booked, status) VALUES(?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, application.getUserId());
@@ -42,17 +41,13 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
-        } finally {
-            DBManager.closeConnection(connection);
         }
     }
 
     @Override
     public Optional<Application> getApplicationById(int id) {
         Application application = null;
-
-        Connection connection = DBManager.getConnection();
-        try {
+        try (Connection connection = DBManager.getConnection()) {
             String sql = "select * from applications where id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -64,10 +59,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
-        } finally {
-            DBManager.closeConnection(connection);
         }
-
         return Optional.ofNullable(application);
     }
 
@@ -86,16 +78,12 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     @Override
     public List<Application> getAllApplications() {
         List<Application> list = new ArrayList<>();
-
-        Connection connection = DBManager.getConnection();
-        try {
+        try (Connection connection = DBManager.getConnection()) {
             String sql = "select * from applications";
             addApplications(list, connection, sql);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
-        } finally {
-            DBManager.closeConnection(connection);
         }
         return list;
     }
@@ -104,8 +92,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     public void updateApplication(Application application) {
         Optional<Application> storedApplication = getApplicationById(application.getId());
         if (storedApplication.isPresent()) {
-            Connection connection = DBManager.getConnection();
-            try {
+            try (Connection connection = DBManager.getConnection()) {
                 String sql = "UPDATE Applications SET user_id=?, space=?, class=?, room_id=?, arrival=?, leaving=?, booked=?, status=? WHERE id=?";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setInt(1, application.getUserId());
@@ -121,8 +108,6 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             } catch (SQLException exception) {
                 String message = exception.getLocalizedMessage();
                 LOG.error("SQL exception occurred: " + message);
-            } finally {
-                DBManager.closeConnection(connection);
             }
         }
     }
@@ -130,9 +115,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     @Override
     public List<Application> getApplicationsByStatus(ApplicationStatus status) {
         List<Application> list = new ArrayList<>();
-
-        Connection connection = DBManager.getConnection();
-        try {
+        try (Connection connection = DBManager.getConnection()) {
             String sql = "select * from applications where status=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, status.getId());
@@ -145,8 +128,6 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
-        } finally {
-            DBManager.closeConnection(connection);
         }
         return list;
     }
@@ -154,8 +135,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     @Override
     public boolean canBeBooked(Application application) {
         boolean result = true;
-        Connection connection = DBManager.getConnection();
-        try {
+        try (Connection connection = DBManager.getConnection()) {
             String sql = "select * from applications where (status=5 or status=4) and (room_id=?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, application.getRoomId());
@@ -175,8 +155,6 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
-        } finally {
-            DBManager.closeConnection(connection);
         }
         return result;
     }
@@ -184,8 +162,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     @Override
     public List<Application> getBookedApplicationsByUserId(int userId) {
         List<Application> bookedApplications = new ArrayList<>();
-        Connection connection = DBManager.getConnection();
-        try {
+        try (Connection connection = DBManager.getConnection()) {
             String sql = "select * from applications where status=4 and (user_id=?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, userId);
@@ -198,8 +175,6 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
-        } finally {
-            DBManager.closeConnection(connection);
         }
         return bookedApplications;
     }

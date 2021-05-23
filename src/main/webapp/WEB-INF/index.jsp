@@ -73,7 +73,6 @@ p {
 						<c:otherwise>
 							<li class='nav-item'><a class='nav-link' href='signin'><fmt:message
 										key='index.signin' /></a></li>
-										<!-- rename links -->
 							<li class='nav-item'><a class='nav-link' href='signup'><fmt:message
 										key='index.signup' /></a></li>
 						</c:otherwise>

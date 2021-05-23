@@ -30,13 +30,4 @@ public final class DBManager {
 		}
 		return connection;
 	}
-
-	public static void closeConnection(Connection connection) {
-		try {
-			connection.close();
-		} catch (SQLException exception) {
-			LOG.error("Exception occurred while closing connection" + exception.getLocalizedMessage());
-			throw new IllegalStateException("Cannot close connection");
-		}
-	}
 }

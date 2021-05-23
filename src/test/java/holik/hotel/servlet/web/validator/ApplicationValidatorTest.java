@@ -35,7 +35,7 @@ public class ApplicationValidatorTest {
         application.setSpace(1);
         application.setRoomId(1);
         application.setRoomClass(RoomClass.FamilyRoom);
-        application.setDatetimeOfArrival(LocalDateTime.now());
+        application.setDatetimeOfArrival(LocalDateTime.now().plusDays(1));
         application.setDatetimeOfLeaving(LocalDateTime.now().plusDays(3));
 
         when(userService.getUserById(1)).thenReturn(Optional.of(new User()));

@@ -44,6 +44,12 @@ public class ApplicationValidator {
             throw new IllegalArgumentException("Invalid arrival date");
         }
 
+        LocalDateTime now = LocalDateTime.now();
+        if (arrival.isBefore(now.plusHours(23))) {
+            // arrival should be more than one day after creating application
+            throw new IllegalArgumentException("Invalid arrival date");
+        }
+
         LocalDateTime leaving = application.getDatetimeOfLeaving();
         if (leaving == null) {
             // application should have arrival date

@@ -16,90 +16,81 @@ import java.util.Optional;
  * Default realization of user repository.
  */
 public class DefaultUserRepository implements UserRepository {
-	private static final Logger LOG = Logger.getLogger(DefaultUserRepository.class);
+    private static final Logger LOG = Logger.getLogger(DefaultUserRepository.class);
 
-	@Override
-	public boolean createUser(User user) {
-		boolean result = false;
-		Connection connection = DBManager.getConnection();
-		try {
-			String sql = "INSERT INTO Users (first_name, last_name, phone, email, role_id, salt, password_hash) VALUES(?, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, user.getFirstName());
-			statement.setString(2, user.getLastName());
-			statement.setString(3, user.getPhone());
-			statement.setString(4, user.getEmail());
-			statement.setInt(5, user.getRole().getId());
-			statement.setString(6, user.getSalt());
-			statement.setString(7, user.getPasswordHash());
+    @Override
+    public boolean createUser(User user) {
+        boolean result = false;
+        try (Connection connection = DBManager.getConnection()) {
+            String sql = "INSERT INTO Users (first_name, last_name, phone, email, role_id, salt, password_hash) VALUES(?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getPhone());
+            statement.setString(4, user.getEmail());
+            statement.setInt(5, user.getRole().getId());
+            statement.setString(6, user.getSalt());
+            statement.setString(7, user.getPasswordHash());
 
-			result = statement.execute();
-		} catch (SQLException exception) {
-			String message = exception.getLocalizedMessage();
-			LOG.error("SQL exception occurred: " + message);
-		} finally {
-			DBManager.closeConnection(connection);
-		}
-		return result;
-	}
+            result = statement.execute();
+        } catch (SQLException exception) {
+            String message = exception.getLocalizedMessage();
+            LOG.error("SQL exception occurred: " + message);
+        }
+        return result;
+    }
 
-	@Override
-	public Optional<User> getUserById(int id) {
-		User user = null;
-		Connection connection = DBManager.getConnection();
-		try {
-			String sql = "SELECT * FROM Users WHERE id=?";
-			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setInt(1, id);
+    @Override
+    public Optional<User> getUserById(int id) {
+        User user = null;
+        try (Connection connection = DBManager.getConnection()) {
+            String sql = "SELECT * FROM Users WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
 
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				user = new User();
-				user.setId(resultSet.getInt("id"));
-				user.setFirstName(resultSet.getString("first_name"));
-				user.setLastName(resultSet.getString("last_name"));
-				user.setPhone(resultSet.getString("phone"));
-				user.setEmail(resultSet.getString("email"));
-				user.setRole(Role.getRole(resultSet.getInt("role_id")));
-				user.setSalt(resultSet.getString("salt"));
-				user.setPasswordHash(resultSet.getString("password_hash"));
-			}
-		} catch (SQLException exception) {
-			String message = exception.getLocalizedMessage();
-			LOG.error("SQL exception occurred: " + message);
-		} finally {
-			DBManager.closeConnection(connection);
-		}
-		return Optional.ofNullable(user);
-	}
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setFirstName(resultSet.getString("first_name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setPhone(resultSet.getString("phone"));
+                user.setEmail(resultSet.getString("email"));
+                user.setRole(Role.getRole(resultSet.getInt("role_id")));
+                user.setSalt(resultSet.getString("salt"));
+                user.setPasswordHash(resultSet.getString("password_hash"));
+            }
+        } catch (SQLException exception) {
+            String message = exception.getLocalizedMessage();
+            LOG.error("SQL exception occurred: " + message);
+        }
+        return Optional.ofNullable(user);
+    }
 
-	@Override
-	public Optional<User> getUserByEmail(String email) {
-		User user = null;
-		Connection connection = DBManager.getConnection();
-		try {
-			String sql = "SELECT * FROM Users WHERE email=?";
-			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, email);
+    @Override
+    public Optional<User> getUserByEmail(String email) {
+        User user = null;
+        try (Connection connection = DBManager.getConnection()) {
+            String sql = "SELECT * FROM Users WHERE email=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
 
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				user = new User();
-				user.setId(resultSet.getInt("id"));
-				user.setFirstName(resultSet.getString("first_name"));
-				user.setLastName(resultSet.getString("last_name"));
-				user.setPhone(resultSet.getString("phone"));
-				user.setEmail(email);
-				user.setRole(Role.getRole(resultSet.getInt("role_id")));
-				user.setSalt(resultSet.getString("salt"));
-				user.setPasswordHash(resultSet.getString("password_hash"));
-			}
-		} catch (SQLException exception) {
-			String message = exception.getLocalizedMessage();
-			LOG.error("SQL exception occurred: " + message);
-		} finally {
-			DBManager.closeConnection(connection);
-		}
-		return Optional.ofNullable(user);
-	}
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setFirstName(resultSet.getString("first_name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setPhone(resultSet.getString("phone"));
+                user.setEmail(email);
+                user.setRole(Role.getRole(resultSet.getInt("role_id")));
+                user.setSalt(resultSet.getString("salt"));
+                user.setPasswordHash(resultSet.getString("password_hash"));
+            }
+        } catch (SQLException exception) {
+            String message = exception.getLocalizedMessage();
+            LOG.error("SQL exception occurred: " + message);
+        }
+        return Optional.ofNullable(user);
+    }
 }
