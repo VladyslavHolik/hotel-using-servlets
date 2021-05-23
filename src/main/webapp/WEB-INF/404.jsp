@@ -76,7 +76,7 @@
     <h1>404</h1>
     <h3>Page not found</h3>
     <h2>Uh oh! It seems that you are lost</h2>
-    <a href="/home">
+    <a href="/">
         <button>Go Home</button>
     </a>
 </div>

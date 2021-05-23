@@ -83,5 +83,5 @@
             <h2>It's not you, it's me.</h2>
         </c:otherwise>
     </c:choose>
-    <a href="/home"><button>Go Home</button></a>
+    <a href="/"><button>Go Home</button></a>
 </div>
