@@ -36,6 +36,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
     }
 
@@ -54,6 +55,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
         return Optional.ofNullable(application);
     }
@@ -79,6 +81,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
         return list;
     }
@@ -103,6 +106,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             } catch (SQLException exception) {
                 String message = exception.getLocalizedMessage();
                 LOG.error("SQL exception occurred: " + message);
+                throw new IllegalStateException("Exception while accessing database");
             }
         }
     }
@@ -123,6 +127,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
         return list;
     }
@@ -151,6 +156,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
         return result;
     }
@@ -171,6 +177,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
         return bookedApplications;
     }

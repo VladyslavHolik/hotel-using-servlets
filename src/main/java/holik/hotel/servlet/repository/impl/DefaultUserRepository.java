@@ -35,6 +35,7 @@ public class DefaultUserRepository implements UserRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
     }
 
@@ -61,6 +62,7 @@ public class DefaultUserRepository implements UserRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
         return Optional.ofNullable(user);
     }
@@ -88,6 +90,7 @@ public class DefaultUserRepository implements UserRepository {
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
+            throw new IllegalStateException("Exception while accessing database");
         }
         return Optional.ofNullable(user);
     }
