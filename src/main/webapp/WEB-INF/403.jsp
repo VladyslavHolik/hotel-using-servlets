@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+<link rel="icon" href="data:,">
 <style>
     html,
     body {
@@ -73,9 +74,9 @@
     }
 </style>
 <div class="message">
-    <h1>404</h1>
-    <h3>Page not found</h3>
-    <h2>Uh oh! It seems that you are lost</h2>
+    <h1>403</h1>
+    <h3>You are not authorized</h3>
+    <h2>Uh oh! It seems that you can't do that</h2>
     <a href="/">
         <button>Go Home</button>
     </a>

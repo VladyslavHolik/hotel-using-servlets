@@ -1,6 +1,7 @@
 package holik.hotel.servlet.service.impl;
 
 import holik.hotel.servlet.repository.UserRepository;
+import holik.hotel.servlet.repository.exception.EntityExistsException;
 import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.service.EncoderService;
 import holik.hotel.servlet.service.UserService;
@@ -25,7 +26,7 @@ public class DefaultUserServiceTest {
     }
 
     @Test
-    public void createUser() {
+    public void createUser() throws EntityExistsException {
         User user = new User();
         userService.save(user);
         verify(userRepository).save(user);

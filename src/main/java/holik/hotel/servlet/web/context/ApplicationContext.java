@@ -11,10 +11,13 @@ import holik.hotel.servlet.repository.impl.DefaultUserRepository;
 import holik.hotel.servlet.service.*;
 import holik.hotel.servlet.service.impl.*;
 import holik.hotel.servlet.web.command.*;
+import holik.hotel.servlet.web.command.access.AccessManager;
 import holik.hotel.servlet.web.converter.UserConverter;
 import holik.hotel.servlet.web.validator.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +39,7 @@ public class ApplicationContext {
     private static UserConverter userConverter;
     private static BookingRemover bookingRemover;
     private static RoomStatusSetter roomStatusSetter;
+    private static AccessManager accessManager;
 
     public static void initialise() {
         ApplicationRepository applicationRepository = new DefaultApplicationRepository();
@@ -59,6 +63,7 @@ public class ApplicationContext {
         roomStatusSetter = new RoomStatusSetter(applicationService, roomService);
 
         initialiseCommands();
+        initialiseAccessManager();
     }
 
     private static void initialiseCommands() {
@@ -84,10 +89,51 @@ public class ApplicationContext {
         commands.put("pay", new PayBillCommand(applicationService, applicationValidator));
     }
 
+    private static void initialiseAccessManager() {
+        List<String> commonCommands = getCommonCommands();
+        List<String> userCommands = getUserCommands();
+        List<String> managerCommands = getManagerCommands();
+
+        accessManager = new AccessManager(managerCommands, userCommands, commonCommands);
+    }
+
+    private static List<String> getManagerCommands() {
+        List<String> managerCommands = new ArrayList<>();
+        managerCommands.add("/applications");
+        managerCommands.add("/form");
+        managerCommands.add("form");
+        managerCommands.add("/logout");
+        return managerCommands;
+    }
+
+    private static List<String> getUserCommands() {
+        List<String> userCommands = new ArrayList<>();
+        userCommands.add("/application");
+        userCommands.add("/myapplications");
+        userCommands.add("/bills");
+        userCommands.add("pay");
+        userCommands.add("book");
+        userCommands.add("application");
+        userCommands.add("/logout");
+        return userCommands;
+    }
+
+    private static List<String> getCommonCommands() {
+        List<String> commonCommands = new ArrayList<>();
+        commonCommands.add("/");
+        commonCommands.add("/signin");
+        commonCommands.add("/signup");
+        commonCommands.add("/rooms");
+        commonCommands.add("/room");
+        commonCommands.add("/language");
+        commonCommands.add("/image");
+        commonCommands.add("sorting");
+        commonCommands.add("signin");
+        commonCommands.add("signup");
+        return commonCommands;
+    }
+
     public static Command get(String commandName) {
-        if (commandName == null || !commands.containsKey(commandName)) {
-            throw new IllegalArgumentException("Unknown command" + commandName);
-        }
         return commands.get(commandName);
     }
 
@@ -97,5 +143,9 @@ public class ApplicationContext {
 
     public static RoomStatusSetter getRoomStatusSetter() {
         return roomStatusSetter;
+    }
+
+    public static AccessManager getAccessManager() {
+        return accessManager;
     }
 }
