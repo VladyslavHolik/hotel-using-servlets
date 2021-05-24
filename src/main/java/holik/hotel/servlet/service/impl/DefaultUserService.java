@@ -21,7 +21,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void createUser(User user) {
-        userRepository.createUser(user);
+        userRepository.save(user);
     }
 
     @Override

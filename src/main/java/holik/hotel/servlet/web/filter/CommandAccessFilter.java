@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
@@ -36,6 +37,9 @@ public class CommandAccessFilter implements Filter {
 			request.setAttribute("errorMessage", errorMessage);
 			LOG.info("Unauthorized user requested access");
 
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
+			// TODO 
+			//httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
 			request.getRequestDispatcher(Pages.PAGE_ERROR_PAGE).forward(request, response);
 		}
 	}

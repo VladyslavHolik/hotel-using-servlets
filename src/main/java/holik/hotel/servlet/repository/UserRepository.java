@@ -8,7 +8,7 @@ import java.util.Optional;
  * Interface for user repository.
  */
 public interface UserRepository {
-	void createUser(User user);
+	void save(User user);
 	Optional<User> getUserById(int id);
 	Optional<User> getUserByEmail(String email);
 }
