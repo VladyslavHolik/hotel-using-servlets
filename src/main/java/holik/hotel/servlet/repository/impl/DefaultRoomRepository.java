@@ -28,8 +28,7 @@ public class DefaultRoomRepository implements RoomRepository {
             addRooms(result, resultSet);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
@@ -65,8 +64,7 @@ public class DefaultRoomRepository implements RoomRepository {
             }
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return Optional.ofNullable(room);
     }
@@ -84,8 +82,7 @@ public class DefaultRoomRepository implements RoomRepository {
             addRooms(result, resultSet);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
@@ -107,8 +104,7 @@ public class DefaultRoomRepository implements RoomRepository {
                 result = statement.execute();
             } catch (SQLException exception) {
                 String message = exception.getLocalizedMessage();
-                LOG.error("SQL exception occurred: " + message);
-                throw new IllegalStateException("Exception while accessing database");
+                throw new IllegalStateException(message);
             }
         }
         return result;
@@ -124,8 +120,7 @@ public class DefaultRoomRepository implements RoomRepository {
             addRooms(result, resultSet);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
@@ -142,8 +137,7 @@ public class DefaultRoomRepository implements RoomRepository {
             addRooms(result, resultSet);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
@@ -160,8 +154,7 @@ public class DefaultRoomRepository implements RoomRepository {
             addRooms(result, resultSet);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
@@ -178,8 +171,7 @@ public class DefaultRoomRepository implements RoomRepository {
             addRooms(result, resultSet);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
@@ -196,8 +188,7 @@ public class DefaultRoomRepository implements RoomRepository {
             addRooms(result, resultSet);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
@@ -214,8 +205,7 @@ public class DefaultRoomRepository implements RoomRepository {
             addRooms(result, resultSet);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
