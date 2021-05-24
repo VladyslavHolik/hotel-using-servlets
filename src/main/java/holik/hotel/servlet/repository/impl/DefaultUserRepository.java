@@ -46,19 +46,7 @@ public class DefaultUserRepository implements UserRepository {
             String sql = "SELECT * FROM Users WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setPhone(resultSet.getString("phone"));
-                user.setEmail(resultSet.getString("email"));
-                user.setRole(Role.getRole(resultSet.getInt("role_id")));
-                user.setSalt(resultSet.getString("salt"));
-                user.setPasswordHash(resultSet.getString("password_hash"));
-            }
+            user = getUser(statement);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
@@ -74,24 +62,29 @@ public class DefaultUserRepository implements UserRepository {
             String sql = "SELECT * FROM Users WHERE email=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, email);
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setPhone(resultSet.getString("phone"));
-                user.setEmail(email);
-                user.setRole(Role.getRole(resultSet.getInt("role_id")));
-                user.setSalt(resultSet.getString("salt"));
-                user.setPasswordHash(resultSet.getString("password_hash"));
-            }
+            user = getUser(statement);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
             throw new IllegalStateException("Exception while accessing database");
         }
         return Optional.ofNullable(user);
+    }
+
+    private User getUser(PreparedStatement statement) throws SQLException {
+        User user = null;
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            user = new User();
+            user.setId(resultSet.getInt("id"));
+            user.setFirstName(resultSet.getString("first_name"));
+            user.setLastName(resultSet.getString("last_name"));
+            user.setPhone(resultSet.getString("phone"));
+            user.setEmail(resultSet.getString("email"));
+            user.setRole(Role.getRole(resultSet.getInt("role_id")));
+            user.setSalt(resultSet.getString("salt"));
+            user.setPasswordHash(resultSet.getString("password_hash"));
+        }
+        return user;
     }
 }
