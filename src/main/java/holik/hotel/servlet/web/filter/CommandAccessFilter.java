@@ -73,6 +73,7 @@ public class CommandAccessFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig config) {
+		// TODO
 		accessMap.put(Role.MANAGER, asList(config.getInitParameter("manager")));
 		accessMap.put(Role.USER, asList(config.getInitParameter("user")));
 		LOG.debug("Access map - " + accessMap);

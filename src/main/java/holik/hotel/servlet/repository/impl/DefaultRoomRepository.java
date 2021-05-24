@@ -16,7 +16,6 @@ import java.util.Optional;
  * Default realization of room repository.
  */
 public class DefaultRoomRepository implements RoomRepository {
-    private static final Logger LOG = Logger.getLogger(DefaultRoomRepository.class);
 
     @Override
     public List<Room> getAllRooms() {

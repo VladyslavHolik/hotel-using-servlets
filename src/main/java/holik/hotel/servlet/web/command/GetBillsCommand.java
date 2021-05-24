@@ -31,4 +31,9 @@ public class GetBillsCommand implements Command {
 		request.setAttribute("bills", bills);
 		return Pages.PAGE_BILLS;
 	}
+
+	@Override
+	public String toString() {
+		return "GetBillsCommand";
+	}
 }

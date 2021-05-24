@@ -17,7 +17,6 @@ import java.util.Optional;
  * Default realization of application repository.
  */
 public class DefaultApplicationRepository implements ApplicationRepository {
-    private static final Logger LOG = Logger.getLogger(DefaultApplicationRepository.class);
 
     @Override
     public void saveApplication(Application application) {

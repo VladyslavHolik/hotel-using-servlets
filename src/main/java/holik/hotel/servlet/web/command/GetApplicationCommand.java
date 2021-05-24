@@ -23,4 +23,9 @@ public class GetApplicationCommand implements Command {
 		request.setAttribute("minTime", minTime);
 		return Pages.PAGE_APPLICATION;
 	}
+
+	@Override
+	public String toString() {
+		return "GetApplicationCommand";
+	}
 }

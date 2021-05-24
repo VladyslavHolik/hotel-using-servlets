@@ -1,6 +1,8 @@
 package holik.hotel.servlet.web.command;
 
+import holik.hotel.servlet.repository.exception.EntityExistsException;
 import holik.hotel.servlet.service.UserService;
+import holik.hotel.servlet.web.command.constant.Pages;
 import holik.hotel.servlet.web.converter.UserConverter;
 import holik.hotel.servlet.web.dto.UserDto;
 import holik.hotel.servlet.web.validator.UserValidator;
@@ -36,8 +38,15 @@ public class RegisterCommand implements Command {
         userValidator.validateUser(userDto);
 
         LOG.debug("Registering user");
-        userService.createUser(userConverter.covertToEntity(userDto));
-        // TODO validate email
+        String forward = Pages.PAGE_ERROR_PAGE;
+
+        try {
+            userService.save(userConverter.covertToEntity(userDto));
+        } catch (EntityExistsException exception) {
+            String errorMessage = "User with this email already exists";
+            request.setAttribute("errorMessage", errorMessage);
+            return forward;
+        }
         return "redirect:/";
     }
 

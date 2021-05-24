@@ -31,4 +31,9 @@ public class GetMyApplicationsCommand implements Command {
 		request.setAttribute("applications", readyToBookApplications);
 		return Pages.PAGE_MY_APPLICATIONS;
 	}
+
+	@Override
+	public String toString() {
+		return "GetMyApplicationsCommand";
+	}
 }

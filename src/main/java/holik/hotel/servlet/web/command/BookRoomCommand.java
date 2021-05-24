@@ -34,6 +34,11 @@ public class BookRoomCommand implements Command {
 		Application application = applicationService.getApplicationById(applicationId).orElseThrow();
 		applicationService.bookRoom(application);
 
-		return "redirect:/";
+		return "redirect:/myapplications";
+	}
+
+	@Override
+	public String toString() {
+		return "BookRoomCommand";
 	}
 }

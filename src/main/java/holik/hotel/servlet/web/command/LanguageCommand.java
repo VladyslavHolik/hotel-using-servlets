@@ -30,9 +30,14 @@ public class LanguageCommand implements Command {
 		HttpSession session = request.getSession();
 		Config.set(session, "javax.servlet.jsp.jstl.fmt.locale", languageToSet);		
 		LOG.debug("User changes locale to " + languageToSet);
-		return "redirect:/";
+
+		return "redirect:" + getReferer(request);
 	}
 
+	private String getReferer(HttpServletRequest request) {
+		StringBuilder referer = new StringBuilder(request.getHeader("Referer"));
+		return referer.substring(referer.lastIndexOf("/"));
+	}
 	@Override
 	public String toString() {
 		return "LanguageCommand";

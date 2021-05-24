@@ -2,6 +2,7 @@ package holik.hotel.servlet.repository.impl;
 
 import holik.hotel.servlet.repository.UserRepository;
 import holik.hotel.servlet.repository.db.DBManager;
+import holik.hotel.servlet.repository.exception.EntityExistsException;
 import holik.hotel.servlet.repository.model.Role;
 import holik.hotel.servlet.repository.model.User;
 import org.apache.log4j.Logger;
@@ -16,10 +17,10 @@ import java.util.Optional;
  * Default realization of user repository.
  */
 public class DefaultUserRepository implements UserRepository {
-    private static final Logger LOG = Logger.getLogger(DefaultUserRepository.class);
+    private static final int SQL_DUPLICATE_ERROR_CODE = 1062;
 
     @Override
-    public void save(User user) {
+    public void save(User user) throws EntityExistsException {
         try (Connection connection = DBManager.getConnection()) {
             String sql = "INSERT INTO Users (first_name, last_name, phone, email, role_id, salt, password_hash) VALUES(?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -33,6 +34,9 @@ public class DefaultUserRepository implements UserRepository {
 
             statement.execute();
         } catch (SQLException exception) {
+            if (exception.getErrorCode() == SQL_DUPLICATE_ERROR_CODE) {
+                throw new EntityExistsException("User with email " + user.getEmail() + " already exists");
+            }
             String message = exception.getLocalizedMessage();
             throw new IllegalStateException(message);
         }

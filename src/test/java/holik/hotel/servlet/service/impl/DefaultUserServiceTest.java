@@ -27,7 +27,7 @@ public class DefaultUserServiceTest {
     @Test
     public void createUser() {
         User user = new User();
-        userService.createUser(user);
+        userService.save(user);
         verify(userRepository).save(user);
     }
 

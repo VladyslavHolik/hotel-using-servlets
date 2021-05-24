@@ -55,4 +55,9 @@ public class ApplicationCommand implements Command {
 		application.setStatus(ApplicationStatus.REQUESTED);
 		return application;
 	}
+
+	@Override
+	public String toString() {
+		return "ApplicationCommand";
+	}
 }

@@ -36,6 +36,11 @@ public class PayBillCommand implements Command {
         application.setStatus(ApplicationStatus.PAID);
         applicationService.updateApplication(application);
 
-        return "redirect:/";
+        return "redirect:/bills";
+    }
+
+    @Override
+    public String toString() {
+        return "PayBillCommand";
     }
 }

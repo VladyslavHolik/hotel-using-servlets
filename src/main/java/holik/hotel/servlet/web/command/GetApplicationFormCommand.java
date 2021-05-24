@@ -46,4 +46,9 @@ public class GetApplicationFormCommand implements Command {
 		request.setAttribute("rooms", freeRooms);
 		return Pages.PAGE_APPLICATION_FORM;
 	}
+
+	@Override
+	public String toString() {
+		return "GetApplicationFormCommand";
+	}
 }

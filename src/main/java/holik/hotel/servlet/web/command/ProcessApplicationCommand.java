@@ -36,4 +36,9 @@ public class ProcessApplicationCommand implements Command {
 		applicationService.processApplication(id, choice);
 		return "redirect:/applications";
 	}
+
+	@Override
+	public String toString() {
+		return "ProcessApplicationCommand";
+	}
 }
