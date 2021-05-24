@@ -37,7 +37,7 @@ public class RegisterCommand implements Command {
 
         LOG.debug("Registering user");
         userService.createUser(userConverter.covertToEntity(userDto));
-
+        // TODO validate email
         return "redirect:/";
     }
 

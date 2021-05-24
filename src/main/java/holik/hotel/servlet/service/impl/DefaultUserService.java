@@ -38,8 +38,7 @@ public class DefaultUserService implements UserService {
     public boolean areCredentialsTrue(String email, String password) {
         boolean result = false;
         Optional<User> userOptional = getUserByEmail(email);
-
-        if (userOptional != null && userOptional.isPresent()) {
+        if (userOptional.isPresent()) {
             User user = userOptional.get();
             String salt = user.getSalt();
             String hash = user.getPasswordHash();

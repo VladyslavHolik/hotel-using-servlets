@@ -23,19 +23,19 @@ public class CommandAccessFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		LOG.info("Filter destroy");
+		LOG.debug("Filter destroy");
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		if (accessAllowed(request)) {
+		if (isAccessAllowed(request)) {
 			chain.doFilter(request, response);
 		} else {
 			String errorMessage = "You do not have permission to access the requested resource";
 
 			request.setAttribute("errorMessage", errorMessage);
-			LOG.info("Unauthorized user requested access");
+			LOG.debug("Unauthorized user requested access");
 
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			// TODO 
@@ -44,7 +44,7 @@ public class CommandAccessFilter implements Filter {
 		}
 	}
 
-	private boolean accessAllowed(ServletRequest request) {
+	private boolean isAccessAllowed(ServletRequest request) {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
 		String commandName = null;

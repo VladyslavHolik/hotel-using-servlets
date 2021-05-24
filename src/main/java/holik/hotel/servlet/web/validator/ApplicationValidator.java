@@ -20,6 +20,7 @@ public class ApplicationValidator {
         this.userService = userService;
     }
 
+    // TODO collect errors
     public void validate(Application application) {
         if (application.getUserId() < 1) {
             // user cannot have id less than 1

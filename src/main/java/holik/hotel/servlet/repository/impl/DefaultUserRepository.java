@@ -41,37 +41,33 @@ public class DefaultUserRepository implements UserRepository {
 
     @Override
     public Optional<User> getUserById(int id) {
-        User user = null;
         try (Connection connection = DBManager.getConnection()) {
             String sql = "SELECT * FROM Users WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
-            user = getUser(statement);
+            return getUser(statement);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
             throw new IllegalStateException("Exception while accessing database");
         }
-        return Optional.ofNullable(user);
     }
 
     @Override
     public Optional<User> getUserByEmail(String email) {
-        User user = null;
         try (Connection connection = DBManager.getConnection()) {
             String sql = "SELECT * FROM Users WHERE email=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, email);
-            user = getUser(statement);
+            return getUser(statement);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             LOG.error("SQL exception occurred: " + message);
             throw new IllegalStateException("Exception while accessing database");
         }
-        return Optional.ofNullable(user);
     }
 
-    private User getUser(PreparedStatement statement) throws SQLException {
+    private Optional<User> getUser(PreparedStatement statement) throws SQLException {
         User user = null;
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
@@ -85,6 +81,6 @@ public class DefaultUserRepository implements UserRepository {
             user.setSalt(resultSet.getString("salt"));
             user.setPasswordHash(resultSet.getString("password_hash"));
         }
-        return user;
+        return Optional.ofNullable(user);
     }
 }

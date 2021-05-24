@@ -35,8 +35,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             statement.execute();
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
     }
 
@@ -54,8 +53,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             }
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return Optional.ofNullable(application);
     }
@@ -80,8 +78,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             addApplications(list, connection, sql);
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return list;
     }
@@ -105,15 +102,14 @@ public class DefaultApplicationRepository implements ApplicationRepository {
                 statement.execute();
             } catch (SQLException exception) {
                 String message = exception.getLocalizedMessage();
-                LOG.error("SQL exception occurred: " + message);
-                throw new IllegalStateException("Exception while accessing database");
+                throw new IllegalStateException(message);
             }
         }
     }
 
     @Override
     public List<Application> getApplicationsByStatus(ApplicationStatus status) {
-        List<Application> list = new ArrayList<>();
+        List<Application> applications = new ArrayList<>();
         try (Connection connection = DBManager.getConnection()) {
             String sql = "select * from applications where status=?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -122,14 +118,13 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             while (resultSet.next()) {
                 Application application = new Application();
                 fillApplication(application, resultSet);
-                list.add(application);
+                applications.add(application);
             }
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
-        return list;
+        return applications;
     }
 
     @Override
@@ -155,8 +150,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             }
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return result;
     }
@@ -176,8 +170,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
             }
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
-            LOG.error("SQL exception occurred: " + message);
-            throw new IllegalStateException("Exception while accessing database");
+            throw new IllegalStateException(message);
         }
         return bookedApplications;
     }

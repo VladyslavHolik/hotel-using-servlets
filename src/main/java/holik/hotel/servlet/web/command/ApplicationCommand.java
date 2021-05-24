@@ -30,8 +30,8 @@ public class ApplicationCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		int space = getInt(request.getParameter("space"));
-		int roomClassId = getInt(request.getParameter("roomClass"));
+		int space = Integer.parseInt(request.getParameter("space"));
+		int roomClassId = Integer.parseInt(request.getParameter("roomClass"));
 		LocalDateTime arrival = LocalDateTime.parse(request.getParameter("arrival"));
 		LocalDateTime leaving = LocalDateTime.parse(request.getParameter("leaving"));
 
@@ -54,9 +54,5 @@ public class ApplicationCommand implements Command {
 		application.setDatetimeOfLeaving(leaving);
 		application.setStatus(ApplicationStatus.REQUESTED);
 		return application;
-	}
-
-	private int getInt(String string) {
-		return Integer.parseInt(string);
 	}
 }
