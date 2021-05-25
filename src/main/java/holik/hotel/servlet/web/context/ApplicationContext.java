@@ -90,35 +90,31 @@ public class ApplicationContext {
     }
 
     private static void initialiseAccessManager() {
-        List<String> commonCommands = getCommonCommands();
-        List<String> userCommands = getUserCommands();
-        List<String> managerCommands = getManagerCommands();
+        List<String> commonUri = getCommonUri();
+        List<String> userUri = getUserUri();
+        List<String> managerUri = getManagerUri();
 
-        accessManager = new AccessManager(managerCommands, userCommands, commonCommands);
+        accessManager = new AccessManager(managerUri, userUri, commonUri);
     }
 
-    private static List<String> getManagerCommands() {
+    private static List<String> getManagerUri() {
         List<String> managerCommands = new ArrayList<>();
         managerCommands.add("/applications");
         managerCommands.add("/form");
-        managerCommands.add("form");
         managerCommands.add("/logout");
         return managerCommands;
     }
 
-    private static List<String> getUserCommands() {
+    private static List<String> getUserUri() {
         List<String> userCommands = new ArrayList<>();
         userCommands.add("/application");
         userCommands.add("/myapplications");
         userCommands.add("/bills");
-        userCommands.add("pay");
-        userCommands.add("book");
-        userCommands.add("application");
         userCommands.add("/logout");
         return userCommands;
     }
 
-    private static List<String> getCommonCommands() {
+    private static List<String> getCommonUri() {
         List<String> commonCommands = new ArrayList<>();
         commonCommands.add("/");
         commonCommands.add("/signin");
@@ -127,9 +123,6 @@ public class ApplicationContext {
         commonCommands.add("/room");
         commonCommands.add("/language");
         commonCommands.add("/image");
-        commonCommands.add("sorting");
-        commonCommands.add("signin");
-        commonCommands.add("signup");
         return commonCommands;
     }
 

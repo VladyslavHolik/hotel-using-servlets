@@ -11,11 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Filter that manages access for all commands;
- */
-public class CommandAccessFilter implements Filter {
-	private static final Logger LOG = Logger.getLogger(CommandAccessFilter.class);
+public class AccessFilter implements Filter {
+	private static final Logger LOG = Logger.getLogger(AccessFilter.class);
 	private AccessManager accessManager;
 
 	@Override
@@ -27,7 +24,7 @@ public class CommandAccessFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		String commandName = getCommandName(httpRequest);
+		String uri = httpRequest.getRequestURI();
 
 		HttpSession session = httpRequest.getSession(false);
 		Role role = null;
@@ -35,23 +32,13 @@ public class CommandAccessFilter implements Filter {
 			role = (Role) session.getAttribute("userRole");
 		}
 
-		if (accessManager.isAccessAllowed(commandName, role)) {
+		if (accessManager.isAccessAllowed(uri, role)) {
 			chain.doFilter(request, response);
 		} else {
 			LOG.debug("Unauthorized user requested access");
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
 		}
-	}
-
-	private String getCommandName(HttpServletRequest httpRequest) {
-		String commandName = null;
-		if ("POST".equals(httpRequest.getMethod())) {
-			commandName = httpRequest.getParameter("command");
-		} else if ("GET".equals(httpRequest.getMethod())) {
-			commandName = httpRequest.getRequestURI();
-		}
-		return commandName;
 	}
 
 	@Override

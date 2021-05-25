@@ -5,27 +5,25 @@ import holik.hotel.servlet.repository.model.Role;
 import java.util.List;
 
 public class AccessManager {
-    private final List<String> managerCommands;
-    private final List<String> userCommands;
-    private final List<String> commonCommands;
+    private final List<String> managerUri;
+    private final List<String> userUri;
+    private final List<String> commonUri;
 
-    public AccessManager(List<String> managerCommands, List<String> userCommands, List<String> commonCommands) {
-        this.managerCommands = managerCommands;
-        this.userCommands = userCommands;
-        this.commonCommands = commonCommands;
+    public AccessManager(List<String> managerUri, List<String> userUri, List<String> commonUri) {
+        this.managerUri = managerUri;
+        this.userUri = userUri;
+        this.commonUri = commonUri;
     }
 
-    public boolean isAccessAllowed(String commandName, Role role) {
-        if (commandName != null && !commandName.isEmpty()) {
-            if (commonCommands.contains(commandName)) {
+    public boolean isAccessAllowed(String uri, Role role) {
+        if (commonUri.contains(uri)) {
+            return true;
+        }
+        if (role != null) {
+            if (Role.USER.equals(role) && userUri.contains(uri)) {
                 return true;
             }
-            if (role != null) {
-                if (Role.USER.equals(role) && userCommands.contains(commandName)) {
-                    return true;
-                }
-                return Role.MANAGER.equals(role) && managerCommands.contains(commandName);
-            }
+            return Role.MANAGER.equals(role) && managerUri.contains(uri);
         }
         return false;
     }

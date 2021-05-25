@@ -52,7 +52,7 @@
 
 	<filter>
 		<filter-name>CommandAccessFilter</filter-name>
-		<filter-class>holik.hotel.servlet.web.filter.CommandAccessFilter</filter-class>
+		<filter-class>holik.hotel.servlet.web.filter.AccessFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
