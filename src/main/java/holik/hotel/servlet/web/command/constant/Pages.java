@@ -7,6 +7,7 @@ public class Pages {
 	public static final String PAGE_ERROR_PAGE = "WEB-INF/errorPage.jsp";
 	public static final String PAGE_APPLICATIONS = "WEB-INF/applications.jsp";
 	public static final String PAGE_APPLICATION = "WEB-INF/application.jsp";
+	public static final String PAGE_ORDER = "WEB-INF/order.jsp";
 	public static final String PAGE_APPLICATION_FORM = "WEB-INF/applicationForm.jsp";
 	public static final String PAGE_BILLS = "WEB-INF/bills.jsp";
 	public static final String PAGE_SIGN_IN = "WEB-INF/signin.jsp";

@@ -87,6 +87,8 @@ public class ApplicationContext {
         commands.put("book", new BookRoomCommand(applicationService, applicationValidator));
         commands.put("/bills", new GetBillsCommand(billService));
         commands.put("pay", new PayBillCommand(applicationService, applicationValidator));
+        commands.put("/order", new GetOrderCommand(roomValidator, roomService));
+        commands.put("order", new OrderCommand(roomService, applicationService, applicationValidator));
     }
 
     private static void initialiseAccessManager() {
@@ -111,6 +113,7 @@ public class ApplicationContext {
         userCommands.add("/myapplications");
         userCommands.add("/bills");
         userCommands.add("/logout");
+        userCommands.add("/order");
         return userCommands;
     }
 

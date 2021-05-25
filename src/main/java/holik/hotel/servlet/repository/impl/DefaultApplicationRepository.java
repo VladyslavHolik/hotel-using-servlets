@@ -5,7 +5,6 @@ import holik.hotel.servlet.repository.db.DBManager;
 import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.repository.model.RoomClass;
-import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -21,21 +20,26 @@ public class DefaultApplicationRepository implements ApplicationRepository {
     @Override
     public void saveApplication(Application application) {
         try (Connection connection = DBManager.getConnection()) {
-            String sql = "INSERT INTO Applications (user_id, space, class, arrival, leaving, booked, status) VALUES(?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, application.getUserId());
-            statement.setInt(2, application.getSpace());
-            statement.setInt(3, application.getRoomClass().getId());
-            statement.setObject(4, application.getDatetimeOfArrival());
-            statement.setObject(5, application.getDatetimeOfLeaving());
-            statement.setObject(6, application.getDatetimeOfBooking());
-            statement.setInt(7, application.getStatus().getId());
-
+            String sql = "INSERT INTO Applications (user_id, space, class, room_id, arrival, leaving, booked, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = prepare(application, connection, sql);
             statement.execute();
         } catch (SQLException exception) {
             String message = exception.getLocalizedMessage();
             throw new IllegalStateException(message);
         }
+    }
+
+    private PreparedStatement prepare(Application application, Connection connection, String sql) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, application.getUserId());
+        statement.setInt(2, application.getSpace());
+        statement.setInt(3, application.getRoomClass().getId());
+        statement.setInt(4, application.getRoomId());
+        statement.setObject(5, application.getDatetimeOfArrival());
+        statement.setObject(6, application.getDatetimeOfLeaving());
+        statement.setObject(7, application.getDatetimeOfBooking());
+        statement.setInt(8, application.getStatus().getId());
+        return statement;
     }
 
     @Override
@@ -88,15 +92,7 @@ public class DefaultApplicationRepository implements ApplicationRepository {
         if (storedApplication.isPresent()) {
             try (Connection connection = DBManager.getConnection()) {
                 String sql = "UPDATE Applications SET user_id=?, space=?, class=?, room_id=?, arrival=?, leaving=?, booked=?, status=? WHERE id=?";
-                PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setInt(1, application.getUserId());
-                statement.setInt(2, application.getSpace());
-                statement.setInt(3, application.getRoomClass().getId());
-                statement.setInt(4, application.getRoomId());
-                statement.setObject(5, application.getDatetimeOfArrival());
-                statement.setObject(6, application.getDatetimeOfLeaving());
-                statement.setObject(7, application.getDatetimeOfBooking());
-                statement.setInt(8, application.getStatus().getId());
+                PreparedStatement statement = prepare(application, connection, sql);
                 statement.setInt(9, application.getId());
                 statement.execute();
             } catch (SQLException exception) {

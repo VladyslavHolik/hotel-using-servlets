@@ -4,7 +4,7 @@ package holik.hotel.servlet.repository.model;
  * Room model.
  */
 public class Room {
-	private int id;
+	private int id = 1;
 	private String number;
 	private int price;
 	private int space;

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ page import="holik.hotel.servlet.repository.model.Role" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +25,11 @@
         <div class="col-10 p-5">
             <img
                     src="${room.preview}" class="img-fluid"/>
+            <c:if test="${Role.USER.equals(userRole)}">
+                <div class="d-flex justify-content-center p-4">
+                    <a class="btn btn-primary" href="/order?id=${room.id}" role="button"><fmt:message key='room.book'/></a>
+                </div>
+            </c:if>
         </div>
         <div class="col-1"></div>
     </div>
