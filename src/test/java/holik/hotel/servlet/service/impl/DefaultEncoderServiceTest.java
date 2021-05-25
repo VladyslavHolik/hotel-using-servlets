@@ -1,18 +1,17 @@
 package holik.hotel.servlet.service.impl;
 
-import holik.hotel.servlet.service.EncoderService;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultEncoderServiceTest {
-    private EncoderService encoderService;
-
-    @Before
-    public void setUp() {
-        encoderService = new DefaultEncoderService();
-    }
+    @InjectMocks
+    private DefaultEncoderService encoderService;
 
     @Test
     public void generateRandomSalt() {

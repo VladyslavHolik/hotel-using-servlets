@@ -1,17 +1,14 @@
 package holik.hotel.servlet.web.validator;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
-
+@RunWith(MockitoJUnitRunner.class)
 public class LoginValidatorTest {
+    @InjectMocks
     private LoginValidator loginValidator;
-
-    @Before
-    public void setUp() {
-        loginValidator = new LoginValidator();
-    }
 
     @Test
     public void validateLoginData() {

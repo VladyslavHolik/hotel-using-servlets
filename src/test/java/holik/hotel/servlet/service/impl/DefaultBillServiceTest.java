@@ -4,10 +4,12 @@ import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.Bill;
 import holik.hotel.servlet.repository.model.Room;
 import holik.hotel.servlet.service.ApplicationService;
-import holik.hotel.servlet.service.BillService;
 import holik.hotel.servlet.service.RoomService;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,19 +17,17 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultBillServiceTest {
+    @Mock
     private ApplicationService applicationService;
+    @Mock
     private RoomService roomService;
-    private BillService billService;
-
-    @Before
-    public void setUp() {
-        roomService = mock(RoomService.class);
-        applicationService = mock(ApplicationService.class);
-        billService = new DefaultBillService(applicationService, roomService);
-    }
+    @InjectMocks
+    private DefaultBillService billService;
 
     @Test
     public void getUserBills() {

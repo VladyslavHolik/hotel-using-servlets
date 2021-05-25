@@ -4,21 +4,22 @@ import holik.hotel.servlet.repository.model.Room;
 import holik.hotel.servlet.service.RoomService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ChoiceValidatorTest {
-    private ChoiceValidator choiceValidator;
+    @Mock
     private RoomService roomService;
-
-    @Before
-    public void setUp() {
-        roomService = mock(RoomService.class);
-        choiceValidator = new ChoiceValidator(roomService);
-    }
+    @InjectMocks
+    private ChoiceValidator choiceValidator;
 
     @Test
     public void validateChoiceIfValidDeclined() {

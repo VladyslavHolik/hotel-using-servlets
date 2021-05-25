@@ -6,27 +6,25 @@ import holik.hotel.servlet.repository.model.RoomClass;
 import holik.hotel.servlet.repository.model.User;
 import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.UserService;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ApplicationValidatorTest {
-    private ApplicationValidator applicationValidator;
+    @Mock
     private UserService userService;
+    @Mock
     private ApplicationService applicationService;
-
-    @Before
-    public void setUp() {
-        userService = mock(UserService.class);
-        applicationService = mock(ApplicationService.class);
-
-        applicationValidator = new ApplicationValidator(applicationService, userService);
-    }
+    @InjectMocks
+    private ApplicationValidator applicationValidator;
 
     @Test
     public void validateCorrectApplication() {
@@ -206,8 +204,6 @@ public class ApplicationValidatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void validateForBookingWithInvalidApplicationId() {
-        when(applicationService.getApplicationById(1)).thenReturn(Optional.empty());
-
         applicationValidator.validateForBooking(2, 1);
     }
 

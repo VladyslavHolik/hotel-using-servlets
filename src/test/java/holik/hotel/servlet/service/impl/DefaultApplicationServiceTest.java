@@ -5,10 +5,12 @@ import holik.hotel.servlet.repository.model.Application;
 import holik.hotel.servlet.repository.model.ApplicationStatus;
 import holik.hotel.servlet.repository.model.Room;
 import holik.hotel.servlet.repository.model.RoomClass;
-import holik.hotel.servlet.service.ApplicationService;
 import holik.hotel.servlet.service.RoomService;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,17 +22,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultApplicationServiceTest {
+    @Mock
     private ApplicationRepository applicationRepository;
+    @Mock
     private RoomService roomService;
-    private ApplicationService applicationService;
-
-    @Before
-    public void setUp() {
-        applicationRepository = mock(ApplicationRepository.class);
-        roomService = mock(RoomService.class);
-        applicationService = new DefaultApplicationService(applicationRepository, roomService);
-    }
+    @InjectMocks
+    private DefaultApplicationService applicationService;
 
     @Test
     public void saveApplication() {
@@ -147,10 +146,6 @@ public class DefaultApplicationServiceTest {
 
     @Test
     public void getFreeRoomsIfAllUnavailable() {
-        List<Room> availableRooms = new ArrayList<>();
-
-        when(roomService.getSpecificRooms(5, 1, 1)).thenReturn(availableRooms);
-
         Application application = new Application();
         application.setRoomClass(RoomClass.Bedroom);
         application.setSpace(1);

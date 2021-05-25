@@ -7,23 +7,24 @@ import holik.hotel.servlet.service.EncoderService;
 import holik.hotel.servlet.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultUserServiceTest {
+    @Mock
     private UserRepository userRepository;
+    @Mock
     private EncoderService encoderService;
-    private UserService userService;
-
-    @Before
-    public void setUp() throws Exception {
-        userRepository = mock(UserRepository.class);
-        encoderService = mock(EncoderService.class);
-        userService = new DefaultUserService(userRepository, encoderService);
-    }
+    @InjectMocks
+    private DefaultUserService userService;
 
     @Test
     public void createUser() throws EntityExistsException {

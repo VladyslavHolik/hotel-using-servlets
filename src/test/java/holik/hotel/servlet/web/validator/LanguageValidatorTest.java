@@ -1,17 +1,14 @@
 package holik.hotel.servlet.web.validator;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
-
+@RunWith(MockitoJUnitRunner.class)
 public class LanguageValidatorTest {
+    @InjectMocks
     private LanguageValidator languageValidator;
-
-    @Before
-    public void setUp() {
-        languageValidator = new LanguageValidator();
-    }
 
     @Test
     public void validateLanguageIfEnglish() {

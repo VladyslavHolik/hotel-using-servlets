@@ -7,6 +7,10 @@ import holik.hotel.servlet.web.command.sort.SortMethod;
 import holik.hotel.servlet.web.dto.RoomsContent;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +18,12 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultRoomServiceTest {
+    @Mock
     private RoomRepository roomRepository;
-    private RoomService roomService;
-
-    @Before
-    public void setUp() {
-        roomRepository = mock(RoomRepository.class);
-        roomService = new DefaultRoomService(roomRepository);
-    }
+    @InjectMocks
+    private DefaultRoomService roomService;
 
     @Test
     public void getAllRooms() {
