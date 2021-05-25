@@ -18,7 +18,7 @@ public class UserConverter implements Converter<UserDto, User> {
 	}
 
 	@Override
-	public User covertToEntity(UserDto userDto) {
+	public User convertToEntity(UserDto userDto) {
 		byte[] salt = encoderService.generateRandomSalt();
 		byte[] hash = encoderService.generateHash(salt, userDto.getPassword().trim());
 		String saltString = Base64.getEncoder().encodeToString(salt);

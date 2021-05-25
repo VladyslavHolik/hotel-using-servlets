@@ -41,7 +41,7 @@ public class RegisterCommand implements Command {
         String forward = Pages.PAGE_ERROR_PAGE;
 
         try {
-            userService.save(userConverter.covertToEntity(userDto));
+            userService.save(userConverter.convertToEntity(userDto));
         } catch (EntityExistsException exception) {
             String errorMessage = "User with this email already exists";
             request.setAttribute("errorMessage", errorMessage);
