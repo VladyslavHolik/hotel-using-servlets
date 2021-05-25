@@ -9,7 +9,7 @@ public class Application {
 	private int id;
 	private int userId;
 	private int space;
-	private int roomId;
+	private int roomId = 1;
 	private RoomClass roomClass;
 	private ApplicationStatus status;
 	private LocalDateTime datetimeOfArrival;
