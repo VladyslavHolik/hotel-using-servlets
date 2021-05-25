@@ -85,7 +85,7 @@
     </div>
 </nav>
 <div id="carouselExampleSlidesOnly" class="carousel slide"
-     data-bs-ride="carousel">
+     data-bs-ride="carousel" data-bs-interval="7000" data-bs-pause="false">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="/image?type=main&id=1" class="d-block w-100">

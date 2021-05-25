@@ -128,7 +128,7 @@ public class DefaultRoomRepository implements RoomRepository {
     public List<Room> getRoomsOrderedByPrice(int limit, int offset) {
         List<Room> result = new ArrayList<>();
         try (Connection connection = DBManager.getConnection()) {
-            String sql = "select * from rooms order by price limit ? offset ?";
+            String sql = "select * from rooms order by price, id limit ? offset ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, limit);
             statement.setInt(2, offset);
@@ -145,7 +145,7 @@ public class DefaultRoomRepository implements RoomRepository {
     public List<Room> getRoomsOrderedBySpace(int limit, int offset) {
         List<Room> result = new ArrayList<>();
         try (Connection connection = DBManager.getConnection()) {
-            String sql = "select * from rooms order by space limit ? offset ?";
+            String sql = "select * from rooms order by space, id limit ? offset ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, limit);
             statement.setInt(2, offset);
@@ -162,7 +162,7 @@ public class DefaultRoomRepository implements RoomRepository {
     public List<Room> getRoomsOrderedByClass(int limit, int offset) {
         List<Room> result = new ArrayList<>();
         try (Connection connection = DBManager.getConnection()) {
-            String sql = "select * from rooms order by class limit ? offset ?";
+            String sql = "select * from rooms order by class, id limit ? offset ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, limit);
             statement.setInt(2, offset);
@@ -179,7 +179,7 @@ public class DefaultRoomRepository implements RoomRepository {
     public List<Room> getRoomsOrderedByStatus(int limit, int offset) {
         List<Room> result = new ArrayList<>();
         try (Connection connection = DBManager.getConnection()) {
-            String sql = "select * from rooms order by status limit ? offset ?";
+            String sql = "select * from rooms order by status, id limit ? offset ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, limit);
             statement.setInt(2, offset);
