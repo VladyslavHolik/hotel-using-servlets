@@ -24,6 +24,7 @@ public class ApplicationsCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		List<Application> requestedApplications = applicationService.getApplicationsByStatus(ApplicationStatus.REQUESTED);
 		request.setAttribute("applications", requestedApplications);
 		return Pages.PAGE_APPLICATIONS;

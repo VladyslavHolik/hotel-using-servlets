@@ -24,6 +24,7 @@ public class GetBillsCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userId");
 		List<Bill> bills = billService.getUserBills(userId);
