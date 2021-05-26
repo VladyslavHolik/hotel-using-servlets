@@ -4,85 +4,106 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 <link rel="icon" href="data:,">
 <style>
-    html,
     body {
-        height: 100%;
+        padding: 0;
         margin: 0;
-    }
-    body {
-        background: linear-gradient(#111, #333, #111);
-        background-repeat: no-repeat;
-        background-size: cover;
-        color: #eee;
-        position: relative;
-        font-family: 'Roboto', sans-serif;
+        font-family: "Oxygen", sans-serif;
     }
 
-    .message {
+    .error-wall {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        text-align: center;
+    }
+    .error-wall.load-error {
+        background-color: #f3785e;
+    }
+    .error-wall.matinence {
+        background-color: #a473b1;
+    }
+    .error-wall.missing-page {
+        background-color: #00bbc6;
+    }
+    .error-wall .error-container {
+        display: block;
+        width: 100%;
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        text-align: center;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
     }
-
-    h1, h2, h3 {
+    .error-wall .error-container h1 {
+        color: #fff;
+        font-size: 80px;
         margin: 0;
-        line-height: .8;
     }
-
-    h2, h3 {
-        font-weight: 300;
-        color: #C8FFF4;
+    @media (max-width: 850px) {
+        .error-wall .error-container h1 {
+            font-size: 65px;
+        }
     }
-
-    h1 {
-        font-weight: 700;
-        color: #03DAC6;
-        font-size: 8em;
+    .error-wall .error-container h3 {
+        color: #464444;
+        font-size: 34px;
+        margin: 0;
     }
-
-    h2 {
-        margin: 30px 0;
+    @media (max-width: 850px) {
+        .error-wall .error-container h3 {
+            font-size: 25px;
+        }
     }
-
-    h3 {
-        font-size: 2.5em;
+    .error-wall .error-container h4 {
+        margin: 0;
+        color: #fff;
+        font-size: 40px;
     }
-
-    h4 {
-        display: inline-block;
-        margin: 0 15px;
+    @media (max-width: 850px) {
+        .error-wall .error-container h4 {
+            font-size: 35px;
+        }
     }
-
-    button {
-        background: transparent;
-        border: 2px solid #C8FFF4;
-        color: #C8FFF4;
-        padding: 5px 15px;
-        font-size: 1.25em;
-        transition: all 0.15s ease;
-        border-radius: 3px;
+    .error-wall .error-container p {
+        font-size: 15px;
     }
-
-    button:hover {
-        background: #03DAC6;
-        border: 2px solid #03DAC6;
-        color: #111;
-        cursor: pointer;
-        transform: scale(1.05);
+    .error-wall .error-container p:first-of-type {
+        color: #464444;
+        font-weight: lighter;
+    }
+    .error-wall .error-container p:nth-of-type(2) {
+        color: #464444;
+        font-weight: bold;
+    }
+    .error-wall .error-container p.type-white {
+        color: #fff;
+    }
+    @media (max-width: 850px) {
+        .error-wall .error-container p {
+            font-size: 12px;
+        }
+    }
+    @media (max-width: 390px) {
+        .error-wall .error-container p {
+            font-size: 10px;
+        }
     }
 </style>
-<div class="message">
-    <c:choose>
-        <c:when test="${not empty errorMessage}">
-            <h2>${errorMessage}</h2>
-        </c:when>
-        <c:otherwise>
-            <h1>500</h1>
-            <h3>Server Error</h3>
-            <h2>It's not you, it's me.</h2>
-        </c:otherwise>
-    </c:choose>
-    <a href="/"><button>Go Home</button></a>
+<div class="error-wall load-error">
+    <div class="error-container">
+        <c:choose>
+            <c:when test="${not empty errorMessage}">
+                <h4>${errorMessage}</h4>
+            </c:when>
+            <c:otherwise>
+                <h1>oh no...</h1>
+                <h3>We have had an error</h3>
+                <h4>Error 500</h4>
+                <p>Sorry...please check back in just a moment.</p>
+            </c:otherwise>
+        </c:choose>
+        <br/>
+        <a href="/">Go Home</a>
+    </div>
 </div>
